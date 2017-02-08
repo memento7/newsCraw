@@ -12,12 +12,11 @@ class newsCrawSpider(scrapy.Spider):
 
     def parse(self, response):
         items = []
+        hxs = Selector(response).xpath('div[@id="srch_result_area"]//ul[@class="srch_lst"]/li')
 
-        for site in Selector(response).xpath('div['srch_result_area']//ul[@class="srch_lst"]/li'):
+            
+        for site in Selector(response).xpath('div[@class="srch_result_area"]//ul[@class="srch_lst"]/li'):
             item = newsCrawItem()
-            texts = site.xpath('//text()').extract()
-            for text in texts:
-                print (text)
             item['title'] = site.xpath('//a[@class="tit"]//text()').extract()
             item['press'] = site.xpath('//span[@class="press"]//text()').extract()
             item['href'] = site.xpath('//a[@class="go_naver"]//@href').extract()
