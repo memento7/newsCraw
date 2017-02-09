@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import json
-from scrapy.spider import Spider 
+from scrapy.spiders import Spider
 from newsCraw.items import newsCrawItem
 from scrapy.http import Request
 from scrapy.selector import Selector 
 
 import calendar
-"%02d" % (1,)
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
-    allowed_domains = ['http://news.naver.com']
+    allowed_domains = ['news.naver.com']
+    url = "http://news.naver.com/main/search/search.nhn?"
     loaded = False
     page = 10
     skip_actor = False
-    skip_page = False
     skip_y = False
     skip_m = False
-    url = "http://news.naver.com/main/search/search.nhn?"
-    # start_urls = ["http://news.naver.com/main/search/search.nhn?query=%B1%E8%C5%C2%C8%F1&page="]
 
     def load(self):
         with open('./save.json', 'r') as file:
             self.data = json.load(file)
-
-        with open('./actors.txt', 'r') as file:
+        with open('./actors.txt', 'r', encoding='UTF-8') as file:
             self.actors = file.readlines()
         self.loaded = True
 
@@ -38,33 +34,40 @@ class newsCrawSpider(scrapy.Spider):
     def loop(self):
         if not self.loaded:
             self.load()
-
         for actor in self.actors:
             if actor == self.data['actor']: self.skip_actor = True
             if not self.skip_actor: continue
-            for y in range(1990, 2016):
+            for y in range(1990, 2018):
                 if str(y) == self.data['y']: self.skip_y = True
                 if not self.skip_y: continue
                 for m in range(1, 13):
-                    if str(m) == self.data['m']: self.skip_m = True
+                    if ("%2d" % m) == self.data['m']: self.skip_m = True
                     if not self.skip_m: continue
                     (_, e) = calendar.monthrange(y, m)
-                    for page in range(1, 400):
-                        yield (actor, page, "%04d%02d%02d" % (y, m, 1), "%04d%02d%02d" % (y, m, e))
+                    yield (actor.strip(), "%04d-%02d-%02d" % (y, m, 1), "%04d-%02d-%02d" % (y, m, e))
                 self.save(actor, y, m)
 
     def start_requests(self):
-        for query, page, sd, ed in self.loop():
-            yield Request(self.url + "query=" + query + "&page=" + str(page) + "&startDate=" + sd + "&endDate=" + ed, self.parse)
+        for query, sd, ed in self.loop():
+            yield Request(self.url + "query=" + query + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
+            
+    def parse_count(self, response):
+        count = Selector(response).xpath('//span[@class="result_num"]/text()').re(r'\/ (.+?)\건')
+        count = count and int(int(count[0].replace(',', '')) / 10) + 1 or 0
+        for page in range(count):
+            yield Request(self.url + "query=" + response.meta['q'] + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
 
     def parse(self, response):
         items = []
         li = Selector(response).xpath('//ul[@class="srch_lst"]')
         for site in li:
             item = newsCrawItem()
+            item['actor'] = response.meta['q']
             item['title'] = site.xpath('.//a[@class="tit"]').re(r'\>(.+?)\<\/a')[0]
+            item['time'] = site.xpath('.//span[@class="time"]//text()').extract_first()
             item['press'] = site.xpath('.//span[@class="press"]//text()').extract_first()
-            item['href'] = site.xpath('.//a[@class="go_naver"]//@href').extract_first()            
+            item['href_origin'] = site.xpath('.//a[@class="tit"]//@href').extract_first()
+            item['href_naver'] = site.xpath('.//a[@class="go_naver"]//@href').extract_first()
             items.append(item)
 
         return items
