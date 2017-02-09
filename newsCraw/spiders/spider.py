@@ -53,7 +53,7 @@ class newsCrawSpider(scrapy.Spider):
             
     def parse_count(self, response):
         count = Selector(response).xpath('//span[@class="result_num"]/text()').re(r'\/ (.+?)\건')
-        count = count and int(int(count[0].replace(',', '')) / 10) + 1 or 0
+        count = count and min(int(int(count[0].replace(',', '')) / 10) + 1, 400) or 0
         for page in range(count):
             yield Request(self.url + "query=" + response.meta['q'] + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
 
