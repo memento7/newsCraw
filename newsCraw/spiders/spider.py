@@ -17,24 +17,30 @@ class newsCrawSpider(scrapy.Spider):
     skip_y = False
     skip_m = False
 
+    def query_filter(self, query):
+        return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])
+
     def load(self):
-        with open('./save.json', 'r') as file:
+        with open('./data/checkpoint.json', 'r') as file:
             self.data = json.load(file)
-        with open('./actors.txt', 'r', encoding='UTF-8') as file:
+        with open('./data/actors.txt', 'r', encoding='UTF-8') as file:
             self.actors = file.readlines()
+        print ('data loaded!')
+        print (self.data)
         self.loaded = True
 
     def save(self, actor, y, m):
         self.data['actor'] = actor
         self.data['y'] = "%4d" % y
         self.data['m'] = "%2d" % m
-        with open('./save.json', 'w') as file:
+        with open('./data/checkpoint.json', 'w') as file:
             json.dump(self.data, file)
 
     def loop(self):
         if not self.loaded:
             self.load()
         for actor in self.actors:
+            actor = actor[1:].strip()
             if actor == self.data['actor']: self.skip_actor = True
             if not self.skip_actor: continue
             for y in range(1990, 2018):
@@ -49,13 +55,13 @@ class newsCrawSpider(scrapy.Spider):
 
     def start_requests(self):
         for query, sd, ed in self.loop():
-            yield Request(self.url + "query=" + query + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
+            yield Request(self.url + "query=" + self.query_filter(query) + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
             
     def parse_count(self, response):
         count = Selector(response).xpath('//span[@class="result_num"]/text()').re(r'\/ (.+?)\건')
         count = count and min(int(int(count[0].replace(',', '')) / 10) + 1, 400) or 0
         for page in range(count):
-            yield Request(self.url + "query=" + response.meta['q'] + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
+            yield Request(self.url + "query=" + self.query_filter(response.meta['q']) + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
 
     def parse(self, response):
         items = []
