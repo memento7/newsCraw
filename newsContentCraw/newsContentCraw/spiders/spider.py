@@ -6,6 +6,7 @@ from newsContentCraw.items import newsContentCrawItem
 from scrapy.http import Request
 from scrapy.selector import Selector 
 import pandas as pd
+import math
 
 class newsContentCrawSpider(scrapy.Spider):
     name = "newsContentCraw"
@@ -31,7 +32,8 @@ class newsContentCrawSpider(scrapy.Spider):
             self.load()
         for idx, data in self.frame.iterrows():
             if idx < self.data['idx']: continue
-            yield data.values[4], data.values[2]
+            if type(data.values[2]) is str:
+                yield data.values[4], data.values[2]
             self.save(idx)
 
     def start_requests(self):
