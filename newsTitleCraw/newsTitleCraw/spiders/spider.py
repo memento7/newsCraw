@@ -23,7 +23,7 @@ class newsTitleCrawSpider(scrapy.Spider):
 
 
     def load(self):
-        with open('../data/checkpoint.json', 'r') as file:
+        with open('./checkpoint.json', 'r') as file:
             self.data = json.load(file)
         with open('../data/actors.txt', 'r', encoding='UTF-8') as file:
             self.actors = file.readlines()
@@ -36,7 +36,7 @@ class newsTitleCrawSpider(scrapy.Spider):
         self.data['actor'] = actor
         self.data['y'] = "%4d" % y
         self.data['m'] = "%2d" % m
-        with open('../data/checkpoint.json', 'w') as file:
+        with open('./checkpoint.json', 'w') as file:
             json.dump(self.data, file)
 
     def loop(self):
