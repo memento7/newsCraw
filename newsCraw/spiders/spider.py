@@ -7,6 +7,10 @@ from scrapy.http import Request
 from scrapy.selector import Selector 
 
 import calendar
+
+def query_filter(query):
+    return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])
+
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
     allowed_domains = ['news.naver.com']
@@ -17,8 +21,6 @@ class newsCrawSpider(scrapy.Spider):
     skip_y = False
     skip_m = False
 
-    def query_filter(self, query):
-        return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])
 
     def load(self):
         with open('./data/checkpoint.json', 'r') as file:
@@ -40,7 +42,8 @@ class newsCrawSpider(scrapy.Spider):
         if not self.loaded:
             self.load()
         for actor in self.actors:
-            actor = actor[1:].strip()
+            actor = actor.strip()
+            if actor == '\ufeff': continue 
             if actor == self.data['actor']: self.skip_actor = True
             if not self.skip_actor: continue
             for y in range(1990, 2018):
@@ -50,18 +53,18 @@ class newsCrawSpider(scrapy.Spider):
                     if ("%2d" % m) == self.data['m']: self.skip_m = True
                     if not self.skip_m: continue
                     (_, e) = calendar.monthrange(y, m)
-                    yield (actor.strip(), "%04d-%02d-%02d" % (y, m, 1), "%04d-%02d-%02d" % (y, m, e))
-                self.save(actor, y, m)
+                    yield (actor, "%04d-%02d-%02d" % (y, m, 1), "%04d-%02d-%02d" % (y, m, e))
+                    self.save(actor, y, m)
 
     def start_requests(self):
         for query, sd, ed in self.loop():
-            yield Request(self.url + "query=" + self.query_filter(query) + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
+            yield Request(self.url + "query=" + query_filter(query) + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
             
     def parse_count(self, response):
         count = Selector(response).xpath('//span[@class="result_num"]/text()').re(r'\/ (.+?)\건')
         count = count and min(int(int(count[0].replace(',', '')) / 10) + 1, 400) or 0
         for page in range(count):
-            yield Request(self.url + "query=" + self.query_filter(response.meta['q']) + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
+            yield Request(self.url + "query=" + query_filter(response.meta['q']) + "&startDate=" + response.meta['sd'] + "&endDate=" + response.meta['ed'] + "&page=" + str(page), meta={'q': response.meta['q']}, callback = self.parse)
 
     def parse(self, response):
         items = []
