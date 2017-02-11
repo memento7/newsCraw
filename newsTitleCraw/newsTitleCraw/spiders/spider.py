@@ -2,7 +2,7 @@
 import scrapy
 import json
 from scrapy.spiders import Spider
-from newsCraw.items import newsCrawItem
+from newsTitleCraw.items import newsTitleCrawItem
 from scrapy.http import Request
 from scrapy.selector import Selector 
 
@@ -11,8 +11,8 @@ import calendar
 def query_filter(query):
     return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])
 
-class newsCrawSpider(scrapy.Spider):
-    name = "newsCraw"
+class newsTitleCrawSpider(scrapy.Spider):
+    name = "newsTitleCraw"
     allowed_domains = ['news.naver.com']
     url = "http://news.naver.com/main/search/search.nhn?"
     loaded = False
@@ -23,10 +23,11 @@ class newsCrawSpider(scrapy.Spider):
 
 
     def load(self):
-        with open('./data/checkpoint.json', 'r') as file:
+        with open('../data/checkpoint.json', 'r') as file:
             self.data = json.load(file)
-        with open('./data/actors.txt', 'r', encoding='UTF-8') as file:
+        with open('../data/actors.txt', 'r', encoding='UTF-8') as file:
             self.actors = file.readlines()
+        if not len(self.data['actor']): self.skip_actor = True
         print ('data loaded!')
         print (self.data)
         self.loaded = True
@@ -35,7 +36,7 @@ class newsCrawSpider(scrapy.Spider):
         self.data['actor'] = actor
         self.data['y'] = "%4d" % y
         self.data['m'] = "%2d" % m
-        with open('./data/checkpoint.json', 'w') as file:
+        with open('../data/checkpoint.json', 'w') as file:
             json.dump(self.data, file)
 
     def loop(self):
@@ -46,6 +47,7 @@ class newsCrawSpider(scrapy.Spider):
             if actor == '\ufeff': continue 
             if actor == self.data['actor']: self.skip_actor = True
             if not self.skip_actor: continue
+
             for y in range(1990, 2018):
                 if str(y) == self.data['y']: self.skip_y = True
                 if not self.skip_y: continue
@@ -70,7 +72,7 @@ class newsCrawSpider(scrapy.Spider):
         items = []
         li = Selector(response).xpath('//ul[@class="srch_lst"]')
         for site in li:
-            item = newsCrawItem()
+            item = newsTitleCrawItem()
             item['actor'] = response.meta['q']
             item['title'] = site.xpath('.//a[@class="tit"]').re(r'\>(.+?)\<\/a')[0]
             item['time'] = site.xpath('.//span[@class="time"]//text()').extract_first()

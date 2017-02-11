@@ -2,7 +2,7 @@
 import json
 import re
 from datetime import datetime, timedelta
-class newsCrawPipeline(object):
+class newsTitleCrawPipeline(object):
     pat_time = re.compile(r'(\d+?)\일\전')
 
     def open_spider(self, spider):
