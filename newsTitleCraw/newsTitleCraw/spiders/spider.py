@@ -5,6 +5,7 @@ from scrapy.spiders import Spider
 from newsTitleCraw.items import newsTitleCrawItem
 from scrapy.http import Request
 from scrapy.selector import Selector 
+from os.path import isfile
 
 import calendar
 
@@ -17,19 +18,23 @@ class newsTitleCrawSpider(scrapy.Spider):
     url = "http://news.naver.com/main/search/search.nhn?"
     loaded = False
     page = 10
-    skip_actor = False
-    skip_y = False
-    skip_m = False
+    data = {}
+    skip_actor = True
+    skip_y = True
+    skip_m = True
 
 
     def load(self):
-        with open('./checkpoint.json', 'r') as file:
-            self.data = json.load(file)
+        if isfile('./checkpoint.json'): 
+            with open('./checkpoint.json', 'r') as file:
+                self.data = json.load(file)
+            self.skip_actor = False
+            self.skip_y = False
+            self.skip_m = False
+            print ('data loaded!')
+            print ('self.data')
         with open('../data/actors.txt', 'r', encoding='UTF-8') as file:
             self.actors = file.readlines()
-        if not len(self.data['actor']): self.skip_actor = True
-        print ('data loaded!')
-        print (self.data)
         self.loaded = True
 
     def save(self, actor, y, m):
@@ -44,16 +49,18 @@ class newsTitleCrawSpider(scrapy.Spider):
             self.load()
         for actor in self.actors:
             actor = actor.strip()
-            if actor == '\ufeff': continue 
-            if actor == self.data['actor']: self.skip_actor = True
-            if not self.skip_actor: continue
-
+            if len(actor) == 1: continue
+            if not self.skip_actor:
+                if actor == self.data['actor']: self.skip_actor = True
+                if not self.skip_actor: continue
             for y in range(1990, 2018):
-                if str(y) == self.data['y']: self.skip_y = True
-                if not self.skip_y: continue
+                if not self.skip_y:
+                    if str(y) == self.data['y']: self.skip_y = True
+                    if not self.skip_y: continue
                 for m in range(1, 13):
-                    if ("%2d" % m) == self.data['m']: self.skip_m = True
-                    if not self.skip_m: continue
+                    if not self.skip_m:
+                        if ("%2d" % m) == self.data['m']: self.skip_m = True
+                        if not self.skip_m: continue
                     (_, e) = calendar.monthrange(y, m)
                     yield (actor, "%04d-%02d-%02d" % (y, m, 1), "%04d-%02d-%02d" % (y, m, e))
                     self.save(actor, y, m)
