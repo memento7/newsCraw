@@ -15,7 +15,7 @@ class newsContentCrawSpider(scrapy.Spider):
     url = "http://news.naver.com/main/search/search.nhn?"
 
     def load(self):
-        self.frame = pd.read_csv('../data/actor_href.csv', encoding='cp949')
+        self.frame = pd.read_csv('../data/newsTitle-all.csv')
         with open('./checkpoint.json', 'r') as file:
             self.data = json.load(file)
         print ('data loaded!')
@@ -33,12 +33,13 @@ class newsContentCrawSpider(scrapy.Spider):
         for idx, data in self.frame.iterrows():
             if idx < self.data['idx']: continue
             if type(data.values[2]) is str:
-                yield data.values[4], data.values[2]
+                yield data.values[2], data.values[4]
             self.save(idx)
 
     def start_requests(self):
         for actor, href in self.loop():
-            yield Request(href, meta={'actor': actor}, callback = self.parse)
+            if href == href:
+                yield Request(href, meta={'actor': actor}, callback = self.parse)
             
     def parse(self, response):
         article = Selector(response).xpath('//div[@id="articleBodyContents"]')
