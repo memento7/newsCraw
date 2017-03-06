@@ -22,7 +22,7 @@ class newsCommentCrawSpider(scrapy.Spider):
         return { p[0]: p[1] for p in s }
 
     def load(self):
-        self.frame = pd.read_csv('../data/test.csv')
+        self.frame = pd.read_csv('../data/newsTitle.csv')
         if isfile('./checkpoint.json'): 
             with open('./checkpoint.json', 'r') as file:
                 self.data = json.load(file)
