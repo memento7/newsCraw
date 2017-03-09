@@ -66,5 +66,6 @@ class newsCommentCrawSpider(scrapy.Spider):
             for col in columns:
                 com[col] = comment[col]
             item['comments'].append(com)
-
-        return item
+        
+        if item['count'] > 0:       
+            return item
