@@ -1,0 +1,24 @@
+spider init
+open spider call
+1
+loop call 0
+loop call 1
+loop call 2
+loop call 3
+loop call 4
+loop call 5
+loop call 6
+loop call 7
+loop call 8
+loop call 9
+process item call
+process item call
+process item call
+process item call
+process item call
+process item call
+process item call
+process item call
+process item call
+process item call
+close spider call
