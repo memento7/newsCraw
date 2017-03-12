@@ -11,5 +11,6 @@ __pycache__/
 [Ss]cripts
 pyvenv.cfg
 .venv
+settings.py
 pip-selfcheck.json
 checkpoint.json
