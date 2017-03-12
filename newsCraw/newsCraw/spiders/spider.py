@@ -7,9 +7,10 @@ from scrapy.selector import Selector
 from os.path import isfile
 import calendar
 import json
+from datetime import datetime
 
 def now():
-    return '2017-01-01'
+    return str(datetime.now())
 
 def query_filter(query):
     return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])
