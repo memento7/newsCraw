@@ -21,7 +21,7 @@ def get_params(href):
 
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
-    allowed_domains = ['news.naver.com', 'apis.naver.com', 'entertain.naver.com']
+    allowed_domains = ['news.naver.com', 'apis.naver.com', 'entertain.naver.com', 'sports.news.naver.com]
     url = "http://news.naver.com/main/search/search.nhn?"
     curl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId="
     skip_data = {}
@@ -43,7 +43,7 @@ class newsCrawSpider(scrapy.Spider):
     def loop(self):
         self.load()
         for keyword in self.keywords[('keyword' in self.skip_data and self.skip_data['keyword'] in self.keywords) and self.keywords.index(self.skip_data['keyword']) or 0:]:
-            for year in range('year' in self.skip_data and self.skip_data['year'] or 2017, 2018):
+            for year in range('year' in self.skip_data and self.skip_data['year'] or 1990, 2018):
                 for month in range('month' in self.skip_data and self.skip_data['month'] or 1, 13):
                     (_, e) = calendar.monthrange(year, month)
                     for day in range(1, e + 1):
@@ -93,7 +93,8 @@ class newsCrawSpider(scrapy.Spider):
 
         news_naver = Selector(response).xpath('//div[@id="articleBodyContents"]').xpath('.//text()').extract()
         entertain = Selector(response).xpath('//div[@id="articeBody"]').xpath('.//text()').extract()
-        item['content'] = news_naver + entertain
+        sports = Selector(response).xpath('//div[@id="newsEndContents"]').xpath('.//text()').extract()
+        item['content'] = news_naver + entertain + sports
 
         req_comment = Request(self.curl + "news" + item['oid'] + "%2C" + item['aid'], headers={'Referer': item['href_naver']}, callback = self.parse_comment)
         req_comment.meta['item'] = item
