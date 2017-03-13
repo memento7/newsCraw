@@ -97,6 +97,7 @@ class newsCrawPipeline(object):
     def process_item(self, item, spider):
         item['title'] = title_filter(item['title'])
         item['content'] = content_filter(item['content'])
+        item['published_time'] = date_filter(item['published_time'])
 
         query = self.dbpool.runInteraction(self.q_insert_article, item)
         query.addErrback(self.q_error)

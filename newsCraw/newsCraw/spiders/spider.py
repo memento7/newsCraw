@@ -43,10 +43,11 @@ class newsCrawSpider(scrapy.Spider):
     def loop(self):
         self.load()
         for keyword in self.keywords[('keyword' in self.skip_data and self.skip_data['keyword'] in self.keywords) and self.keywords.index(self.skip_data['keyword']) or 0:]:
-            for year in range('year' in self.skip_data and self.skip_data['year'] or 1990, 2018):
+            for year in range('year' in self.skip_data and self.skip_data['year'] or 2017, 2018):
                 for month in range('month' in self.skip_data and self.skip_data['month'] or 1, 13):
                     (_, e) = calendar.monthrange(year, month)
-                    yield (keyword, "%04d-%02d-%02d" % (year, month, 1), "%04d-%02d-%02d" % (year, month, e))
+                    for day in range(1, e + 1):
+                        yield (keyword, "%04d-%02d-%02d" % (year, month, day), "%04d-%02d-%02d" % (year, month, day))
                     self.save(keyword, year, month)
                 if 'month' in self.skip_data: del self.skip_data['month']
             if 'year' in self.skip_data: del self.skip_data['year']
