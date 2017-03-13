@@ -21,7 +21,7 @@ def get_params(href):
 
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
-    allowed_domains = ['news.naver.com', 'apis.naver.com', 'entertain.naver.com', 'sports.news.naver.com]
+    allowed_domains = ['news.naver.com', 'apis.naver.com', 'entertain.naver.com', 'sports.news.naver.com']
     url = "http://news.naver.com/main/search/search.nhn?"
     curl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId="
     skip_data = {}
