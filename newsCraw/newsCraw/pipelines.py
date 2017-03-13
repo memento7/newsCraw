@@ -3,6 +3,7 @@
 from scrapy import signals
 from scrapy.utils.project import get_project_settings
 from twisted.enterprise import adbapi
+from datetime import datetime, timedelta
 import pymysql
 import re
 import sys
@@ -11,6 +12,8 @@ SETTINGS = get_project_settings()
 
 pat_rl = [re.compile('\\n'), re.compile('\\t')]
 pat_dl = [re.compile('\n\/\/')]
+pat_da = re.compile(u'(\d+)(.+?)전')
+date_type = ['초', '분', '시간', '일']
 
 def dl_filter(content):
     ret = False
@@ -26,6 +29,22 @@ def content_filter(content):
 
 def title_filter(title):
     return title.replace("\"", "")
+
+def date_checker(date):
+    return pat_da.match(date)
+
+def date_now():
+    return datetime.now()
+    
+def date_filter(date):
+    match = pat_da.match(date)
+    if match:
+        date = [0,0,0,0]
+        now = date_now()
+        date[date_type.index(match.group(2))] = int(match.group(1))
+        time = now - timedelta(seconds=date[0], minutes=date[1], hours=date[2], days=date[3])
+        return str(time)
+    return date
 
 class newsCrawPipeline(object):
 
