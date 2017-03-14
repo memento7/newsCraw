@@ -42,19 +42,27 @@ class newsCrawSpider(scrapy.Spider):
 
     def loop(self):
         self.load()
-        for keyword in self.keywords[('keyword' in self.skip_data and self.skip_data['keyword'] in self.keywords) and self.keywords.index(self.skip_data['keyword']) or 0:]:
-            for year in range('year' in self.skip_data and self.skip_data['year'] or 1990, 2018):
-                for month in range('month' in self.skip_data and self.skip_data['month'] or 1, 13):
-                    (_, e) = calendar.monthrange(year, month)
-                    for day in range(1, e + 1):
-                        yield (keyword, "%04d-%02d-%02d" % (year, month, day), "%04d-%02d-%02d" % (year, month, day))
-                    self.save(keyword, year, month)
-                if 'month' in self.skip_data: del self.skip_data['month']
-            if 'year' in self.skip_data: del self.skip_data['year']
+        for idx, href in self.keywords:
+            yield idx, href
+
+        # for keyword in self.keywords[('keyword' in self.skip_data and self.skip_data['keyword'] in self.keywords) and self.keywords.index(self.skip_data['keyword']) or 0:]:
+        #     for year in range('year' in self.skip_data and self.skip_data['year'] or 1990, 2018):
+        #         for month in range('month' in self.skip_data and self.skip_data['month'] or 1, 13):
+        #             (_, e) = calendar.monthrange(year, month)
+        #             for day in range(1, e + 1):
+        #                 yield (keyword, "%04d-%02d-%02d" % (year, month, day), "%04d-%02d-%02d" % (year, month, day))
+        #             self.save(keyword, year, month)
+        #         if 'month' in self.skip_data: del self.skip_data['month']
+        #     if 'year' in self.skip_data: del self.skip_data['year']
 
     def start_requests(self):
-        for query, sd, ed in self.loop():
-            yield Request(self.url + "query=" + query_filter(query) + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
+        for idx, href in self.loop():
+            params = get_params(href)
+            yield Request(self.curl + "news" + params['oid'] + "%2C" + params['aid'], headers={'Referer': href}, meta={'idx': idx}, callback = self.parse_comment)
+
+    # def start_requests(self):
+    #     for query, sd, ed in self.loop():
+    #         yield Request(self.url + "query=" + query_filter(query) + "&startDate=" + sd + "&endDate=" + ed, meta={'q': query, 'sd': sd, 'ed':ed}, callback = self.parse_count)
             
     def parse_count(self, response):
         count = Selector(response).xpath('//span[@class="result_num"]/text()').re(r'\/ (.+?)\건')
@@ -104,11 +112,9 @@ class newsCrawSpider(scrapy.Spider):
     def parse_comment(self, response):
         body = response.body
         res = json.loads(body[10:-2].decode('utf-8'))
-
         if res['success']:
             result = res['result']
-
-            item = response.meta['item']
+            item = newsCrawItem()
             item['reply_count'] = result['count']['total']
             item['comments'] = []
 
@@ -119,6 +125,30 @@ class newsCrawSpider(scrapy.Spider):
                 com = {}
                 for label, find in zip(col_label, col_find):
                     com[label] = comment[find]
-                item['comments'].append(com)
+                com['crawled_time'] = now()
+                com['news_index'] = response.meta['idx']
 
-        yield item
+                item['comments'].append(com)
+            return item
+
+    # def parse_comment(self, response):
+    #     body = response.body
+    #     res = json.loads(body[10:-2].decode('utf-8'))
+
+    #     if res['success']:
+    #         result = res['result']
+
+    #         item = response.meta['item']
+    #         item['reply_count'] = result['count']['total']
+    #         item['comments'] = []
+
+    #         col_label = ['reply_count', 'mod_time', 'content', 'sympathy_count', 'antipathy_count', 'author']
+    #         col_find = ['replyCount', 'modTime', 'contents', 'sympathyCount', 'antipathyCount', 'maskedUserId']
+
+    #         for comment in result['commentList']:
+    #             com = {}
+    #             for label, find in zip(col_label, col_find):
+    #                 com[label] = comment[find]
+    #             item['comments'].append(com)
+
+    #     yield item
