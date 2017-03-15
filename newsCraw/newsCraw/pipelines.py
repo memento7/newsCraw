@@ -75,39 +75,29 @@ class newsCrawPipeline(object):
         print (result)
 
     def open_spider(self, spider):
-        # conn = pymysql.connect(
-        #     host=SETTINGS['QDB_HOST'],
-        #     port=SETTINGS['QDB_PORT'],
-        #     user=SETTINGS['QDB_USER'],
-        #     passwd=SETTINGS['QDB_PASSWD'],
-        #     db=SETTINGS['QDB_DB'],
-        #     charset='utf8')
-        # cur = conn.cursor()
-        # cur.execute('select realname from entity')
-
-        # spider.keywords = [ name[0] for name in cur ]
-
-        # forComment
         conn = pymysql.connect(
-            host=SETTINGS['DB_HOST'],
-            port=SETTINGS['DB_PORT'],
-            user=SETTINGS['DB_USER'],
-            passwd=SETTINGS['DB_PASSWD'],
-            db=SETTINGS['DB_DB'],
+            host=SETTINGS['QDB_HOST'],
+            port=SETTINGS['QDB_PORT'],
+            user=SETTINGS['QDB_USER'],
+            passwd=SETTINGS['QDB_PASSWD'],
+            db=SETTINGS['QDB_DB'],
             charset='utf8')
         cur = conn.cursor()
-        cur.execute('select id, href_naver from Articles where reply_count > 0;')
+        cur.execute('select realname from entity')
 
-        spider.keywords = [ (name[0], name[1]) for name in cur ]
+        spider.keywords = [ name[0] for name in cur ]
 
         cur.close()
         conn.close()
 
-    def close_spider(self, spider):
-        self.dbpool.close()
-        print('done!!!')
-
     def process_item(self, item, spider):
+        item['title'] = title_filter(item['title'])
+        item['content'] = content_filter(item['content'])
+        item['published_time'] = date_filter(item['published_time'])
+
+        query = self.dbpool.runInteraction(self.q_insert_article, item)
+        query.addErrback(self.q_error)
+
         if 'comments' in item:
             for comment in item['comments']:
                 comment['mod_time'] = comment['mod_time'][:10]
@@ -115,21 +105,6 @@ class newsCrawPipeline(object):
                 query.addErrback(self.q_error)
 
         return item
-
-    # def process_item(self, item, spider):
-    #     item['title'] = title_filter(item['title'])
-    #     item['content'] = content_filter(item['content'])
-    #     item['published_time'] = date_filter(item['published_time'])
-
-    #     query = self.dbpool.runInteraction(self.q_insert_article, item)
-    #     query.addErrback(self.q_error)
-
-    #     if 'comments' in item:
-    #         for comment in item['comments']:
-    #             query = self.dbpool.runInteraction(self.q_insert_comment, comment)
-    #             query.addErrback(self.q_error)
-
-    #     return item
 
     def q_insert_article(self, tx, item):
         q = "INSERT INTO Articles " +\
@@ -146,13 +121,7 @@ class newsCrawPipeline(object):
             " VALUES (%s,%s,%s,%s,%d,%d,%d,%d)" % (\
             tuple([ '\"' + item[col] +'\"' for col in self.col['Comments'] ]) +\
             tuple([ int(item[col]) for col in self.col['Comments_int'] ]) )
-
-        print()
-        print()
-        print(q)
-        print()
-        print()
-
+            
         result = tx.execute(q)
 
     def q_error(self, e):
