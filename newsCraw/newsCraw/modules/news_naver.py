@@ -49,11 +49,18 @@ class News_Naver(Scrapy_Module):
 
     def parse_content(self, response):
         item = response.meta['item']
-        news_naver = Selector(response).xpath('//div[@id="articleBodyContents"]').xpath('.//text()').extract()
-        entertain = Selector(response).xpath('//div[@id="articeBody"]').xpath('.//text()').extract()
-        sports = Selector(response).xpath('//div[@id="newsEndContents"]').xpath('.//text()').extract()
+        _news_naver = Selector(response).xpath('//div[@id="articleBodyContents"]').xpath('.//text()').extract()
+        _entertain = Selector(response).xpath('//div[@id="articeBody"]').xpath('.//text()').extract()
+        _sports = Selector(response).xpath('//div[@id="newsEndContents"]').xpath('.//text()').extract()
 
-        item['content_quote'], item['content'] = string_filter(" ".join(news_naver + entertain + sports))
+        content = []
+        for s in _news_naver + _entertain + _sports:
+            s = s.strip()
+            if not len(s): continue
+            if len(s) == 62 and '// flash 오류를 우회하기 위한 함수 추가' in s: continue
+            content.append(s)
+
+        item['content_quote'], item['content'] = string_filter("\n".join(content))
         yield Request(self.crl.format(item['oid'], item['aid']), headers={'Referer': item['href_naver']}, callback=self.parse_reply, meta={'item': item})
 
     def parse_reply(self, response):
@@ -75,8 +82,9 @@ class News_Naver(Scrapy_Module):
                 for label, find in zip(col_label, col_find):
                     com[label] = comment[find]
 
+                if not com['author']: com['author'] = '***'
                 com['mod_time'] = com['mod_time'][:10] + " " + com['mod_time'][11:19]
-                com['content_quote'], com['conotent'] = string_filter(com['content'])
+                com['content_quote'], com['content'] = string_filter(com['content'])
 
                 item['comments'].append(com)
 
@@ -91,6 +99,21 @@ class News_Naver(Scrapy_Module):
             r = tx.execute(q);
             index = tx.fetchone()['LAST_INSERT_ID()']
             return index
+
+        """quote_type
+            0: title
+            1: content
+            2: comment
+            3: quote
+        """
+        def put_quotes(quotes: str, target: int, type: int):
+            for quote in quotes:
+                qlist, quote = quotation_filter(quote)
+                if not len(quote): continue
+                q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': target, 'flag': type})
+                r = tx.execute(q)
+                quote_id = get_last_id()
+                put_quotes(qlist, quote_id, 3)
 
         def make_query(table, columns, item):
             def decorator(t, text):
@@ -115,14 +138,7 @@ class News_Naver(Scrapy_Module):
             r = tx.execute(q)
 
             comment_id = get_last_id()
-            for quote in comment['content_quote']:
-                q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': comment_id, 'flag': 2})
-                r = tx.execute(q)
+            put_quotes(comment['content_quote'], comment_id, 2)
 
-        for quote in item['title_quote']:
-            q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': news_id, 'flag': 0})
-            r = tx.execute(q)
-
-        for quote in item['content_quote']:
-            q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': news_id, 'flag': 1})
-            r = tx.execute(q)
+        put_quotes(item['title_quote'], news_id, 0)
+        put_quotes(item['content_quote'], news_id, 1)

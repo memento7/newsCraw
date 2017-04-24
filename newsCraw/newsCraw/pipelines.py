@@ -25,13 +25,11 @@ class newsCrawPipeline(object):
         def get_data_range():
             return datetime(2017,3,14), datetime(2017,4,24)
 
-#        spider.keywords = [ " ".join([k['nickname'], k['subkey']]) for k in get_keywords()]
-        spider.keywords = ['김태희']
+        spider.keywords = [ " ".join([k['nickname'], k['subkey']]) for k in get_keywords()]
         spider.start_date, spider.end_date = get_data_range()
 
     def close_spider(self, spider):
         pass
-
 
     def process_item(self, item, spider):
         if 'MODULE' in item:

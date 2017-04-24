@@ -15,8 +15,9 @@ def tag_filter(text: str) -> str:
 def char_filter(text: str, pattern: dict) -> str:
     return text.translate(str.maketrans(pattern))
 
+nullspace = whitespace[1:] + '\xa0'
 def whitespace_filter(text: str) -> str:
-    return char_filter(text, {w: None for w in whitespace[1:]})
+    return char_filter(text, {w: None for w in nullspace})
 
 pat_squote = re.compile("\'(.*?)\'")
 pat_dquote = re.compile('\"(.*?)\"')
@@ -32,7 +33,7 @@ def quotation_filter(text: str) -> Union[str, List[str]]:
     for pat in pat_quotations:
         for match in pat.finditer(text):
             matches.append(match.groups()[0])
-    return matches, char_filter(text, {w: None for w in str_quotations})
+    return matches, char_filter(text, {w: None for w in str_quotations}).strip()
 
 def string_filter(text: str):
     text = whitespace_filter(text)
