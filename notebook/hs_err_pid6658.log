@@ -1,0 +1,1391 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f274572badc, pid=6658, tid=0x00007f27661e5700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_121-b13) (build 1.8.0_121-b13)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.121-b13 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [_hierarchy.cpython-35m-x86_64-linux-gnu.so+0x18adc]  __pyx_pw_5scipy_7cluster_10_hierarchy_29slink+0x94c
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002a9c800):  JavaThread "main" [_thread_in_native, id=6658, stack(0x00007ffc61e92000,0x00007ffc61f92000)]
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00007f20af011b08
+
+Registers:
+RAX=0x000000000000b506, RBX=0x0000000000000008, RCX=0x0000000000000008, RDX=0x000000000000b505
+RSP=0x00007ffc61f8d370, RBP=0x000000002d50c340, RSI=0x000000000000b506, RDI=0x000000002b6a0e78
+R8 =0x00000000bdeb4cee, R9 =0x000000000000b506, R10=0x0000000000010c95, R11=0x00007f20bfa9d010
+R12=0x0000000000000004, R13=0xffffffffef574af8, R14=0x00000000fdeae95f, R15=0x00000000fdea8be8
+RIP=0x00007f274572badc, EFLAGS=0x0000000000010282, CSGSFS=0x0000000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007ffc61f8d370)
+0x00007ffc61f8d370:   0000000000000000 00007f26330b9440
+0x00007ffc61f8d380:   00007f269d1d5b20 00007ffc61f8d4e0
+0x00007ffc61f8d390:   00007ffc61f8d420 00007f269d1d5b20
+0x00007ffc61f8d3a0:   0000000000000000 00007f2764a9af40
+0x00007ffc61f8d3b0:   000000001714b290 0000000000000000
+0x00007ffc61f8d3c0:   00007ffc61f8de40 00007f27647359f7
+0x00007ffc61f8d3d0:   000000001714b290 00007f2764749431
+0x00007ffc61f8d3e0:   0000000000000000 0000000000000000
+0x00007ffc61f8d3f0:   00007ffc61f8d828 00007f27647913f4
+0x00007ffc61f8d400:   0000000000000000 0000010364a996c0
+0x00007ffc61f8d410:   00007f2764a996c0 0000000000000000
+0x00007ffc61f8d420:   0000000000000008 00007f2764a996c0
+0x00007ffc61f8d430:   00007f26bc0016a0 00007f2764749431
+0x00007ffc61f8d440:   0000000000010c95 000000002af242e0
+0x00007ffc61f8d450:   000000002af516f8 000000002d566b70
+0x00007ffc61f8d460:   00007f26bdeba47d 00007f270000b507
+0x00007ffc61f8d470:   0000000000000008 000000002b646650
+0x00007ffc61f8d480:   00010c9600000000 0000000000000008
+0x00007ffc61f8d490:   00007f2716208760 00007ffc61f8e4b0
+0x00007ffc61f8d4a0:   00007ffc61f8dbc0 00007ffc61f8d950
+0x00007ffc61f8d4b0:   0000000000010c96 00007f2764749431
+0x00007ffc61f8d4c0:   00007ffc61f8daf0 00007f2716208760
+0x00007ffc61f8d4d0:   00007ffc61f8d7b0 00007ffc61f8d880
+0x00007ffc61f8d4e0:   00007ffc61f8da20 00007ffc61f8dc90
+0x00007ffc61f8d4f0:   0000000000000000 00007f2764a9af40
+0x00007ffc61f8d500:   00007ffc61f8d6e0 00007f268802b438
+0x00007ffc61f8d510:   0000000000000000 00007f27647913f4
+0x00007ffc61f8d520:   00007f269d733108 000000002af242e0
+0x00007ffc61f8d530:   0000000000010c96 0000000000000000
+0x00007ffc61f8d540:   0000000000000000 0000000000000000
+0x00007ffc61f8d550:   0000000000000000 0000000000000000
+0x00007ffc61f8d560:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x00007f274572badc)
+0x00007f274572babc:   00 00 44 0f af ee 45 89 ee 41 c1 ee 1f 45 01 f5
+0x00007f274572bacc:   45 89 c6 41 d1 fd 45 29 ee 4d 63 ee 4c 0f af eb
+0x00007f274572badc:   f2 43 0f 10 04 2b 48 83 c2 01 83 c6 01 45 01 d0
+0x00007f274572baec:   f2 0f 11 07 48 01 cf 44 39 c8 0f 8e a4 00 00 00 
+
+Register to memory mapping:
+
+RAX=0x000000000000b506 is an unknown value
+RBX=0x0000000000000008 is an unknown value
+RCX=0x0000000000000008 is an unknown value
+RDX=0x000000000000b505 is an unknown value
+RSP=0x00007ffc61f8d370 is pointing into the stack for thread: 0x0000000002a9c800
+RBP=0x000000002d50c340 is an unknown value
+RSI=0x000000000000b506 is an unknown value
+RDI=0x000000002b6a0e78 is an unknown value
+R8 =0x00000000bdeb4cee is an unknown value
+R9 =0x000000000000b506 is an unknown value
+R10=0x0000000000010c95 is an unknown value
+R11=0x00007f20bfa9d010 is an unknown value
+R12=0x0000000000000004 is an unknown value
+R13=0xffffffffef574af8 is an unknown value
+R14=0x00000000fdeae95f is an unknown value
+R15=0x00000000fdea8be8 is an unknown value
+
+
+Stack: [0x00007ffc61e92000,0x00007ffc61f92000],  sp=0x00007ffc61f8d370,  free space=1004k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [_hierarchy.cpython-35m-x86_64-linux-gnu.so+0x18adc]  __pyx_pw_5scipy_7cluster_10_hierarchy_29slink+0x94c
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00000000048e8000 JavaThread "Thread-0" [_thread_blocked, id=6687, stack(0x00007f271f8f9000,0x00007f271f9fa000)]
+  0x00000000048c1000 JavaThread "Service Thread" daemon [_thread_blocked, id=6685, stack(0x00007f271fafb000,0x00007f271fbfc000)]
+  0x00000000048be000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=6684, stack(0x00007f271fbfc000,0x00007f271fcfd000)]
+  0x00000000048bc000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=6683, stack(0x00007f271fcfd000,0x00007f271fdfe000)]
+  0x00000000048ba800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=6682, stack(0x00007f271fdfe000,0x00007f271feff000)]
+  0x00000000048b7800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=6681, stack(0x00007f271feff000,0x00007f2720000000)]
+  0x00000000048b3800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6680, stack(0x00007f272c02e000,0x00007f272c12f000)]
+  0x0000000004884000 JavaThread "Finalizer" daemon [_thread_blocked, id=6679, stack(0x00007f272c12f000,0x00007f272c230000)]
+  0x000000000487f800 JavaThread "Reference Handler" daemon [_thread_blocked, id=6678, stack(0x00007f272c230000,0x00007f272c331000)]
+=>0x0000000002a9c800 JavaThread "main" [_thread_in_native, id=6658, stack(0x00007ffc61e92000,0x00007ffc61f92000)]
+
+Other Threads:
+  0x0000000004878000 VMThread [stack: 0x00007f272c331000,0x00007f272c432000] [id=6677]
+  0x00000000048c4000 WatcherThread [stack: 0x00007f271f9fa000,0x00007f271fafb000] [id=6686]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 1608704K, used 836356K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1608192K, 52% used [0x0000000715580000,0x0000000748629110,0x0000000777800000)
+  from space 512K, 18% used [0x00000007a2680000,0x00000007a2698000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9607K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+
+Card table byte_map: [0x00007f272f15e000,0x00007f273015f000] byte_map_base: 0x00007f272c35e000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f2741378c80
+ Begin Bits: [0x00007f26f8000000, 0x00007f2700000000)
+ End Bits:   [0x00007f2700000000, 0x00007f2708000000)
+
+Polling page: 0x00007f2766023000
+
+CodeCache: size=245760Kb used=7389Kb max_used=8227Kb free=238370Kb
+ bounds [0x00007f273051f000, 0x00007f2730d4f000, 0x00007f273f51f000]
+ total_blobs=2337 nmethods=2063 adapters=187
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 13721.981 Thread 0x00000000048be000 2345       3       java.util.TimSort::ensureCapacity (107 bytes)
+Event: 13721.981 Thread 0x00000000048be000 nmethod 2345 0x00007f2730d01510 code [0x00007f2730d016c0, 0x00007f2730d01cb8]
+Event: 13730.417 Thread 0x00000000048ba800 2346       4       com.twitter.penguin.korean.tokenizer.KoreanChunker$$anonfun$3::apply (12 bytes)
+Event: 13730.419 Thread 0x00000000048ba800 nmethod 2346 0x00007f273064fe90 code [0x00007f2730650000, 0x00007f2730650158]
+Event: 13734.091 Thread 0x00000000048bc000 2347       4       java.util.TimSort::mergeCollapse (101 bytes)
+Event: 13734.093 Thread 0x00000000048bc000 nmethod 2347 0x00007f2730646710 code [0x00007f2730646880, 0x00007f2730646a78]
+Event: 13735.221 Thread 0x00000000048b7800 2348       4       java.util.TimSort::mergeLo (659 bytes)
+Event: 13735.253 Thread 0x00000000048b7800 nmethod 2348 0x00007f27306f16d0 code [0x00007f27306f19c0, 0x00007f27306f3f70]
+Event: 15108.688 Thread 0x00000000048be000 2349 % !   3       jpype.ref.JPypeReferenceQueue::run @ 3 (112 bytes)
+Event: 15108.689 Thread 0x00000000048be000 
+
+
+GC Heap History (10 events):
+Event: 14299.111 GC heap before
+{Heap before GC invocations=2196 (full 0):
+ PSYoungGen      total 1885696K, used 1885248K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1885184K, 100% used [0x0000000715580000,0x0000000788680000,0x0000000788680000)
+  from space 512K, 12% used [0x00000007a2600000,0x00000007a2610000,0x00000007a2680000)
+  to   space 512K, 0% used [0x00000007a2680000,0x00000007a2680000,0x00000007a2700000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+Event: 14299.115 GC heap after
+Heap after GC invocations=2196 (full 0):
+ PSYoungGen      total 1825280K, used 64K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1824768K, 0% used [0x0000000715580000,0x0000000715580000,0x0000000784b80000)
+  from space 512K, 12% used [0x00000007a2680000,0x00000007a2690000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+}
+Event: 14303.737 GC heap before
+{Heap before GC invocations=2197 (full 0):
+ PSYoungGen      total 1825280K, used 1824832K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1824768K, 100% used [0x0000000715580000,0x0000000784b80000,0x0000000784b80000)
+  from space 512K, 12% used [0x00000007a2680000,0x00000007a2690000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+Event: 14303.741 GC heap after
+Heap after GC invocations=2197 (full 0):
+ PSYoungGen      total 1767424K, used 32K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1766912K, 0% used [0x0000000715580000,0x0000000715580000,0x0000000781300000)
+  from space 512K, 6% used [0x00000007a2600000,0x00000007a2608000,0x00000007a2680000)
+  to   space 512K, 0% used [0x00000007a2680000,0x00000007a2680000,0x00000007a2700000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+}
+Event: 14308.244 GC heap before
+{Heap before GC invocations=2198 (full 0):
+ PSYoungGen      total 1767424K, used 1766944K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1766912K, 100% used [0x0000000715580000,0x0000000781300000,0x0000000781300000)
+  from space 512K, 6% used [0x00000007a2600000,0x00000007a2608000,0x00000007a2680000)
+  to   space 512K, 0% used [0x00000007a2680000,0x00000007a2680000,0x00000007a2700000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+Event: 14308.248 GC heap after
+Heap after GC invocations=2198 (full 0):
+ PSYoungGen      total 1712128K, used 32K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1711616K, 0% used [0x0000000715580000,0x0000000715580000,0x000000077dd00000)
+  from space 512K, 6% used [0x00000007a2680000,0x00000007a2688000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+}
+Event: 14312.633 GC heap before
+{Heap before GC invocations=2199 (full 0):
+ PSYoungGen      total 1712128K, used 1711648K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1711616K, 100% used [0x0000000715580000,0x000000077dd00000,0x000000077dd00000)
+  from space 512K, 6% used [0x00000007a2680000,0x00000007a2688000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+Event: 14312.636 GC heap after
+Heap after GC invocations=2199 (full 0):
+ PSYoungGen      total 1659392K, used 64K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1658880K, 0% used [0x0000000715580000,0x0000000715580000,0x000000077a980000)
+  from space 512K, 12% used [0x00000007a2600000,0x00000007a2610000,0x00000007a2680000)
+  to   space 512K, 0% used [0x00000007a2680000,0x00000007a2680000,0x00000007a2700000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+}
+Event: 14316.913 GC heap before
+{Heap before GC invocations=2200 (full 0):
+ PSYoungGen      total 1659392K, used 1658944K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1658880K, 100% used [0x0000000715580000,0x000000077a980000,0x000000077a980000)
+  from space 512K, 12% used [0x00000007a2600000,0x00000007a2610000,0x00000007a2680000)
+  to   space 512K, 0% used [0x00000007a2680000,0x00000007a2680000,0x00000007a2700000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+Event: 14316.916 GC heap after
+Heap after GC invocations=2200 (full 0):
+ PSYoungGen      total 1608704K, used 96K [0x0000000715580000, 0x00000007a2700000, 0x00000007c0000000)
+  eden space 1608192K, 0% used [0x0000000715580000,0x0000000715580000,0x0000000777800000)
+  from space 512K, 18% used [0x00000007a2680000,0x00000007a2698000,0x00000007a2700000)
+  to   space 512K, 0% used [0x00000007a2600000,0x00000007a2600000,0x00000007a2680000)
+ ParOldGen       total 2796544K, used 764385K [0x00000005c0000000, 0x000000066ab00000, 0x0000000715580000)
+  object space 2796544K, 27% used [0x00000005c0000000,0x00000005eea787c8,0x000000066ab00000)
+ Metaspace       used 9606K, capacity 10118K, committed 10496K, reserved 1058816K
+  class space    used 1435K, capacity 1457K, committed 1536K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 1290.559 Thread 0x0000000002a9c800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f2730c0e138 method=scala.collection.SeqLike$class.sorted(Lscala/collection/SeqLike;Lscala/math/Ordering;)Ljava/lang/Object; @ 1
+Event: 1290.559 Thread 0x0000000002a9c800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f2730ba3c08 method=scala.collection.immutable.List.take(I)Lscala/collection/immutable/List; @ 1
+Event: 1313.250 Thread 0x0000000002a9c800 Uncommon trap: reason=speculate_class_check action=maybe_recompile pc=0x00007f2730c8bc58 method=scala.collection.immutable.List.reverse()Lscala/collection/immutable/List; @ 7
+Event: 2526.393 Thread 0x0000000002a9c800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f2730c0e138 method=scala.collection.SeqLike$class.sorted(Lscala/collection/SeqLike;Lscala/math/Ordering;)Ljava/lang/Object; @ 1
+Event: 5552.393 Thread 0x0000000002a9c800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f2730c0e138 method=scala.collection.SeqLike$class.sorted(Lscala/collection/SeqLike;Lscala/math/Ordering;)Ljava/lang/Object; @ 1
+Event: 6430.350 Thread 0x0000000002a9c800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f2730c0e138 method=scala.collection.SeqLike$class.sorted(Lscala/collection/SeqLike;Lscala/math/Ordering;)Ljava/lang/Object; @ 1
+Event: 9654.320 Thread 0x0000000002a9c800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f2730d0cfc4 method=java.util.TimSort.gallopLeft(Ljava/lang/Object;[Ljava/lang/Object;IIILjava/util/Comparator;)I @ 198
+Event: 13721.031 Thread 0x0000000002a9c800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f2730ceab0c method=java.util.TimSort.mergeCollapse()V @ 16
+Event: 13721.031 Thread 0x0000000002a9c800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f2730d23880 method=java.util.TimSort.ensureCapacity(I)[Ljava/lang/Object; @ 5
+Event: 13721.057 Thread 0x0000000002a9c800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f2730cdb6c4 method=java.util.TimSort.ensureCapacity(I)[Ljava/lang/Object; @ 5
+
+Internal exceptions (9 events):
+Event: 0.019 Thread 0x0000000002a9c800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x0000000715587ca8) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/sh
+Event: 0.019 Thread 0x0000000002a9c800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x0000000715587f90) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jni.c
+Event: 8.845 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007156321a8) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 8.845 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007156323b8) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 8.845 Thread 0x0000000002a9c800 Exception <a 'java/lang/NoClassDefFoundError': Ljava/lang;> (0x0000000715632818) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 199]
+Event: 8.957 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007160cdcf0) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 8.957 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007160ce0e8) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 8.957 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007160d0920) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 8.957 Thread 0x0000000002a9c800 Exception <a 'java/security/PrivilegedActionException'> (0x00000007160d0d18) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+
+Events (10 events):
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f273088c690
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f273088d650
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f273088ee90
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730891d50
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f27308930d0
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730893cd0
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730894010
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730894410
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730894910
+Event: 15108.689 Thread 0x00000000048be000 flushing nmethod 0x00007f2730895950
+
+
+Dynamic libraries:
+00400000-007a8000 r-xp 00000000 08:03 14287298                           /usr/bin/python3.5
+009a8000-009aa000 r--p 003a8000 08:03 14287298                           /usr/bin/python3.5
+009aa000-00a41000 rw-p 003aa000 08:03 14287298                           /usr/bin/python3.5
+00a41000-00a72000 rw-p 00000000 00:00 0 
+0176b000-2e931000 rw-p 00000000 00:00 0                                  [heap]
+5c0000000-66ab00000 rw-p 00000000 00:00 0 
+66ab00000-715580000 ---p 00000000 00:00 0 
+715580000-7a2700000 rw-p 00000000 00:00 0 
+7a2700000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c0180000 rw-p 00000000 00:00 0 
+7c0180000-800000000 ---p 00000000 00:00 0 
+7f20bfa9d000-7f25e6cf6000 rw-p 00000000 00:00 0 
+7f2629d76000-7f26322eb000 rw-p 00000000 00:00 0 
+7f263242b000-7f265782b000 rw-p 00000000 00:00 0 
+7f2657834000-7f26890b4000 rw-p 00000000 00:00 0 
+7f26890bc000-7f268dfbc000 rw-p 00000000 00:00 0 
+7f268dfbe000-7f26a2f3e000 rw-p 00000000 00:00 0 
+7f26a2f40000-7f26a3e80000 rw-p 00000000 00:00 0 
+7f26a3e80000-7f26abbc0000 rw-p 00000000 00:00 0 
+7f26abbc0000-7f26af980000 rw-p 00000000 00:00 0 
+7f26af980000-7f26b0000000 rw-p 00000000 00:00 0 
+7f26b0000000-7f26b0021000 rw-p 00000000 00:00 0 
+7f26b0021000-7f26b4000000 ---p 00000000 00:00 0 
+7f26b4000000-7f26b41e1000 rw-p 00000000 00:00 0 
+7f26b41e1000-7f26b8000000 ---p 00000000 00:00 0 
+7f26b8000000-7f26b8021000 rw-p 00000000 00:00 0 
+7f26b8021000-7f26bc000000 ---p 00000000 00:00 0 
+7f26bc000000-7f26bc021000 rw-p 00000000 00:00 0 
+7f26bc021000-7f26c0000000 ---p 00000000 00:00 0 
+7f26c0000000-7f26c0021000 rw-p 00000000 00:00 0 
+7f26c0021000-7f26c4000000 ---p 00000000 00:00 0 
+7f26c4000000-7f26c4021000 rw-p 00000000 00:00 0 
+7f26c4021000-7f26c8000000 ---p 00000000 00:00 0 
+7f26c8000000-7f26c86bd000 rw-p 00000000 00:00 0 
+7f26c86bd000-7f26cc000000 ---p 00000000 00:00 0 
+7f26cc000000-7f26cc021000 rw-p 00000000 00:00 0 
+7f26cc021000-7f26d0000000 ---p 00000000 00:00 0 
+7f26d0000000-7f26d0af8000 rw-p 00000000 00:00 0 
+7f26d0af8000-7f26d4000000 ---p 00000000 00:00 0 
+7f26d4000000-7f26d4b44000 rw-p 00000000 00:00 0 
+7f26d4b44000-7f26d8000000 ---p 00000000 00:00 0 
+7f26d8000000-7f26d8021000 rw-p 00000000 00:00 0 
+7f26d8021000-7f26dc000000 ---p 00000000 00:00 0 
+7f26dc000000-7f26dcb46000 rw-p 00000000 00:00 0 
+7f26dcb46000-7f26e0000000 ---p 00000000 00:00 0 
+7f26e0000000-7f26e0021000 rw-p 00000000 00:00 0 
+7f26e0021000-7f26e4000000 ---p 00000000 00:00 0 
+7f26e4000000-7f26e4021000 rw-p 00000000 00:00 0 
+7f26e4021000-7f26e8000000 ---p 00000000 00:00 0 
+7f26e8000000-7f26e8021000 rw-p 00000000 00:00 0 
+7f26e8021000-7f26ec000000 ---p 00000000 00:00 0 
+7f26ec000000-7f26ec021000 rw-p 00000000 00:00 0 
+7f26ec021000-7f26f0000000 ---p 00000000 00:00 0 
+7f26f0000000-7f26f0021000 rw-p 00000000 00:00 0 
+7f26f0021000-7f26f4000000 ---p 00000000 00:00 0 
+7f26f4000000-7f2708000000 rw-p 00000000 00:00 0 
+7f2708000000-7f2708021000 rw-p 00000000 00:00 0 
+7f2708021000-7f270c000000 ---p 00000000 00:00 0 
+7f270c03e000-7f270c6fe000 rw-p 00000000 00:00 0 
+7f270c700000-7f2710000000 rw-p 00000000 00:00 0 
+7f2710000000-7f2710021000 rw-p 00000000 00:00 0 
+7f2710021000-7f2714000000 ---p 00000000 00:00 0 
+7f2714005000-7f2715705000 rw-p 00000000 00:00 0 
+7f2715707000-7f2716307000 rw-p 00000000 00:00 0 
+7f2716308000-7f27169c8000 rw-p 00000000 00:00 0 
+7f27169c8000-7f2716b08000 ---p 00000000 00:00 0 
+7f2716b08000-7f2717308000 rw-p 00000000 00:00 0 
+7f2717308000-7f2717320000 r-xp 00000000 08:03 10097046                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/doc2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717320000-7f271751f000 ---p 00018000 08:03 10097046                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/doc2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f271751f000-7f2717520000 r--p 00017000 08:03 10097046                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/doc2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717520000-7f2717522000 rw-p 00018000 08:03 10097046                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/doc2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717522000-7f2717537000 r-xp 00000000 08:03 10097061                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/word2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717537000-7f2717736000 ---p 00015000 08:03 10097061                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/word2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717736000-7f2717737000 r--p 00014000 08:03 10097061                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/word2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717737000-7f2717739000 rw-p 00015000 08:03 10097061                   /home/workspace/.local/lib/python3.5/site-packages/gensim/models/word2vec_inner.cpython-35m-x86_64-linux-gnu.so
+7f2717739000-7f271783b000 rw-p 00000000 00:00 0 
+7f271783b000-7f271784c000 r-xp 00000000 08:03 10095851                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+7f271784c000-7f2717a4b000 ---p 00011000 08:03 10095851                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+7f2717a4b000-7f2717a4d000 rw-p 00010000 08:03 10095851                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+7f2717a4d000-7f2717b44000 rw-p 00000000 00:00 0 
+7f2717b44000-7f2717b46000 rw-p 00031000 08:03 10095851                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+7f2717b46000-7f2717b86000 rw-p 00000000 00:00 0 
+7f2717b86000-7f2717b91000 r-xp 00000000 08:03 10095835                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+7f2717b91000-7f2717d90000 ---p 0000b000 08:03 10095835                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+7f2717d90000-7f2717d92000 rw-p 0000a000 08:03 10095835                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+7f2717d92000-7f2717d94000 rw-p 00026000 08:03 10095835                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+7f2717d94000-7f2717dd4000 rw-p 00000000 00:00 0 
+7f2717dd4000-7f2717dfd000 r-xp 00000000 08:03 10095850                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+7f2717dfd000-7f2717ffc000 ---p 00029000 08:03 10095850                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+7f2717ffc000-7f2717fff000 rw-p 00028000 08:03 10095850                   /home/workspace/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+7f2717fff000-7f2718000000 rw-p 00000000 00:00 0 
+7f2718000000-7f2718021000 rw-p 00000000 00:00 0 
+7f2718021000-7f271c000000 ---p 00000000 00:00 0 
+7f271c03f000-7f271c17f000 rw-p 00000000 00:00 0 
+7f271c17f000-7f271c189000 r-xp 00000000 08:03 10095244                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+7f271c189000-7f271c389000 ---p 0000a000 08:03 10095244                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+7f271c389000-7f271c38a000 rw-p 0000a000 08:03 10095244                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+7f271c38a000-7f271c38c000 rw-p 00022000 08:03 10095244                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+7f271c38c000-7f271c38f000 r-xp 00000000 08:03 10095229                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+7f271c38f000-7f271c58e000 ---p 00003000 08:03 10095229                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+7f271c58e000-7f271c58f000 rw-p 00002000 08:03 10095229                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+7f271c58f000-7f271c5cf000 rw-p 00000000 00:00 0 
+7f271c5cf000-7f271c5f1000 r-xp 00000000 08:03 10095255                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+7f271c5f1000-7f271c7f0000 ---p 00022000 08:03 10095255                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+7f271c7f0000-7f271c7f3000 rw-p 00021000 08:03 10095255                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+7f271c7f3000-7f271c819000 r-xp 00000000 08:03 10095226                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+7f271c819000-7f271ca19000 ---p 00026000 08:03 10095226                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+7f271ca19000-7f271ca1c000 rw-p 00026000 08:03 10095226                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+7f271ca1c000-7f271ca5c000 rw-p 00000000 00:00 0 
+7f271ca5c000-7f271ca7b000 r-xp 00000000 08:03 10095243                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+7f271ca7b000-7f271cc7b000 ---p 0001f000 08:03 10095243                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+7f271cc7b000-7f271cc7c000 rw-p 0001f000 08:03 10095243                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+7f271cc7c000-7f271cc7e000 rw-p 0004e000 08:03 10095243                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+7f271cc7e000-7f271cc95000 r-xp 00000000 08:03 10095221                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+7f271cc95000-7f271ce94000 ---p 00017000 08:03 10095221                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+7f271ce94000-7f271ce95000 rw-p 00016000 08:03 10095221                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+7f271ce95000-7f271ce97000 rw-p 00040000 08:03 10095221                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+7f271ce97000-7f271ceb5000 r-xp 00000000 08:03 10095238                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+7f271ceb5000-7f271d0b5000 ---p 0001e000 08:03 10095238                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+7f271d0b5000-7f271d0b6000 rw-p 0001e000 08:03 10095238                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+7f271d0b6000-7f271d0b8000 rw-p 00047000 08:03 10095238                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+7f271d0b8000-7f271d0c4000 r-xp 00000000 08:03 10095239                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+7f271d0c4000-7f271d2c3000 ---p 0000c000 08:03 10095239                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+7f271d2c3000-7f271d2c4000 rw-p 0000b000 08:03 10095239                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+7f271d2c4000-7f271d2e2000 r-xp 00000000 08:03 10095227                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+7f271d2e2000-7f271d4e2000 ---p 0001e000 08:03 10095227                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+7f271d4e2000-7f271d4e3000 rw-p 0001e000 08:03 10095227                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+7f271d4e3000-7f271d4e6000 rw-p 00052000 08:03 10095227                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+7f271d4e6000-7f271d4ef000 r-xp 00000000 08:03 10095233                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+7f271d4ef000-7f271d6ef000 ---p 00009000 08:03 10095233                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+7f271d6ef000-7f271d6f0000 rw-p 00009000 08:03 10095233                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+7f271d6f0000-7f271d6f2000 rw-p 00022000 08:03 10095233                   /home/workspace/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+7f271d6f2000-7f271d732000 rw-p 00000000 00:00 0 
+7f271d732000-7f271d7be000 r-xp 00000000 08:03 10096270                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+7f271d7be000-7f271d9bd000 ---p 0008c000 08:03 10096270                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+7f271d9bd000-7f271d9c9000 rw-p 0008b000 08:03 10096270                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+7f271d9c9000-7f271d9ca000 rw-p 00000000 00:00 0 
+7f271d9ca000-7f271d9ce000 rw-p 0017e000 08:03 10096270                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+7f271d9ce000-7f271da21000 r-xp 00000000 08:03 10096253                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+7f271da21000-7f271dc21000 ---p 00053000 08:03 10096253                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+7f271dc21000-7f271dc23000 rw-p 00053000 08:03 10096253                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+7f271dc23000-7f271dc29000 rw-p 0019d000 08:03 10096253                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+7f271dc29000-7f271dc69000 rw-p 00000000 00:00 0 
+7f271dc69000-7f271dca0000 r-xp 00000000 08:03 10096297                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+7f271dca0000-7f271dea0000 ---p 00037000 08:03 10096297                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+7f271dea0000-7f271dea8000 rw-p 00037000 08:03 10096297                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+7f271dea8000-7f271deaa000 rw-p 00000000 00:00 0 
+7f271deaa000-7f271dead000 rw-p 000bf000 08:03 10096297                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+7f271dead000-7f271ded9000 r-xp 00000000 08:03 10096084                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+7f271ded9000-7f271e0d9000 ---p 0002c000 08:03 10096084                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+7f271e0d9000-7f271e0db000 rw-p 0002c000 08:03 10096084                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+7f271e0db000-7f271e0de000 rw-p 00075000 08:03 10096084                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+7f271e0de000-7f271e0f9000 r-xp 00000000 08:03 10096093                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+7f271e0f9000-7f271e2f9000 ---p 0001b000 08:03 10096093                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+7f271e2f9000-7f271e2fb000 rw-p 0001b000 08:03 10096093                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+7f271e2fb000-7f271e2fd000 rw-p 00046000 08:03 10096093                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+7f271e2fd000-7f271e330000 r-xp 00000000 08:03 10096085                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+7f271e330000-7f271e52f000 ---p 00033000 08:03 10096085                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+7f271e52f000-7f271e531000 rw-p 00032000 08:03 10096085                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+7f271e531000-7f271e532000 rw-p 00000000 00:00 0 
+7f271e532000-7f271e536000 rw-p 00085000 08:03 10096085                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+7f271e536000-7f271e552000 r-xp 00000000 08:03 10096089                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+7f271e552000-7f271e752000 ---p 0001c000 08:03 10096089                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+7f271e752000-7f271e753000 rw-p 0001c000 08:03 10096089                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+7f271e753000-7f271e756000 rw-p 00057000 08:03 10096089                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+7f271e756000-7f271e796000 rw-p 00000000 00:00 0 
+7f271e796000-7f271e7bf000 r-xp 00000000 08:03 10096095                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+7f271e7bf000-7f271e9be000 ---p 00029000 08:03 10096095                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+7f271e9be000-7f271e9bf000 rw-p 00028000 08:03 10096095                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+7f271e9bf000-7f271e9c0000 rw-p 00000000 00:00 0 
+7f271e9c0000-7f271e9c3000 rw-p 00067000 08:03 10096095                   /home/workspace/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+7f271e9c3000-7f271e9d4000 r-xp 00000000 08:03 10095754                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+7f271e9d4000-7f271ebd4000 ---p 00011000 08:03 10095754                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+7f271ebd4000-7f271ebd6000 rw-p 00011000 08:03 10095754                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+7f271ebd6000-7f271ebd9000 rw-p 00058000 08:03 10095754                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+7f271ebd9000-7f271ebdf000 r-xp 00000000 08:03 10095755                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+7f271ebdf000-7f271edde000 ---p 00006000 08:03 10095755                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+7f271edde000-7f271eddf000 rw-p 00005000 08:03 10095755                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+7f271eddf000-7f271eea9000 r-xp 00000000 08:03 10095759                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+7f271eea9000-7f271f0a8000 ---p 000ca000 08:03 10095759                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+7f271f0a8000-7f271f0b0000 rw-p 000c9000 08:03 10095759                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+7f271f0b0000-7f271f0b2000 rw-p 001c7000 08:03 10095759                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+7f271f0b2000-7f271f0cc000 r-xp 00000000 08:03 10095756                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+7f271f0cc000-7f271f2cb000 ---p 0001a000 08:03 10095756                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+7f271f2cb000-7f271f2cd000 rw-p 00019000 08:03 10095756                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+7f271f2cd000-7f271f30d000 rw-p 00000000 00:00 0 
+7f271f30d000-7f271f487000 r-xp 00000000 08:03 10095760                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+7f271f487000-7f271f687000 ---p 0017a000 08:03 10095760                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+7f271f687000-7f271f68f000 rw-p 0017a000 08:03 10095760                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+7f271f68f000-7f271f698000 rw-p 00000000 00:00 0 
+7f271f698000-7f271f6a1000 rw-p 00477000 08:03 10095760                   /home/workspace/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+7f271f6a1000-7f271f8a1000 rw-p 00000000 00:00 0 
+7f271f8a1000-7f271f8f9000 r--s 004f0000 08:03 2623459                    /usr/local/lib/python3.5/dist-packages/konlpy/java/scala-library-2.11.4.jar
+7f271f8f9000-7f271f8fc000 ---p 00000000 00:00 0 
+7f271f8fc000-7f271f9fa000 rw-p 00000000 00:00 0 
+7f271f9fa000-7f271f9fb000 ---p 00000000 00:00 0 
+7f271f9fb000-7f271fafb000 rw-p 00000000 00:00 0 
+7f271fafb000-7f271fafe000 ---p 00000000 00:00 0 
+7f271fafe000-7f271fbfc000 rw-p 00000000 00:00 0 
+7f271fbfc000-7f271fbff000 ---p 00000000 00:00 0 
+7f271fbff000-7f271fcfd000 rw-p 00000000 00:00 0 
+7f271fcfd000-7f271fd00000 ---p 00000000 00:00 0 
+7f271fd00000-7f271fdfe000 rw-p 00000000 00:00 0 
+7f271fdfe000-7f271fe01000 ---p 00000000 00:00 0 
+7f271fe01000-7f271feff000 rw-p 00000000 00:00 0 
+7f271feff000-7f271ff02000 ---p 00000000 00:00 0 
+7f271ff02000-7f2720000000 rw-p 00000000 00:00 0 
+7f2720000000-7f27200cc000 rw-p 00000000 00:00 0 
+7f27200cc000-7f2724000000 ---p 00000000 00:00 0 
+7f2724000000-7f2724021000 rw-p 00000000 00:00 0 
+7f2724021000-7f2728000000 ---p 00000000 00:00 0 
+7f2728000000-7f2728021000 rw-p 00000000 00:00 0 
+7f2728021000-7f272c000000 ---p 00000000 00:00 0 
+7f272c02e000-7f272c031000 ---p 00000000 00:00 0 
+7f272c031000-7f272c12f000 rw-p 00000000 00:00 0 
+7f272c12f000-7f272c132000 ---p 00000000 00:00 0 
+7f272c132000-7f272c230000 rw-p 00000000 00:00 0 
+7f272c230000-7f272c233000 ---p 00000000 00:00 0 
+7f272c233000-7f272c331000 rw-p 00000000 00:00 0 
+7f272c331000-7f272c332000 ---p 00000000 00:00 0 
+7f272c332000-7f272c432000 rw-p 00000000 00:00 0 
+7f272c432000-7f272c60b000 r--s 03d3e000 08:03 2497517                    /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+7f272c60b000-7f272deab000 rw-p 00000000 00:00 0 
+7f272deab000-7f272deac000 ---p 00000000 00:00 0 
+7f272deac000-7f272dfac000 rw-p 00000000 00:00 0 
+7f272dfac000-7f272dfad000 ---p 00000000 00:00 0 
+7f272dfad000-7f272e0ad000 rw-p 00000000 00:00 0 
+7f272e0ad000-7f272e0ae000 ---p 00000000 00:00 0 
+7f272e0ae000-7f272e1ae000 rw-p 00000000 00:00 0 
+7f272e1ae000-7f272e1af000 ---p 00000000 00:00 0 
+7f272e1af000-7f272e2af000 rw-p 00000000 00:00 0 
+7f272e2af000-7f272e2b0000 ---p 00000000 00:00 0 
+7f272e2b0000-7f272e3b0000 rw-p 00000000 00:00 0 
+7f272e3b0000-7f272e3b1000 ---p 00000000 00:00 0 
+7f272e3b1000-7f272e4b1000 rw-p 00000000 00:00 0 
+7f272e4b1000-7f272e4b2000 ---p 00000000 00:00 0 
+7f272e4b2000-7f272e5b2000 rw-p 00000000 00:00 0 
+7f272e5b2000-7f272e5b3000 ---p 00000000 00:00 0 
+7f272e5b3000-7f272ec09000 rw-p 00000000 00:00 0 
+7f272ec09000-7f272f15e000 ---p 00000000 00:00 0 
+7f272f15e000-7f272f6b4000 rw-p 00000000 00:00 0 
+7f272f6b4000-7f272fc08000 ---p 00000000 00:00 0 
+7f272fc08000-7f2730072000 rw-p 00000000 00:00 0 
+7f2730072000-7f273015e000 ---p 00000000 00:00 0 
+7f273015e000-7f2730180000 rw-p 00000000 00:00 0 
+7f2730180000-7f273051f000 ---p 00000000 00:00 0 
+7f273051f000-7f2730d4f000 rwxp 00000000 00:00 0 
+7f2730d4f000-7f273f51f000 ---p 00000000 00:00 0 
+7f273f51f000-7f273f539000 r-xp 00000000 08:03 4197430                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libzip.so
+7f273f539000-7f273f739000 ---p 0001a000 08:03 4197430                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libzip.so
+7f273f739000-7f273f73a000 rw-p 0001a000 08:03 4197430                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libzip.so
+7f273f73a000-7f273f745000 r-xp 00000000 08:03 6030017                    /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f273f745000-7f273f944000 ---p 0000b000 08:03 6030017                    /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f273f944000-7f273f945000 r--p 0000a000 08:03 6030017                    /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f273f945000-7f273f946000 rw-p 0000b000 08:03 6030017                    /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f273f946000-7f273f94c000 rw-p 00000000 00:00 0 
+7f273f94c000-7f273f957000 r-xp 00000000 08:03 6030002                    /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f273f957000-7f273fb56000 ---p 0000b000 08:03 6030002                    /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f273fb56000-7f273fb57000 r--p 0000a000 08:03 6030002                    /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f273fb57000-7f273fb58000 rw-p 0000b000 08:03 6030002                    /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f273fb58000-7f273fb6e000 r-xp 00000000 08:03 6030006                    /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f273fb6e000-7f273fd6d000 ---p 00016000 08:03 6030006                    /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f273fd6d000-7f273fd6e000 r--p 00015000 08:03 6030006                    /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f273fd6e000-7f273fd6f000 rw-p 00016000 08:03 6030006                    /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f273fd6f000-7f273fd71000 rw-p 00000000 00:00 0 
+7f273fd71000-7f273fd79000 r-xp 00000000 08:03 6030022                    /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f273fd79000-7f273ff78000 ---p 00008000 08:03 6030022                    /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f273ff78000-7f273ff79000 r--p 00007000 08:03 6030022                    /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f273ff79000-7f273ff7a000 rw-p 00008000 08:03 6030022                    /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f273ff7a000-7f273ffa5000 r-xp 00000000 08:03 4197457                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libjava.so
+7f273ffa5000-7f27401a4000 ---p 0002b000 08:03 4197457                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libjava.so
+7f27401a4000-7f27401a6000 rw-p 0002a000 08:03 4197457                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libjava.so
+7f27401a6000-7f27401b3000 r-xp 00000000 08:03 4197408                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libverify.so
+7f27401b3000-7f27403b2000 ---p 0000d000 08:03 4197408                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libverify.so
+7f27403b2000-7f27403b4000 rw-p 0000c000 08:03 4197408                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/libverify.so
+7f27403b4000-7f2741082000 r-xp 00000000 08:03 4197461                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/libjvm.so
+7f2741082000-7f2741282000 ---p 00cce000 08:03 4197461                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/libjvm.so
+7f2741282000-7f274135b000 rw-p 00cce000 08:03 4197461                    /usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/libjvm.so
+7f274135b000-7f27413e6000 rw-p 00000000 00:00 0 
+7f27413e6000-7f2741462000 r-xp 00000000 08:03 14297141                   /usr/local/lib/python3.5/dist-packages/JPype1-0.6.2-py3.5-linux-x86_64.egg/_jpype.cpython-35m-x86_64-linux-gnu.so
+7f2741462000-7f2741662000 ---p 0007c000 08:03 14297141                   /usr/local/lib/python3.5/dist-packages/JPype1-0.6.2-py3.5-linux-x86_64.egg/_jpype.cpython-35m-x86_64-linux-gnu.so
+7f2741662000-7f2741664000 r--p 0007c000 08:03 14297141                   /usr/local/lib/python3.5/dist-packages/JPype1-0.6.2-py3.5-linux-x86_64.egg/_jpype.cpython-35m-x86_64-linux-gnu.so
+7f2741664000-7f2741667000 rw-p 0007e000 08:03 14297141                   /usr/local/lib/python3.5/dist-packages/JPype1-0.6.2-py3.5-linux-x86_64.egg/_jpype.cpython-35m-x86_64-linux-gnu.so
+7f2741667000-7f27416e7000 rw-p 00000000 00:00 0 
+7f27416e7000-7f27416f0000 r-xp 00000000 08:03 11017007                   /home/workspace/.local/lib/python3.5/site-packages/simplejson/_speedups.cpython-35m-x86_64-linux-gnu.so
+7f27416f0000-7f27418ef000 ---p 00009000 08:03 11017007                   /home/workspace/.local/lib/python3.5/site-packages/simplejson/_speedups.cpython-35m-x86_64-linux-gnu.so
+7f27418ef000-7f27418f0000 r--p 00008000 08:03 11017007                   /home/workspace/.local/lib/python3.5/site-packages/simplejson/_speedups.cpython-35m-x86_64-linux-gnu.so
+7f27418f0000-7f27418f1000 rw-p 00009000 08:03 11017007                   /home/workspace/.local/lib/python3.5/site-packages/simplejson/_speedups.cpython-35m-x86_64-linux-gnu.so
+7f27418f1000-7f2741a31000 rw-p 00000000 00:00 0 
+7f2741a31000-7f2741a32000 r-xp 00000000 08:03 9701225                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_constant_time.cpython-35m-x86_64-linux-gnu.so
+7f2741a32000-7f2741c32000 ---p 00001000 08:03 9701225                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_constant_time.cpython-35m-x86_64-linux-gnu.so
+7f2741c32000-7f2741c33000 r--p 00001000 08:03 9701225                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_constant_time.cpython-35m-x86_64-linux-gnu.so
+7f2741c33000-7f2741c34000 rw-p 00002000 08:03 9701225                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_constant_time.cpython-35m-x86_64-linux-gnu.so
+7f2741c34000-7f2742035000 rw-p 00000000 00:00 0 
+7f2742035000-7f274203c000 r-xp 00000000 08:03 9700816                    /home/workspace/.local/lib/python3.5/site-packages/.libs_cffi_backend/libffi-72499c49.so.6.0.4
+7f274203c000-7f274223c000 ---p 00007000 08:03 9700816                    /home/workspace/.local/lib/python3.5/site-packages/.libs_cffi_backend/libffi-72499c49.so.6.0.4
+7f274223c000-7f274223d000 rw-p 00007000 08:03 9700816                    /home/workspace/.local/lib/python3.5/site-packages/.libs_cffi_backend/libffi-72499c49.so.6.0.4
+7f274223d000-7f274223e000 rw-p 00024000 08:03 9700816                    /home/workspace/.local/lib/python3.5/site-packages/.libs_cffi_backend/libffi-72499c49.so.6.0.4
+7f274223e000-7f2742265000 r-xp 00000000 08:03 9700804                    /home/workspace/.local/lib/python3.5/site-packages/_cffi_backend.cpython-35m-x86_64-linux-gnu.so
+7f2742265000-7f2742465000 ---p 00027000 08:03 9700804                    /home/workspace/.local/lib/python3.5/site-packages/_cffi_backend.cpython-35m-x86_64-linux-gnu.so
+7f2742465000-7f274246b000 rw-p 00027000 08:03 9700804                    /home/workspace/.local/lib/python3.5/site-packages/_cffi_backend.cpython-35m-x86_64-linux-gnu.so
+7f274246b000-7f274246d000 rw-p 00000000 00:00 0 
+7f274246d000-7f2742471000 rw-p 000ba000 08:03 9700804                    /home/workspace/.local/lib/python3.5/site-packages/_cffi_backend.cpython-35m-x86_64-linux-gnu.so
+7f2742471000-7f2742534000 r-xp 00000000 08:03 9701226                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_openssl.cpython-35m-x86_64-linux-gnu.so
+7f2742534000-7f2742734000 ---p 000c3000 08:03 9701226                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_openssl.cpython-35m-x86_64-linux-gnu.so
+7f2742734000-7f2742747000 r--p 000c3000 08:03 9701226                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_openssl.cpython-35m-x86_64-linux-gnu.so
+7f2742747000-7f2742751000 rw-p 000d6000 08:03 9701226                    /home/workspace/.local/lib/python3.5/site-packages/cryptography/hazmat/bindings/_openssl.cpython-35m-x86_64-linux-gnu.so
+7f2742751000-7f2742811000 rw-p 00000000 00:00 0 
+7f2742811000-7f2742815000 r-xp 00000000 08:03 14288910                   /usr/lib/python3.5/lib-dynload/termios.cpython-35m-x86_64-linux-gnu.so
+7f2742815000-7f2742a14000 ---p 00004000 08:03 14288910                   /usr/lib/python3.5/lib-dynload/termios.cpython-35m-x86_64-linux-gnu.so
+7f2742a14000-7f2742a15000 r--p 00003000 08:03 14288910                   /usr/lib/python3.5/lib-dynload/termios.cpython-35m-x86_64-linux-gnu.so
+7f2742a15000-7f2742a17000 rw-p 00004000 08:03 14288910                   /usr/lib/python3.5/lib-dynload/termios.cpython-35m-x86_64-linux-gnu.so
+7f2742a17000-7f2742a97000 rw-p 00000000 00:00 0 
+7f2742a97000-7f2742aac000 r-xp 00000000 08:03 10096125                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+7f2742aac000-7f2742cac000 ---p 00015000 08:03 10096125                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+7f2742cac000-7f2742cad000 rw-p 00015000 08:03 10096125                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+7f2742cad000-7f2742ced000 rw-p 00000000 00:00 0 
+7f2742ced000-7f2742d79000 r-xp 00000000 08:03 10096001                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+7f2742d79000-7f2742f78000 ---p 0008c000 08:03 10096001                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+7f2742f78000-7f2742f7c000 rw-p 0008b000 08:03 10096001                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+7f2742f7c000-7f2742f88000 rw-p 001e4000 08:03 10096001                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+7f2742f88000-7f2742fbd000 r-xp 00000000 08:03 10095978                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+7f2742fbd000-7f27431bd000 ---p 00035000 08:03 10095978                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+7f27431bd000-7f27431c0000 rw-p 00035000 08:03 10095978                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+7f27431c0000-7f27431c1000 rw-p 00000000 00:00 0 
+7f27431c1000-7f27431c7000 rw-p 00119000 08:03 10095978                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+7f27431c7000-7f2743211000 r-xp 00000000 08:03 10095979                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+7f2743211000-7f2743410000 ---p 0004a000 08:03 10095979                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+7f2743410000-7f2743416000 rw-p 00049000 08:03 10095979                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+7f2743416000-7f2743417000 rw-p 00000000 00:00 0 
+7f2743417000-7f2743447000 r-xp 00000000 08:03 10095996                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+7f2743447000-7f2743646000 ---p 00030000 08:03 10095996                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+7f2743646000-7f274364a000 rw-p 0002f000 08:03 10095996                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+7f274364a000-7f274364b000 rw-p 00000000 00:00 0 
+7f274364b000-7f2743659000 r-xp 00000000 08:03 10095995                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+7f2743659000-7f2743858000 ---p 0000e000 08:03 10095995                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+7f2743858000-7f274385b000 rw-p 0000d000 08:03 10095995                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+7f274385b000-7f274385e000 rw-p 00032000 08:03 10095995                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+7f274385e000-7f274389e000 rw-p 00000000 00:00 0 
+7f274389e000-7f274394a000 r-xp 00000000 08:03 10096008                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+7f274394a000-7f2743b4a000 ---p 000ac000 08:03 10096008                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+7f2743b4a000-7f2743b88000 rw-p 000ac000 08:03 10096008                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+7f2743b88000-7f2743b8e000 rw-p 00260000 08:03 10096008                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+7f2743b8e000-7f2743bd6000 r-xp 00000000 08:03 10096013                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+7f2743bd6000-7f2743dd5000 ---p 00048000 08:03 10096013                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+7f2743dd5000-7f2743def000 rw-p 00047000 08:03 10096013                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+7f2743def000-7f2743df2000 rw-p 000e9000 08:03 10096013                   /home/workspace/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+7f2743df2000-7f2743eba000 r-xp 00000000 08:03 10096130                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+7f2743eba000-7f27440ba000 ---p 000c8000 08:03 10096130                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+7f27440ba000-7f27440c2000 rw-p 000c8000 08:03 10096130                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+7f27440c2000-7f27440c4000 rw-p 00000000 00:00 0 
+7f27440c4000-7f27440cd000 rw-p 00395000 08:03 10096130                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+7f27440cd000-7f274410d000 rw-p 00000000 00:00 0 
+7f274410d000-7f2744193000 r-xp 00000000 08:03 10096124                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+7f2744193000-7f2744393000 ---p 00086000 08:03 10096124                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+7f2744393000-7f2744399000 rw-p 00086000 08:03 10096124                   /home/workspace/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+7f2744399000-7f274439a000 rw-p 00000000 00:00 0 
+7f274439a000-7f27443dc000 r-xp 00000000 08:03 10096353                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+7f27443dc000-7f27445db000 ---p 00042000 08:03 10096353                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+7f27445db000-7f27445e0000 rw-p 00041000 08:03 10096353                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+7f27445e0000-7f27445e1000 rw-p 00000000 00:00 0 
+7f27445e1000-7f2744607000 r-xp 00000000 08:03 10096355                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+7f2744607000-7f2744806000 ---p 00026000 08:03 10096355                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+7f2744806000-7f2744809000 rw-p 00025000 08:03 10096355                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+7f2744809000-7f274480a000 rw-p 00000000 00:00 0 
+7f274480a000-7f2744826000 r-xp 00000000 08:03 10096354                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+7f2744826000-7f2744a25000 ---p 0001c000 08:03 10096354                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+7f2744a25000-7f2744a29000 rw-p 0001b000 08:03 10096354                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+7f2744a29000-7f2744a46000 r-xp 00000000 08:03 10096349                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+7f2744a46000-7f2744c46000 ---p 0001d000 08:03 10096349                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+7f2744c46000-7f2744c4a000 rw-p 0001d000 08:03 10096349                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+7f2744c4a000-7f2744c7e000 r-xp 00000000 08:03 10096351                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+7f2744c7e000-7f2744e7e000 ---p 00034000 08:03 10096351                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+7f2744e7e000-7f2744e84000 rw-p 00034000 08:03 10096351                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+7f2744e84000-7f2744eea000 r-xp 00000000 08:03 10096232                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+7f2744eea000-7f27450e9000 ---p 00066000 08:03 10096232                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+7f27450e9000-7f27450ee000 rw-p 00065000 08:03 10096232                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+7f27450ee000-7f274512f000 rw-p 00000000 00:00 0 
+7f274512f000-7f27454ce000 r-xp 00000000 08:03 10096234                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+7f27454ce000-7f27456cd000 ---p 0039f000 08:03 10096234                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+7f27456cd000-7f27456d3000 rw-p 0039e000 08:03 10096234                   /home/workspace/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+7f27456d3000-7f2745713000 rw-p 00000000 00:00 0 
+7f2745713000-7f274574e000 r-xp 00000000 08:03 10095342                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_hierarchy.cpython-35m-x86_64-linux-gnu.so
+7f274574e000-7f274594d000 ---p 0003b000 08:03 10095342                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_hierarchy.cpython-35m-x86_64-linux-gnu.so
+7f274594d000-7f2745953000 rw-p 0003a000 08:03 10095342                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_hierarchy.cpython-35m-x86_64-linux-gnu.so
+7f2745953000-7f2745954000 rw-p 00000000 00:00 0 
+7f2745954000-7f2745969000 r-xp 00000000 08:03 10095344                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_vq.cpython-35m-x86_64-linux-gnu.so
+7f2745969000-7f2745b68000 ---p 00015000 08:03 10095344                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_vq.cpython-35m-x86_64-linux-gnu.so
+7f2745b68000-7f2745b6a000 rw-p 00014000 08:03 10095344                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_vq.cpython-35m-x86_64-linux-gnu.so
+7f2745b6a000-7f2745b6d000 rw-p 0006c000 08:03 10095344                   /home/workspace/.local/lib/python3.5/site-packages/scipy/cluster/_vq.cpython-35m-x86_64-linux-gnu.so
+7f2745b6d000-7f2745bad000 rw-p 00000000 00:00 0 
+7f2745bad000-7f2745c03000 r-xp 00000000 08:03 10357876                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_backend_agg.cpython-35m-x86_64-linux-gnu.so
+7f2745c03000-7f2745e03000 ---p 00056000 08:03 10357876                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_backend_agg.cpython-35m-x86_64-linux-gnu.so
+7f2745e03000-7f2745e04000 rw-p 00056000 08:03 10357876                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_backend_agg.cpython-35m-x86_64-linux-gnu.so
+7f2745e04000-7f2745e05000 rw-p 00000000 00:00 0 
+7f2745e05000-7f2745e0d000 r-xp 00000000 08:03 10357866                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_tkagg.cpython-35m-x86_64-linux-gnu.so
+7f2745e0d000-7f274600c000 ---p 00008000 08:03 10357866                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_tkagg.cpython-35m-x86_64-linux-gnu.so
+7f274600c000-7f274600d000 rw-p 00007000 08:03 10357866                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/backends/_tkagg.cpython-35m-x86_64-linux-gnu.so
+7f274600d000-7f274600e000 rw-p 00000000 00:00 0 
+7f274600e000-7f2746032000 r-xp 00000000 08:03 6029903                    /lib/x86_64-linux-gnu/libpng12.so.0.54.0
+7f2746032000-7f2746231000 ---p 00024000 08:03 6029903                    /lib/x86_64-linux-gnu/libpng12.so.0.54.0
+7f2746231000-7f2746232000 r--p 00023000 08:03 6029903                    /lib/x86_64-linux-gnu/libpng12.so.0.54.0
+7f2746232000-7f2746233000 rw-p 00024000 08:03 6029903                    /lib/x86_64-linux-gnu/libpng12.so.0.54.0
+7f2746233000-7f2746238000 r-xp 00000000 08:03 14292572                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2746238000-7f2746437000 ---p 00005000 08:03 14292572                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2746437000-7f2746438000 r--p 00004000 08:03 14292572                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2746438000-7f2746439000 rw-p 00005000 08:03 14292572                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2746439000-7f274643b000 r-xp 00000000 08:03 14292570                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f274643b000-7f274663b000 ---p 00002000 08:03 14292570                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f274663b000-7f274663c000 r--p 00002000 08:03 14292570                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f274663c000-7f274663d000 rw-p 00003000 08:03 14292570                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f274663d000-7f274664e000 r-xp 00000000 08:03 14292587                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f274664e000-7f274684d000 ---p 00011000 08:03 14292587                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f274684d000-7f274684e000 r--p 00010000 08:03 14292587                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f274684e000-7f274684f000 rw-p 00011000 08:03 14292587                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f274684f000-7f2746858000 r-xp 00000000 08:03 14296843                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f2746858000-7f2746a57000 ---p 00009000 08:03 14296843                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f2746a57000-7f2746a58000 r--p 00008000 08:03 14296843                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f2746a58000-7f2746a59000 rw-p 00009000 08:03 14296843                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f2746a59000-7f2746afd000 r-xp 00000000 08:03 14286993                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.12.1
+7f2746afd000-7f2746cfc000 ---p 000a4000 08:03 14286993                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.12.1
+7f2746cfc000-7f2746d02000 r--p 000a3000 08:03 14286993                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.12.1
+7f2746d02000-7f2746d03000 rw-p 000a9000 08:03 14286993                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.12.1
+7f2746d03000-7f2746d24000 r-xp 00000000 08:03 14292574                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f2746d24000-7f2746f23000 ---p 00021000 08:03 14292574                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f2746f23000-7f2746f24000 r--p 00020000 08:03 14292574                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f2746f24000-7f2746f25000 rw-p 00021000 08:03 14292574                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f2746f25000-7f2746f27000 r-xp 00000000 08:03 14298714                   /usr/lib/x86_64-linux-gnu/libXss.so.1.0.0
+7f2746f27000-7f2747127000 ---p 00002000 08:03 14298714                   /usr/lib/x86_64-linux-gnu/libXss.so.1.0.0
+7f2747127000-7f2747128000 r--p 00002000 08:03 14298714                   /usr/lib/x86_64-linux-gnu/libXss.so.1.0.0
+7f2747128000-7f2747129000 rw-p 00003000 08:03 14298714                   /usr/lib/x86_64-linux-gnu/libXss.so.1.0.0
+7f2747129000-7f2747166000 r-xp 00000000 08:03 14296767                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.9.0
+7f2747166000-7f2747365000 ---p 0003d000 08:03 14296767                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.9.0
+7f2747365000-7f2747367000 r--p 0003c000 08:03 14296767                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.9.0
+7f2747367000-7f274736c000 rw-p 0003e000 08:03 14296767                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.9.0
+7f274736c000-7f2747380000 r-xp 00000000 08:03 14289167                   /usr/lib/x86_64-linux-gnu/libXft.so.2.3.2
+7f2747380000-7f274757f000 ---p 00014000 08:03 14289167                   /usr/lib/x86_64-linux-gnu/libXft.so.2.3.2
+7f274757f000-7f2747580000 r--p 00013000 08:03 14289167                   /usr/lib/x86_64-linux-gnu/libXft.so.2.3.2
+7f2747580000-7f2747581000 rw-p 00014000 08:03 14289167                   /usr/lib/x86_64-linux-gnu/libXft.so.2.3.2
+7f2747581000-7f27476b6000 r-xp 00000000 08:03 14292585                   /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f27476b6000-7f27478b6000 ---p 00135000 08:03 14292585                   /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f27478b6000-7f27478b7000 r--p 00135000 08:03 14292585                   /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f27478b7000-7f27478bb000 rw-p 00136000 08:03 14292585                   /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f27478bb000-7f2747a5a000 r-xp 00000000 08:03 14298795                   /usr/lib/x86_64-linux-gnu/libtcl8.6.so
+7f2747a5a000-7f2747c5a000 ---p 0019f000 08:03 14298795                   /usr/lib/x86_64-linux-gnu/libtcl8.6.so
+7f2747c5a000-7f2747c68000 r--p 0019f000 08:03 14298795                   /usr/lib/x86_64-linux-gnu/libtcl8.6.so
+7f2747c68000-7f2747c69000 rw-p 001ad000 08:03 14298795                   /usr/lib/x86_64-linux-gnu/libtcl8.6.so
+7f2747c69000-7f2747c6a000 rw-p 00000000 00:00 0 
+7f2747c6a000-7f2747da9000 r-xp 00000000 08:03 14298797                   /usr/lib/x86_64-linux-gnu/libtk8.6.so
+7f2747da9000-7f2747fa9000 ---p 0013f000 08:03 14298797                   /usr/lib/x86_64-linux-gnu/libtk8.6.so
+7f2747fa9000-7f2747fbe000 r--p 0013f000 08:03 14298797                   /usr/lib/x86_64-linux-gnu/libtk8.6.so
+7f2747fbe000-7f2747fc7000 rw-p 00154000 08:03 14298797                   /usr/lib/x86_64-linux-gnu/libtk8.6.so
+7f2747fc7000-7f274810e000 r-xp 00000000 08:03 14298800                   /usr/lib/libBLT.2.5.so.8.6
+7f274810e000-7f274830d000 ---p 00147000 08:03 14298800                   /usr/lib/libBLT.2.5.so.8.6
+7f274830d000-7f274830e000 r--p 00146000 08:03 14298800                   /usr/lib/libBLT.2.5.so.8.6
+7f274830e000-7f274832f000 rw-p 00147000 08:03 14298800                   /usr/lib/libBLT.2.5.so.8.6
+7f274832f000-7f2748330000 rw-p 00000000 00:00 0 
+7f2748330000-7f274833d000 r-xp 00000000 08:03 14298801                   /usr/lib/python3.5/lib-dynload/_tkinter.cpython-35m-x86_64-linux-gnu.so
+7f274833d000-7f274853c000 ---p 0000d000 08:03 14298801                   /usr/lib/python3.5/lib-dynload/_tkinter.cpython-35m-x86_64-linux-gnu.so
+7f274853c000-7f274853d000 r--p 0000c000 08:03 14298801                   /usr/lib/python3.5/lib-dynload/_tkinter.cpython-35m-x86_64-linux-gnu.so
+7f274853d000-7f274853f000 rw-p 0000d000 08:03 14298801                   /usr/lib/python3.5/lib-dynload/_tkinter.cpython-35m-x86_64-linux-gnu.so
+7f274853f000-7f27486bf000 rw-p 00000000 00:00 0 
+7f27486bf000-7f274871a000 r-xp 00000000 08:03 10357604                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_qhull.cpython-35m-x86_64-linux-gnu.so
+7f274871a000-7f2748919000 ---p 0005b000 08:03 10357604                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_qhull.cpython-35m-x86_64-linux-gnu.so
+7f2748919000-7f274891b000 rw-p 0005a000 08:03 10357604                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_qhull.cpython-35m-x86_64-linux-gnu.so
+7f274891b000-7f274891d000 rw-p 00000000 00:00 0 
+7f274891d000-7f274893b000 r-xp 00000000 08:03 10357593                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_tri.cpython-35m-x86_64-linux-gnu.so
+7f274893b000-7f2748b3b000 ---p 0001e000 08:03 10357593                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_tri.cpython-35m-x86_64-linux-gnu.so
+7f2748b3b000-7f2748b3c000 rw-p 0001e000 08:03 10357593                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_tri.cpython-35m-x86_64-linux-gnu.so
+7f2748b3c000-7f2748bbd000 rw-p 00000000 00:00 0 
+7f2748bbd000-7f2748bf8000 r-xp 00000000 08:03 10357558                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_image.cpython-35m-x86_64-linux-gnu.so
+7f2748bf8000-7f2748df7000 ---p 0003b000 08:03 10357558                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_image.cpython-35m-x86_64-linux-gnu.so
+7f2748df7000-7f2748df8000 rw-p 0003a000 08:03 10357558                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_image.cpython-35m-x86_64-linux-gnu.so
+7f2748df8000-7f2748df9000 rw-p 00000000 00:00 0 
+7f2748df9000-7f2748e00000 r-xp 00000000 08:03 6030024                    /lib/x86_64-linux-gnu/librt-2.23.so
+7f2748e00000-7f2748fff000 ---p 00007000 08:03 6030024                    /lib/x86_64-linux-gnu/librt-2.23.so
+7f2748fff000-7f2749000000 r--p 00006000 08:03 6030024                    /lib/x86_64-linux-gnu/librt-2.23.so
+7f2749000000-7f2749001000 rw-p 00007000 08:03 6030024                    /lib/x86_64-linux-gnu/librt-2.23.so
+7f2749001000-7f2749025000 r-xp 00000000 08:03 10884360                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+7f2749025000-7f2749225000 ---p 00024000 08:03 10884360                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+7f2749225000-7f2749226000 rw-p 00024000 08:03 10884360                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+7f2749226000-7f2749227000 rw-p 000d3000 08:03 10884360                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+7f2749227000-7f274928b000 r-xp 00000000 08:03 10884361                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-56518a27.so.5.2.5
+7f274928b000-7f274948a000 ---p 00064000 08:03 10884361                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-56518a27.so.5.2.5
+7f274948a000-7f274948e000 rw-p 00063000 08:03 10884361                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-56518a27.so.5.2.5
+7f274948e000-7f2749496000 rw-p 00194000 08:03 10884361                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-56518a27.so.5.2.5
+7f2749496000-7f27494dd000 r-xp 00000000 08:03 10884357                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+7f27494dd000-7f27496dd000 ---p 00047000 08:03 10884357                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+7f27496dd000-7f27496df000 rw-p 00047000 08:03 10884357                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+7f27496df000-7f27496e1000 rw-p 00052000 08:03 10884357                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+7f27496e1000-7f274971b000 r-xp 00000000 08:03 10884359                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+7f274971b000-7f274991b000 ---p 0003a000 08:03 10884359                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+7f274991b000-7f274991c000 rw-p 0003a000 08:03 10884359                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+7f274991c000-7f274991d000 rw-p 00146000 08:03 10884359                   /home/workspace/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+7f274991d000-7f274995d000 rw-p 00000000 00:00 0 
+7f274995d000-7f274995e000 r-xp 00000000 08:03 9832385                    /home/workspace/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+7f274995e000-7f2749b5e000 ---p 00001000 08:03 9832385                    /home/workspace/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+7f2749b5e000-7f2749b5f000 rw-p 00001000 08:03 9832385                    /home/workspace/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+7f2749b5f000-7f2749b74000 r-xp 00000000 08:03 10750294                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+7f2749b74000-7f2749d73000 ---p 00015000 08:03 10750294                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+7f2749d73000-7f2749d76000 rw-p 00014000 08:03 10750294                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+7f2749d76000-7f2749d85000 r-xp 00000000 08:03 10750292                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+7f2749d85000-7f2749f85000 ---p 0000f000 08:03 10750292                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+7f2749f85000-7f2749f87000 rw-p 0000f000 08:03 10750292                   /home/workspace/.local/lib/python3.5/site-packages/pandas/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+7f2749f87000-7f274a047000 rw-p 00000000 00:00 0 
+7f274a047000-7f274a05d000 r-xp 00000000 08:03 9702854                    /home/workspace/.local/lib/python3.5/site-packages/pandas/json.cpython-35m-x86_64-linux-gnu.so
+7f274a05d000-7f274a25d000 ---p 00016000 08:03 9702854                    /home/workspace/.local/lib/python3.5/site-packages/pandas/json.cpython-35m-x86_64-linux-gnu.so
+7f274a25d000-7f274a25e000 rw-p 00016000 08:03 9702854                    /home/workspace/.local/lib/python3.5/site-packages/pandas/json.cpython-35m-x86_64-linux-gnu.so
+7f274a25e000-7f274a29e000 rw-p 00000000 00:00 0 
+7f274a29e000-7f274a31b000 r-xp 00000000 08:03 9702845                    /home/workspace/.local/lib/python3.5/site-packages/pandas/parser.cpython-35m-x86_64-linux-gnu.so
+7f274a31b000-7f274a51b000 ---p 0007d000 08:03 9702845                    /home/workspace/.local/lib/python3.5/site-packages/pandas/parser.cpython-35m-x86_64-linux-gnu.so
+7f274a51b000-7f274a521000 rw-p 0007d000 08:03 9702845                    /home/workspace/.local/lib/python3.5/site-packages/pandas/parser.cpython-35m-x86_64-linux-gnu.so
+7f274a521000-7f274a6a3000 rw-p 00000000 00:00 0 
+7f274a6a3000-7f274a6b9000 r-xp 00000000 08:03 6029847                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f274a6b9000-7f274a8b8000 ---p 00016000 08:03 6029847                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f274a8b8000-7f274a8b9000 rw-p 00015000 08:03 6029847                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f274a8b9000-7f274aa2b000 r-xp 00000000 08:03 14290982                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f274aa2b000-7f274ac2b000 ---p 00172000 08:03 14290982                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f274ac2b000-7f274ac35000 r--p 00172000 08:03 14290982                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f274ac35000-7f274ac37000 rw-p 0017c000 08:03 14290982                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7f274ac37000-7f274ac3b000 rw-p 00000000 00:00 0 
+7f274ac3b000-7f274ac68000 r-xp 00000000 08:03 10357562                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_path.cpython-35m-x86_64-linux-gnu.so
+7f274ac68000-7f274ae68000 ---p 0002d000 08:03 10357562                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_path.cpython-35m-x86_64-linux-gnu.so
+7f274ae68000-7f274ae69000 rw-p 0002d000 08:03 10357562                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_path.cpython-35m-x86_64-linux-gnu.so
+7f274ae69000-7f274aeaa000 rw-p 00000000 00:00 0 
+7f274aeaa000-7f274aee1000 r-xp 00000000 08:03 14289214                   /usr/lib/x86_64-linux-gnu/libmpdec.so.2.4.2
+7f274aee1000-7f274b0e0000 ---p 00037000 08:03 14289214                   /usr/lib/x86_64-linux-gnu/libmpdec.so.2.4.2
+7f274b0e0000-7f274b0e1000 r--p 00036000 08:03 14289214                   /usr/lib/x86_64-linux-gnu/libmpdec.so.2.4.2
+7f274b0e1000-7f274b0e2000 rw-p 00037000 08:03 14289214                   /usr/lib/x86_64-linux-gnu/libmpdec.so.2.4.2
+7f274b0e2000-7f274b106000 r-xp 00000000 08:03 14288886                   /usr/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+7f274b106000-7f274b305000 ---p 00024000 08:03 14288886                   /usr/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+7f274b305000-7f274b306000 r--p 00023000 08:03 14288886                   /usr/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+7f274b306000-7f274b30f000 rw-p 00024000 08:03 14288886                   /usr/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+7f274b30f000-7f274b34f000 rw-p 00000000 00:00 0 
+7f274b34f000-7f274b360000 r-xp 00000000 08:03 14290239                   /usr/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+7f274b360000-7f274b55f000 ---p 00011000 08:03 14290239                   /usr/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+7f274b55f000-7f274b560000 r--p 00010000 08:03 14290239                   /usr/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+7f274b560000-7f274b561000 rw-p 00011000 08:03 14290239                   /usr/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+7f274b561000-7f274b661000 rw-p 00000000 00:00 0 
+7f274b662000-7f274b862000 rw-p 00000000 00:00 0 
+7f274b862000-7f274b8fa000 r-xp 00000000 08:03 9702847                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_window.cpython-35m-x86_64-linux-gnu.so
+7f274b8fa000-7f274baf9000 ---p 00098000 08:03 9702847                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_window.cpython-35m-x86_64-linux-gnu.so
+7f274baf9000-7f274bb01000 rw-p 00097000 08:03 9702847                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_window.cpython-35m-x86_64-linux-gnu.so
+7f274bb01000-7f274bb82000 rw-p 00000000 00:00 0 
+7f274bb82000-7f274bc66000 r-xp 00000000 08:03 9702855                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_sparse.cpython-35m-x86_64-linux-gnu.so
+7f274bc66000-7f274be66000 ---p 000e4000 08:03 9702855                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_sparse.cpython-35m-x86_64-linux-gnu.so
+7f274be66000-7f274be6b000 rw-p 000e4000 08:03 9702855                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_sparse.cpython-35m-x86_64-linux-gnu.so
+7f274be6b000-7f274bfab000 rw-p 00000000 00:00 0 
+7f274bfab000-7f274c00e000 r-xp 00000000 08:03 9702844                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_period.cpython-35m-x86_64-linux-gnu.so
+7f274c00e000-7f274c20e000 ---p 00063000 08:03 9702844                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_period.cpython-35m-x86_64-linux-gnu.so
+7f274c20e000-7f274c215000 rw-p 00063000 08:03 9702844                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_period.cpython-35m-x86_64-linux-gnu.so
+7f274c215000-7f274c316000 rw-p 00000000 00:00 0 
+7f274c316000-7f274c31b000 r-xp 00000000 08:03 14288879                   /usr/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+7f274c31b000-7f274c51b000 ---p 00005000 08:03 14288879                   /usr/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+7f274c51b000-7f274c51c000 r--p 00005000 08:03 14288879                   /usr/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+7f274c51c000-7f274c51d000 rw-p 00006000 08:03 14288879                   /usr/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+7f274c51d000-7f274c524000 r-xp 00000000 08:03 14289239                   /usr/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+7f274c524000-7f274c724000 ---p 00007000 08:03 14289239                   /usr/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+7f274c724000-7f274c725000 r--p 00007000 08:03 14289239                   /usr/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+7f274c725000-7f274c727000 rw-p 00008000 08:03 14289239                   /usr/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+7f274c727000-7f274c7e7000 rw-p 00000000 00:00 0 
+7f274c7e7000-7f274c81f000 r-xp 00000000 08:03 9702848                    /home/workspace/.local/lib/python3.5/site-packages/pandas/index.cpython-35m-x86_64-linux-gnu.so
+7f274c81f000-7f274ca1f000 ---p 00038000 08:03 9702848                    /home/workspace/.local/lib/python3.5/site-packages/pandas/index.cpython-35m-x86_64-linux-gnu.so
+7f274ca1f000-7f274ca22000 rw-p 00038000 08:03 9702848                    /home/workspace/.local/lib/python3.5/site-packages/pandas/index.cpython-35m-x86_64-linux-gnu.so
+7f274ca22000-7f274ca23000 rw-p 00000000 00:00 0 
+7f274ca23000-7f274cada000 r-xp 00000000 08:03 9702851                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_join.cpython-35m-x86_64-linux-gnu.so
+7f274cada000-7f274ccda000 ---p 000b7000 08:03 9702851                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_join.cpython-35m-x86_64-linux-gnu.so
+7f274ccda000-7f274ccde000 rw-p 000b7000 08:03 9702851                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_join.cpython-35m-x86_64-linux-gnu.so
+7f274ccde000-7f274cd9f000 rw-p 00000000 00:00 0 
+7f274cd9f000-7f274cf45000 r-xp 00000000 08:03 9702846                    /home/workspace/.local/lib/python3.5/site-packages/pandas/algos.cpython-35m-x86_64-linux-gnu.so
+7f274cf45000-7f274d145000 ---p 001a6000 08:03 9702846                    /home/workspace/.local/lib/python3.5/site-packages/pandas/algos.cpython-35m-x86_64-linux-gnu.so
+7f274d145000-7f274d152000 rw-p 001a6000 08:03 9702846                    /home/workspace/.local/lib/python3.5/site-packages/pandas/algos.cpython-35m-x86_64-linux-gnu.so
+7f274d152000-7f274d1d6000 rw-p 00000000 00:00 0 
+7f274d1d6000-7f274d2db000 r-xp 00000000 08:03 9702856                    /home/workspace/.local/lib/python3.5/site-packages/pandas/lib.cpython-35m-x86_64-linux-gnu.so
+7f274d2db000-7f274d4db000 ---p 00105000 08:03 9702856                    /home/workspace/.local/lib/python3.5/site-packages/pandas/lib.cpython-35m-x86_64-linux-gnu.so
+7f274d4db000-7f274d4e9000 rw-p 00105000 08:03 9702856                    /home/workspace/.local/lib/python3.5/site-packages/pandas/lib.cpython-35m-x86_64-linux-gnu.so
+7f274d4e9000-7f274d4ec000 rw-p 00000000 00:00 0 
+7f274d4ec000-7f274d671000 r-xp 00000000 08:03 9702843                    /home/workspace/.local/lib/python3.5/site-packages/pandas/tslib.cpython-35m-x86_64-linux-gnu.so
+7f274d671000-7f274d870000 ---p 00185000 08:03 9702843                    /home/workspace/.local/lib/python3.5/site-packages/pandas/tslib.cpython-35m-x86_64-linux-gnu.so
+7f274d870000-7f274d884000 rw-p 00184000 08:03 9702843                    /home/workspace/.local/lib/python3.5/site-packages/pandas/tslib.cpython-35m-x86_64-linux-gnu.so
+7f274d884000-7f274d88a000 rw-p 00000000 00:00 0 
+7f274d88a000-7f274d8e7000 r-xp 00000000 08:03 9702850                    /home/workspace/.local/lib/python3.5/site-packages/pandas/hashtable.cpython-35m-x86_64-linux-gnu.so
+7f274d8e7000-7f274dae7000 ---p 0005d000 08:03 9702850                    /home/workspace/.local/lib/python3.5/site-packages/pandas/hashtable.cpython-35m-x86_64-linux-gnu.so
+7f274dae7000-7f274daec000 rw-p 0005d000 08:03 9702850                    /home/workspace/.local/lib/python3.5/site-packages/pandas/hashtable.cpython-35m-x86_64-linux-gnu.so
+7f274daec000-7f274db6d000 rw-p 00000000 00:00 0 
+7f274db6d000-7f274dbcb000 r-xp 00000000 08:03 6029405                    /lib/x86_64-linux-gnu/libssl.so.1.0.0
+7f274dbcb000-7f274ddcb000 ---p 0005e000 08:03 6029405                    /lib/x86_64-linux-gnu/libssl.so.1.0.0
+7f274ddcb000-7f274ddcf000 r--p 0005e000 08:03 6029405                    /lib/x86_64-linux-gnu/libssl.so.1.0.0
+7f274ddcf000-7f274ddd6000 rw-p 00062000 08:03 6029405                    /lib/x86_64-linux-gnu/libssl.so.1.0.0
+7f274ddd6000-7f274dded000 r-xp 00000000 08:03 14287769                   /usr/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+7f274dded000-7f274dfed000 ---p 00017000 08:03 14287769                   /usr/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+7f274dfed000-7f274dfee000 r--p 00017000 08:03 14287769                   /usr/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+7f274dfee000-7f274dff3000 rw-p 00018000 08:03 14287769                   /usr/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+7f274dff3000-7f274e0f3000 rw-p 00000000 00:00 0 
+7f274e0f3000-7f274e0f4000 r-xp 00000000 08:03 14287768                   /usr/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+7f274e0f4000-7f274e2f3000 ---p 00001000 08:03 14287768                   /usr/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+7f274e2f3000-7f274e2f4000 r--p 00000000 08:03 14287768                   /usr/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+7f274e2f4000-7f274e2f5000 rw-p 00001000 08:03 14287768                   /usr/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+7f274e2f5000-7f274e3f5000 rw-p 00000000 00:00 0 
+7f274e3f5000-7f274e4ad000 r-xp 00000000 08:03 10095118                   /home/workspace/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+7f274e4ad000-7f274e6ac000 ---p 000b8000 08:03 10095118                   /home/workspace/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+7f274e6ac000-7f274e6d1000 rw-p 000b7000 08:03 10095118                   /home/workspace/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+7f274e6d1000-7f274e713000 rw-p 00000000 00:00 0 
+7f274e713000-7f274e71c000 r-xp 00000000 08:03 10094469                   /home/workspace/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274e71c000-7f274e91b000 ---p 00009000 08:03 10094469                   /home/workspace/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274e91b000-7f274e91c000 rw-p 00008000 08:03 10094469                   /home/workspace/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274e91c000-7f274e95c000 rw-p 00000000 00:00 0 
+7f274e95d000-7f274ea1d000 rw-p 00000000 00:00 0 
+7f274ea1d000-7f274ea46000 r-xp 00000000 08:03 10094983                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+7f274ea46000-7f274ec45000 ---p 00029000 08:03 10094983                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+7f274ec45000-7f274ec47000 rw-p 00028000 08:03 10094983                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+7f274ec47000-7f274ec49000 rw-p 000c3000 08:03 10094983                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+7f274ec49000-7f274ec4d000 r-xp 00000000 08:03 10094982                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274ec4d000-7f274ee4d000 ---p 00004000 08:03 10094982                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274ee4d000-7f274ee4e000 rw-p 00004000 08:03 10094982                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274ee4e000-7f274ee50000 rw-p 00019000 08:03 10094982                   /home/workspace/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+7f274ee50000-7f274ee90000 rw-p 00000000 00:00 0 
+7f274ee90000-7f274f0aa000 r-xp 00000000 08:03 6029403                    /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+7f274f0aa000-7f274f2a9000 ---p 0021a000 08:03 6029403                    /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+7f274f2a9000-7f274f2c5000 r--p 00219000 08:03 6029403                    /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+7f274f2c5000-7f274f2d1000 rw-p 00235000 08:03 6029403                    /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+7f274f2d1000-7f274f2d4000 rw-p 00000000 00:00 0 
+7f274f2d4000-7f274f2d9000 r-xp 00000000 08:03 14287767                   /usr/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+7f274f2d9000-7f274f4d9000 ---p 00005000 08:03 14287767                   /usr/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+7f274f4d9000-7f274f4da000 r--p 00005000 08:03 14287767                   /usr/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+7f274f4da000-7f274f4db000 rw-p 00006000 08:03 14287767                   /usr/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+7f274f4db000-7f274f51b000 rw-p 00000000 00:00 0 
+7f274f51b000-7f274f53c000 r-xp 00000000 08:03 6029861                    /lib/x86_64-linux-gnu/liblzma.so.5.0.0
+7f274f53c000-7f274f73b000 ---p 00021000 08:03 6029861                    /lib/x86_64-linux-gnu/liblzma.so.5.0.0
+7f274f73b000-7f274f73c000 r--p 00020000 08:03 6029861                    /lib/x86_64-linux-gnu/liblzma.so.5.0.0
+7f274f73c000-7f274f73d000 rw-p 00021000 08:03 6029861                    /lib/x86_64-linux-gnu/liblzma.so.5.0.0
+7f274f73d000-7f274f744000 r-xp 00000000 08:03 14289240                   /usr/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+7f274f744000-7f274f943000 ---p 00007000 08:03 14289240                   /usr/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+7f274f943000-7f274f944000 r--p 00006000 08:03 14289240                   /usr/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+7f274f944000-7f274f946000 rw-p 00007000 08:03 14289240                   /usr/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+7f274f946000-7f274f955000 r-xp 00000000 08:03 6029820                    /lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f274f955000-7f274fb54000 ---p 0000f000 08:03 6029820                    /lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f274fb54000-7f274fb55000 r--p 0000e000 08:03 6029820                    /lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f274fb55000-7f274fb56000 rw-p 0000f000 08:03 6029820                    /lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f274fb56000-7f274fb5a000 r-xp 00000000 08:03 14288907                   /usr/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+7f274fb5a000-7f274fd59000 ---p 00004000 08:03 14288907                   /usr/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+7f274fd59000-7f274fd5a000 r--p 00003000 08:03 14288907                   /usr/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+7f274fd5a000-7f274fd5b000 rw-p 00004000 08:03 14288907                   /usr/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+7f274fd5b000-7f274fe1b000 rw-p 00000000 00:00 0 
+7f274fe1b000-7f2751e1b000 rw-p 00000000 00:00 0 
+7f2751e1b000-7f2751f5b000 rw-p 00000000 00:00 0 
+7f2751f5b000-7f2751f7d000 r-xp 00000000 08:03 14289250                   /usr/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+7f2751f7d000-7f275217c000 ---p 00022000 08:03 14289250                   /usr/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+7f275217c000-7f275217d000 r--p 00021000 08:03 14289250                   /usr/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+7f275217d000-7f2752181000 rw-p 00022000 08:03 14289250                   /usr/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+7f2752181000-7f27521c2000 rw-p 00000000 00:00 0 
+7f27521c2000-7f27561c2000 rw-p 00000000 00:00 0 
+7f27561e3000-7f2756223000 rw-p 00000000 00:00 0 
+7f2756223000-7f27563b1000 r-xp 00000000 08:03 10094694                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+7f27563b1000-7f27565b0000 ---p 0018e000 08:03 10094694                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+7f27565b0000-7f27565b6000 rw-p 0018d000 08:03 10094694                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+7f27565b6000-7f27565b8000 rw-p 00000000 00:00 0 
+7f27565b8000-7f27565b9000 ---p 00000000 00:00 0 
+7f27565b9000-7f2756db9000 rw-p 00000000 00:00 0 
+7f2756db9000-7f275cdb9000 rw-p 00000000 00:00 0 
+7f275cdb9000-7f275cdba000 ---p 00000000 00:00 0 
+7f275cdba000-7f275d5ba000 rw-p 00000000 00:00 0 
+7f275d5ba000-7f275f5ba000 rw-p 00000000 00:00 0 
+7f275f5ba000-7f275f5bb000 ---p 00000000 00:00 0 
+7f275f5bb000-7f275fdbb000 rw-p 00000000 00:00 0 
+7f275fdbb000-7f275fdbc000 ---p 00000000 00:00 0 
+7f275fdbc000-7f27605bc000 rw-p 00000000 00:00 0 
+7f27605db000-7f276065b000 rw-p 00000000 00:00 0 
+7f276065b000-7f27606ce000 r-xp 00000000 08:03 10619627                   /home/workspace/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+7f27606ce000-7f27608cd000 ---p 00073000 08:03 10619627                   /home/workspace/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+7f27608cd000-7f27608d4000 rw-p 00072000 08:03 10619627                   /home/workspace/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+7f27608d4000-7f27608e3000 rw-p 001da000 08:03 10619627                   /home/workspace/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+7f27608e3000-7f2760923000 rw-p 00000000 00:00 0 
+7f2760923000-7f2760937000 r-xp 00000000 08:03 10357846                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libz-a147dcb0.so.1.2.3
+7f2760937000-7f2760b36000 ---p 00014000 08:03 10357846                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libz-a147dcb0.so.1.2.3
+7f2760b36000-7f2760b37000 rw-p 00013000 08:03 10357846                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libz-a147dcb0.so.1.2.3
+7f2760b37000-7f2760b38000 rw-p 00015000 08:03 10357846                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libz-a147dcb0.so.1.2.3
+7f2760b38000-7f2760b68000 r-xp 00000000 08:03 10357847                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libpng16-3e9b18e2.so.16.21.0
+7f2760b68000-7f2760d67000 ---p 00030000 08:03 10357847                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libpng16-3e9b18e2.so.16.21.0
+7f2760d67000-7f2760d68000 rw-p 0002f000 08:03 10357847                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libpng16-3e9b18e2.so.16.21.0
+7f2760d68000-7f2760d6c000 rw-p 000df000 08:03 10357847                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/.libs/libpng16-3e9b18e2.so.16.21.0
+7f2760d6c000-7f2760d74000 r-xp 00000000 08:03 10357594                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_png.cpython-35m-x86_64-linux-gnu.so
+7f2760d74000-7f2760f74000 ---p 00008000 08:03 10357594                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_png.cpython-35m-x86_64-linux-gnu.so
+7f2760f74000-7f2760f75000 rw-p 00008000 08:03 10357594                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_png.cpython-35m-x86_64-linux-gnu.so
+7f2760f75000-7f2760f77000 rw-p 00032000 08:03 10357594                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_png.cpython-35m-x86_64-linux-gnu.so
+7f2760f77000-7f27610b7000 rw-p 00000000 00:00 0 
+7f27610b7000-7f2761186000 r-xp 00000000 08:03 10357618                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/ft2font.cpython-35m-x86_64-linux-gnu.so
+7f2761186000-7f2761386000 ---p 000cf000 08:03 10357618                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/ft2font.cpython-35m-x86_64-linux-gnu.so
+7f2761386000-7f276138d000 rw-p 000cf000 08:03 10357618                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/ft2font.cpython-35m-x86_64-linux-gnu.so
+7f276138d000-7f27613ce000 rw-p 00000000 00:00 0 
+7f27613ce000-7f27613e0000 r-xp 00000000 08:03 10357616                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_contour.cpython-35m-x86_64-linux-gnu.so
+7f27613e0000-7f27615e0000 ---p 00012000 08:03 10357616                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_contour.cpython-35m-x86_64-linux-gnu.so
+7f27615e0000-7f27615e1000 rw-p 00012000 08:03 10357616                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_contour.cpython-35m-x86_64-linux-gnu.so
+7f27615e1000-7f27615e7000 r-xp 00000000 08:03 10357588                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_cntr.cpython-35m-x86_64-linux-gnu.so
+7f27615e7000-7f27617e6000 ---p 00006000 08:03 10357588                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_cntr.cpython-35m-x86_64-linux-gnu.so
+7f27617e6000-7f27617e7000 rw-p 00005000 08:03 10357588                   /home/workspace/.local/lib/python3.5/site-packages/matplotlib/_cntr.cpython-35m-x86_64-linux-gnu.so
+7f27617e7000-7f2761967000 rw-p 00000000 00:00 0 
+7f2761967000-7f2761979000 r-xp 00000000 08:03 9702853                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_testing.cpython-35m-x86_64-linux-gnu.so
+7f2761979000-7f2761b78000 ---p 00012000 08:03 9702853                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_testing.cpython-35m-x86_64-linux-gnu.so
+7f2761b78000-7f2761b7a000 rw-p 00011000 08:03 9702853                    /home/workspace/.local/lib/python3.5/site-packages/pandas/_testing.cpython-35m-x86_64-linux-gnu.so
+7f2761b7a000-7f2761bba000 rw-p 00000000 00:00 0 
+7f2761bba000-7f2761bbe000 r-xp 00000000 08:03 6029797                    /lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2761bbe000-7f2761dbd000 ---p 00004000 08:03 6029797                    /lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2761dbd000-7f2761dbe000 r--p 00003000 08:03 6029797                    /lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2761dbe000-7f2761dbf000 rw-p 00004000 08:03 6029797                    /lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2761dbf000-7f2761eaf000 r-xp 00000000 08:03 10094630                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+7f2761eaf000-7f27620ae000 ---p 000f0000 08:03 10094630                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+7f27620ae000-7f27620b0000 rw-p 000ef000 08:03 10094630                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+7f27620b0000-7f27620b1000 rw-p 00000000 00:00 0 
+7f27620b1000-7f27620b8000 rw-p 000f2000 08:03 10094630                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+7f27620b8000-7f27643cc000 r-xp 00000000 08:03 10094629                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+7f27643cc000-7f27645cb000 ---p 02314000 08:03 10094629                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+7f27645cb000-7f27645ea000 rw-p 02313000 08:03 10094629                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+7f27645ea000-7f276464d000 rw-p 00000000 00:00 0 
+7f276464d000-7f27646c9000 rw-p 02425000 08:03 10094629                   /home/workspace/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+7f27646c9000-7f2764897000 r-xp 00000000 08:03 10094701                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+7f2764897000-7f2764a97000 ---p 001ce000 08:03 10094701                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+7f2764a97000-7f2764aa6000 rw-p 001ce000 08:03 10094701                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+7f2764aa6000-7f2764ab8000 rw-p 00000000 00:00 0 
+7f2764ab8000-7f2764abe000 rw-p 0097f000 08:03 10094701                   /home/workspace/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+7f2764abe000-7f2764bbe000 rw-p 00000000 00:00 0 
+7f2764bbe000-7f2764e96000 r--p 00000000 08:03 14286964                   /usr/lib/locale/locale-archive
+7f2764e96000-7f2764f9e000 r-xp 00000000 08:03 6030004                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f2764f9e000-7f276519d000 ---p 00108000 08:03 6030004                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f276519d000-7f276519e000 r--p 00107000 08:03 6030004                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f276519e000-7f276519f000 rw-p 00108000 08:03 6030004                    /lib/x86_64-linux-gnu/libm-2.23.so
+7f276519f000-7f27651b8000 r-xp 00000000 08:03 6029944                    /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f27651b8000-7f27653b7000 ---p 00019000 08:03 6029944                    /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f27653b7000-7f27653b8000 r--p 00018000 08:03 6029944                    /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f27653b8000-7f27653b9000 rw-p 00019000 08:03 6029944                    /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f27653b9000-7f27653df000 r-xp 00000000 08:03 6029842                    /lib/x86_64-linux-gnu/libexpat.so.1.6.0
+7f27653df000-7f27655df000 ---p 00026000 08:03 6029842                    /lib/x86_64-linux-gnu/libexpat.so.1.6.0
+7f27655df000-7f27655e1000 r--p 00026000 08:03 6029842                    /lib/x86_64-linux-gnu/libexpat.so.1.6.0
+7f27655e1000-7f27655e2000 rw-p 00028000 08:03 6029842                    /lib/x86_64-linux-gnu/libexpat.so.1.6.0
+7f27655e2000-7f27655e4000 r-xp 00000000 08:03 6030039                    /lib/x86_64-linux-gnu/libutil-2.23.so
+7f27655e4000-7f27657e3000 ---p 00002000 08:03 6030039                    /lib/x86_64-linux-gnu/libutil-2.23.so
+7f27657e3000-7f27657e4000 r--p 00001000 08:03 6030039                    /lib/x86_64-linux-gnu/libutil-2.23.so
+7f27657e4000-7f27657e5000 rw-p 00002000 08:03 6030039                    /lib/x86_64-linux-gnu/libutil-2.23.so
+7f27657e5000-7f27657e8000 r-xp 00000000 08:03 6030000                    /lib/x86_64-linux-gnu/libdl-2.23.so
+7f27657e8000-7f27659e7000 ---p 00003000 08:03 6030000                    /lib/x86_64-linux-gnu/libdl-2.23.so
+7f27659e7000-7f27659e8000 r--p 00002000 08:03 6030000                    /lib/x86_64-linux-gnu/libdl-2.23.so
+7f27659e8000-7f27659e9000 rw-p 00003000 08:03 6030000                    /lib/x86_64-linux-gnu/libdl-2.23.so
+7f27659e9000-7f2765ba8000 r-xp 00000000 08:03 6030008                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f2765ba8000-7f2765da8000 ---p 001bf000 08:03 6030008                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f2765da8000-7f2765dac000 r--p 001bf000 08:03 6030008                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f2765dac000-7f2765dae000 rw-p 001c3000 08:03 6030008                    /lib/x86_64-linux-gnu/libc-2.23.so
+7f2765dae000-7f2765db2000 rw-p 00000000 00:00 0 
+7f2765db2000-7f2765dca000 r-xp 00000000 08:03 6030035                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f2765dca000-7f2765fc9000 ---p 00018000 08:03 6030035                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f2765fc9000-7f2765fca000 r--p 00017000 08:03 6030035                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f2765fca000-7f2765fcb000 rw-p 00018000 08:03 6030035                    /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f2765fcb000-7f2765fcf000 rw-p 00000000 00:00 0 
+7f2765fcf000-7f2765ff5000 r-xp 00000000 08:03 6030010                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f2765ff9000-7f2765ffa000 r--s 00006000 08:03 2623458                    /usr/local/lib/python3.5/dist-packages/konlpy/java/twitter-text-1.10.1.jar
+7f2765ffa000-7f2766009000 r--s 003aa000 08:03 2623461                    /usr/local/lib/python3.5/dist-packages/konlpy/java/twitter-korean-text-2.4.3.jar
+7f2766009000-7f2766010000 r--s 0003c000 08:03 2623464                    /usr/local/lib/python3.5/dist-packages/konlpy/java/snakeyaml-1.12.jar
+7f2766010000-7f2766011000 r--s 00001000 08:03 2623460                    /usr/local/lib/python3.5/dist-packages/konlpy/java/shineware-ds-1.0.jar
+7f2766011000-7f2766012000 r--s 00004000 08:03 2623463                    /usr/local/lib/python3.5/dist-packages/konlpy/java/shineware-common-2.0.jar
+7f2766012000-7f2766013000 r--s 00006000 08:03 2623462                    /usr/local/lib/python3.5/dist-packages/konlpy/java/komoran-2.4-e.jar
+7f2766013000-7f2766016000 r--s 0075b000 08:03 2623457                    /usr/local/lib/python3.5/dist-packages/konlpy/java/kkma-2.0.jar
+7f2766016000-7f276601a000 r--s 00025000 08:03 2623456                    /usr/local/lib/python3.5/dist-packages/konlpy/java/jhannanum-0.8.4.jar
+7f276601a000-7f2766022000 rw-s 00000000 08:03 10487735                   /tmp/hsperfdata_workspace/6658
+7f2766022000-7f2766023000 rw-p 00000000 00:00 0 
+7f2766023000-7f2766024000 r--p 00000000 00:00 0 
+7f2766024000-7f27661e9000 rw-p 00000000 00:00 0 
+7f27661e9000-7f27661eb000 rwxp 00000000 00:00 0 
+7f27661eb000-7f27661f2000 r--s 00000000 08:03 14287990                   /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+7f27661f2000-7f27661f4000 rw-p 00000000 00:00 0 
+7f27661f4000-7f27661f5000 r--p 00025000 08:03 6030010                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f27661f5000-7f27661f6000 rw-p 00026000 08:03 6030010                    /lib/x86_64-linux-gnu/ld-2.23.so
+7f27661f6000-7f27661f7000 rw-p 00000000 00:00 0 
+7ffc61e92000-7ffc61e95000 ---p 00000000 00:00 0 
+7ffc61e96000-7ffc61f92000 rw-p 00000000 00:00 0                          [stack]
+7ffc61fac000-7ffc61fae000 r--p 00000000 00:00 0                          [vvar]
+7ffc61fae000-7ffc61fb0000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF8 -ea -Xmx8g -Xms4g 
+java_command: <unknown>
+java_class_path (initial): /usr/local/lib/python3.5/dist-packages/konlpy/java:/usr/local/lib/python3.5/dist-packages/konlpy/java/bin:/usr/local/lib/python3.5/dist-packages/konlpy/java/jhannanum-0.8.4.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/kkma-2.0.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/komoran-2.4-e.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/shineware-common-2.0.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/shineware-ds-1.0.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/snakeyaml-1.12.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/scala-library-2.11.4.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/twitter-korean-text-2.4.3.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/twitter-text-1.10.1.jar:/usr/local/lib/python3.5/dist-packages/konlpy/java/*
+Launcher Type: generic
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-8-oracle
+PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/share/python/:/usr/local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/workspace/Workspace/scripts:/home/workspace/Workspace/scripts:/home/workspace/Workspace/scripts
+SHELL=/usr/bin/zsh
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xac78c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xac78c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x922300], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.2 LTS"
+
+uname:Linux 4.4.0-64-generic #85-Ubuntu SMP Mon Feb 20 11:50:30 UTC 2017 x86_64
+libc:glibc 2.23 NPTL 2.23 
+rlimit: STACK 8192k, CORE 0k, NPROC 63877, NOFILE 65536, AS infinity
+load average:1.18 1.63 2.01
+
+/proc/meminfo:
+MemTotal:       16391480 kB
+MemFree:          175928 kB
+MemAvailable:      59060 kB
+Buffers:            1812 kB
+Cached:            64740 kB
+SwapCached:        60440 kB
+Active:         14128696 kB
+Inactive:        1824328 kB
+Active(anon):   14116076 kB
+Inactive(anon):  1807940 kB
+Active(file):      12620 kB
+Inactive(file):    16388 kB
+Unevictable:        3656 kB
+Mlocked:            3656 kB
+SwapTotal:      15625212 kB
+SwapFree:        2602316 kB
+Dirty:                60 kB
+Writeback:             0 kB
+AnonPages:      15830280 kB
+Mapped:            25700 kB
+Shmem:             34256 kB
+Slab:             105708 kB
+SReclaimable:      71884 kB
+SUnreclaim:        33824 kB
+KernelStack:        5296 kB
+PageTables:        66816 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    23820952 kB
+Committed_AS:   33001084 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   6025216 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      127324 kB
+DirectMap2M:     6123520 kB
+DirectMap1G:    10485760 kB
+
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3747.835
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3410.492
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3535.070
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3407.570
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3402.257
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3436.390
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3342.093
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Xeon(R) CPU E3-1231 v3 @ 3.40GHz
+stepping	: 3
+microcode	: 0x17
+cpu MHz		: 3745.976
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm epb tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt dtherm ida arat pln pts
+bugs		:
+bogomips	: 6799.59
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 16391480k(175928k free), swap 15625212k(2602320k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.121-b13) for linux-amd64 JRE (1.8.0_121-b13), built on Dec 12 2016 16:36:53 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Sun Mar 26 14:45:13 2017
+elapsed time: 16847 seconds (0d 4h 40m 47s)
+
