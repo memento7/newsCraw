@@ -2,6 +2,7 @@ from scrapy.http import Request
 
 from newsCraw import modules
 
+from datetime import datetime
 from types import GeneratorType
 from typing import Iterable
 from collections import OrderedDict, defaultdict
@@ -39,10 +40,14 @@ class Requestable:
                 continue
 
     @staticmethod
-    def process(keyword, start_date, end_date):
+    def process(keyword: str, date: datetime):
         for cname, methods in Requestable.s.items():
             for fname, method in methods:
-                yield method(Requestable.i[cname], keyword, start_date, end_date)
+                yield method(Requestable.i[cname], keyword, date)
+
+    @staticmethod
+    def dress(cname: str):
+        return Requestable.i[cname].dressor
 
 for module in modules.__all__:
     __import__(modules.dirname.replace('/', '.') + module)

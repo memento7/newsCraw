@@ -11,6 +11,8 @@
 
 BOT_NAME = 'newsCraw'
 
+LOG_LEVEL = 'INFO'
+
 SPIDER_MODULES = ['newsCraw.spiders']
 NEWSPIDER_MODULE = 'newsCraw.spiders'
 
