@@ -30,6 +30,7 @@ class News_Naver(Scrapy_Module):
                 yield Request(response.url + "&page=" + str(page), callback=self.parse_title, meta={'key': key})
         except:
             return
+
     def parse_title(self, response):
         for site in Selector(response).xpath('//ul[@class="srch_lst"]'):
             item = {}
@@ -90,7 +91,12 @@ class News_Naver(Scrapy_Module):
 
             return self.dress(item)
 
-    def dressor(self, tx, item):
+    def dressor(self, tx, item: dict):
+        """tx is dbpool object
+        # Usage
+        - tx.execute(query);
+        - tx.fetchone()
+        """
         news_columns = {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d'}
         comment_columns = {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'}
         quote_columns = {'quote': '%s', 'target': '%d', 'flag': '%d'}
