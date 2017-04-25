@@ -4,13 +4,15 @@ import re
 
 from typing import Union, List
 
-def text_filter(text: str, pattern: List[str]) -> str:
-    for pat in pattern:
-        text = text.replace(pat, "")
+def text_filter(text: str, pattern: dict) -> str:
+    for pat, rep in pattern.items():
+        text = text.replace(pat, rep)
     return text
 
 def tag_filter(text: str) -> str:
-    return text_filter(text, ["</b>", "<b>", "</p>", "<p>"])
+    return text_filter(text,
+     {"</b>":"", "<b>":"", "</p>":"", "<p>":"",
+      "&lt;": "<"})
 
 def char_filter(text: str, pattern: dict) -> str:
     return text.translate(str.maketrans(pattern))
