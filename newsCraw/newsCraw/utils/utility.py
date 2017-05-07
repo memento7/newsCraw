@@ -64,10 +64,19 @@ def quotation_filter(text: str) -> Union[str, List[str]]:
             matches.append(match.groups()[0])
     return matches, text_filter(text, {w: '' for w in str_quotations}).strip()
 
+emoji_pattern = re.compile("["
+        u"\U0001F600-\U0001F64F"  # emoticons
+        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                           "]+", flags=re.UNICODE)
+def emoji_filter(text: str):
+    return emoji_pattern.sub(r'', text)
+
 def string_filter(text: str):
     text = whitespace_filter(text)
     text = tag_filter(text)
-    return quotation_filter(text)
+    return quotation_filter(emoji_filter(text))
 
 pat_date_before = re.compile(u'(\d+)(.+?)전')
 date_type = ['초', '분', '시간', '일']

@@ -7,7 +7,7 @@ SERVER_RDB_INFO = {
                         "user": 'memento',
                         "passwd": environ['MEMENTO_PASS'],
                         "db": 'memento',
-                        "charset": 'utf8',
+                        "charset": 'utf8mb4',
                         "port": 3306
                     }
 SERVER_PDB = 'http://server1.memento.live'
@@ -16,7 +16,7 @@ SERVER_PDB_INFO = {
                         "user": 'memento',
                         "passwd": environ['MEMENTO_PASS'],
                         "db": 'memento',
-                        "charset": 'utf8',
+                        "charset": 'utf8mb4',
                         "port": 3306
                     }
 SERVER_API = 'http://server1.memento.live:8080/api/persist/'
