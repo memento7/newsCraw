@@ -1,12 +1,39 @@
+import re
 from datetime import datetime, timedelta
 from string import whitespace
-import re
-
 from typing import Union, List
 
-def text_filter(text: str, pattern: dict) -> str:
+def trans_filter(text: str, pattern: dict) -> str:
+    """trans_filter filtering text by pattern key to value
+    only len(key) == 1
+    faster than replace_filter
+    just use text_filter
+    """
+    return text.translate(str.maketrans(pattern))
+
+def replace_filter(text: str, pattern: dict) -> str:
+    """replace_filter filtering text by pattern key to value
+    slower than trans_filter
+    just use text_filter
+    """
     for pat, rep in pattern.items():
         text = text.replace(pat, rep)
+    return text
+
+def text_filter(text: str, pattern: dict) -> str:
+    """text_filter filtering text by pattern key to value
+    split pattern trans(len = 1), replace(else) and
+    call trans_filter, replace_filter
+    """
+    trans = {}
+    replace = {}
+    for k, v in pattern.items():
+        if len(k) == 1:
+            trans[k] = v
+        else:
+            replace[k] = v
+    text = trans_filter(text, trans)
+    text = replace_filter(text, replace)
     return text
 
 def tag_filter(text: str) -> str:
@@ -14,20 +41,21 @@ def tag_filter(text: str) -> str:
      {"</b>":"", "<b>":"", "</p>":"", "<p>":"",
       "&lt;": "<"})
 
-def char_filter(text: str, pattern: dict) -> str:
-    return text.translate(str.maketrans(pattern))
-
 nullspace = whitespace[1:] + '\xa0'
 def whitespace_filter(text: str) -> str:
-    return char_filter(text, {w: None for w in nullspace})
+    return trans_filter(text, {w: None for w in nullspace})
 
-pat_squote = re.compile("\'(.*?)\'")
-pat_dquote = re.compile('\"(.*?)\"')
-pat_pbracket = re.compile('\((.*?)\)')
-pat_cbracket = re.compile('\{(.*?)\}')
-pat_sbracket = re.compile('\[(.*?)\]')
-pat_quotations = [pat_squote, pat_dquote, pat_pbracket, pat_cbracket, pat_sbracket]
-str_quotations = ['\'', '\"', '(', ')', '{', '}', '[', ']']
+pat_quotations = [
+    re.compile("\'(.*?)\'"),
+    re.compile('\"(.*?)\"'),
+    re.compile('`(.*?)`'),
+    re.compile('&#34;(.*?)&#34;'),
+    re.compile('\((.*?)\)'),
+    re.compile('\{(.*?)\}'),
+    re.compile('\[(.*?)\]'),
+]
+
+str_quotations = ['\'', '\"', '`', '&#34;', '(', ')', '{', '}', '[', ']']
 def quotation_filter(text: str) -> Union[str, List[str]]:
     """return [match_list, filtered_str]
     """
@@ -35,7 +63,7 @@ def quotation_filter(text: str) -> Union[str, List[str]]:
     for pat in pat_quotations:
         for match in pat.finditer(text):
             matches.append(match.groups()[0])
-    return matches, char_filter(text, {w: None for w in str_quotations}).strip()
+    return matches, text_filter(text, {w: None for w in str_quotations}).strip()
 
 def string_filter(text: str):
     text = whitespace_filter(text)
