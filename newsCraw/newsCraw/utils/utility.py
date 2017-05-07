@@ -25,15 +25,14 @@ def text_filter(text: str, pattern: dict) -> str:
     split pattern trans(len = 1), replace(else) and
     call trans_filter, replace_filter
     """
-    trans = {}
-    replace = {}
+    tra, rep = {}, {}
     for k, v in pattern.items():
         if len(k) == 1:
-            trans[k] = v
+            tra[k] = v
         else:
-            replace[k] = v
-    text = trans_filter(text, trans)
-    text = replace_filter(text, replace)
+            rep[k] = v
+    text = trans_filter(text, tra)
+    text = replace_filter(text, rep)
     return text
 
 def tag_filter(text: str) -> str:
@@ -63,7 +62,7 @@ def quotation_filter(text: str) -> Union[str, List[str]]:
     for pat in pat_quotations:
         for match in pat.finditer(text):
             matches.append(match.groups()[0])
-    return matches, text_filter(text, {w: None for w in str_quotations}).strip()
+    return matches, text_filter(text, {w: '' for w in str_quotations}).strip()
 
 def string_filter(text: str):
     text = whitespace_filter(text)
@@ -83,7 +82,7 @@ def date_filter(date):
     return date
 
 def now():
-    return str(datetime.now())
+    return str(datetime.now())[:19]
 
 def query_filter(query):
     return ''.join([ '%' + hex(x)[2:] for x in query.encode('euc-kr')])

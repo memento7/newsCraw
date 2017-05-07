@@ -42,14 +42,17 @@ class News_Naver(Scrapy_Module):
             item['href_naver'] = site.xpath('.//a[@class="go_naver"]//@href').extract_first()
 
             if item['href_naver']:
-                params = parse_param(item['href_naver'])
-                item['oid'] = params['oid']
-                item['aid'] = params['aid']
                 yield Request(item['href_naver'], callback=self.parse_content, meta={'item': item})
-            return item
+            else:
+                yield item
 
     def parse_content(self, response):
         item = response.meta['item']
+
+        params = parse_param(response.url)
+        item['oid'] = params['oid']
+        item['aid'] = params['aid']
+
         _news_naver = Selector(response).xpath('//div[@id="articleBodyContents"]').xpath('.//text()').extract()
         _entertain = Selector(response).xpath('//div[@id="articeBody"]').xpath('.//text()').extract()
         _sports = Selector(response).xpath('//div[@id="newsEndContents"]').xpath('.//text()').extract()
@@ -58,7 +61,7 @@ class News_Naver(Scrapy_Module):
         for s in _news_naver + _entertain + _sports:
             s = s.strip()
             if not len(s): continue
-            if len(s) == 62 and '// flash 오류를 우회하기 위한 함수 추가' in s: continue
+            if s.startswith('// flash 오류를 우회하기 위한 함수 추가'): continue
             content.append(s)
 
         item['content_quote'], item['content'] = string_filter("\n".join(content))
@@ -100,9 +103,9 @@ class News_Naver(Scrapy_Module):
         news_columns = {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d'}
         comment_columns = {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'}
         quote_columns = {'quote': '%s', 'target': '%d', 'flag': '%d'}
-        def get_last_id():
-            q = "SELECT LAST_INSERT_ID()";
-            r = tx.execute(q);
+        def get_last_id(q):
+            tx.execute(q)
+            tx.execute("SELECT LAST_INSERT_ID();")
             index = tx.fetchone()['LAST_INSERT_ID()']
             return index
 
@@ -117,8 +120,7 @@ class News_Naver(Scrapy_Module):
                 qlist, quote = quotation_filter(quote)
                 if not len(quote): continue
                 q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': target, 'flag': type})
-                r = tx.execute(q)
-                quote_id = get_last_id()
+                quote_id = get_last_id(q)
                 put_quotes(qlist, quote_id, 3)
 
         def make_query(table, columns, item):
@@ -135,15 +137,12 @@ class News_Naver(Scrapy_Module):
             return q
 
         q = make_query('naver_news', news_columns, item)
-        r = tx.execute(q)
-        news_id = get_last_id()
+        news_id = get_last_id(q)
 
         for comment in item['comments']:
             comment['target'] = news_id
             q = make_query('naver_comments', comment_columns, comment)
-            r = tx.execute(q)
-
-            comment_id = get_last_id()
+            comment_id = get_last_id(q)
             put_quotes(comment['content_quote'], comment_id, 2)
 
         put_quotes(item['title_quote'], news_id, 0)
