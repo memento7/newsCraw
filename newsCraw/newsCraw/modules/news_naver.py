@@ -104,7 +104,9 @@ class News_Naver(Scrapy_Module):
         comment_columns = {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'}
         quote_columns = {'quote': '%s', 'target': '%d', 'flag': '%d'}
         def get_last_id(q):
+            print (q)
             tx.execute(q)
+            #\\xF0\\x9F\\x92\\x95\\xF0\\x9F
             tx.execute("SELECT LAST_INSERT_ID();")
             index = tx.fetchone()['LAST_INSERT_ID()']
             return index
