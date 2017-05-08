@@ -5,6 +5,7 @@ from newsCraw.items import newsCrawItem
 from newsCraw.utils.requestable import Requestable, Request
 from newsCraw.utils.utility import *
 
+from urllib.parse import urlsplit
 import json
 
 class News_Naver(Scrapy_Module):
@@ -53,6 +54,8 @@ class News_Naver(Scrapy_Module):
         params = parse_param(response.url)
         item['oid'] = params['oid']
         item['aid'] = params['aid']
+
+        item['cate'] = urlsplit(response.url).netloc.split('.')[0]
 
         contents = ['//div[@id="articleBodyContents"]', '//div[@id="articeBody"]', '//div[@id="newsEndContents"]']
         text, imgs = [], []
@@ -112,7 +115,7 @@ class News_Naver(Scrapy_Module):
             'naver_img': {'src': '%s', 'target': '%d'},
         }
         def insert_query(q, ret=True):
-            # tx.execute(q)
+            tx.execute(q)
             if ret:
                 tx.execute("SELECT LAST_INSERT_ID();")
                 index = tx.fetchone()['LAST_INSERT_ID()']
