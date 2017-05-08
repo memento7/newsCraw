@@ -2,6 +2,7 @@ import re
 from datetime import datetime, timedelta
 from string import whitespace
 from typing import Union, List
+import random
 
 def trans_filter(text: str, pattern: dict) -> str:
     """trans_filter filtering text by pattern key to value
@@ -89,6 +90,9 @@ def date_filter(date):
         time = now - timedelta(seconds=date[0], minutes=date[1], hours=date[2], days=date[3])
         return str(time)
     return date
+
+def hash(key=32):
+    return ''.join([random.choice('0123456789ABCDEF') for _ in range(key)])
 
 def now():
     return str(datetime.now())[:19]

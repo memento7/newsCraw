@@ -109,31 +109,11 @@ class News_Naver(Scrapy_Module):
         - tx.fetchone()
         """
         columns = {
-            'naver_news': {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d'},
-            'naver_comment': {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'},
-            'naver_quote': {'quote': '%s', 'target': '%d', 'flag': '%d'},
+            'naver_news': {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d', 'cate': '%s', 'hash': '%s'},
+            'naver_comment': {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d', 'hash': '%s'},
+            'naver_quote': {'quote': '%s', 'target': '%d', 'flag': '%d', 'hash': '%s'},
             'naver_img': {'src': '%s', 'target': '%d'},
         }
-        def insert_query(q, ret=True):
-            tx.execute(q)
-            if ret:
-                tx.execute("SELECT LAST_INSERT_ID();")
-                index = tx.fetchone()['LAST_INSERT_ID()']
-                return index
-
-        """quote_type
-            0: title
-            1: content
-            2: comment
-            3: quote
-        """
-        def put_quotes(quotes: str, target: int, type: int):
-            for quote in quotes:
-                qlist, quote = quotation_filter(quote)
-                if not len(quote): continue
-                q = make_query('naver_quote', {'quote': quote, 'target': target, 'flag': type})
-                quote_id = insert_query(q)
-                put_quotes(qlist, quote_id, 3)
 
         def make_query(table, item):
             def decorator(t, text):
@@ -149,17 +129,42 @@ class News_Naver(Scrapy_Module):
                 " ( " + ",".join(values) % tuple([decorator(v, item[k]) for k, v in zip(keys, values)]) + " );"
             return q
 
-        q = make_query('naver_news', item)
-        news_id = insert_query(q)
+        def insert_item(table, item, ret=True):
+            if ret:
+                item['hash'] = hash()
+            q = make_query(table, item)
+
+            print (q)
+            tx.execute(q)
+
+            if ret:
+                tx.execute("SELECT id FROM {} WHERE hash='{}' order by id desc limit 1;".format(
+                        table, item['hash']
+                    ))
+                index = tx.fetchone()
+                return index['id']
+
+        """quote_type
+            0: title
+            1: content
+            2: comment
+            3: quote
+        """
+        def put_quotes(quotes: str, target: int, type: int):
+            for quote in quotes:
+                qlist, quote = quotation_filter(quote)
+                if not len(quote): continue
+                quote_id = insert_item('naver_quote', {'quote': quote, 'target': target, 'flag': type})
+                put_quotes(qlist, quote_id, 3)
+
+        news_id = insert_item('naver_news', item)
 
         for img in item['imgs']:
-            q = make_query('naver_img', {'target': news_id, 'src': img})
-            insert_query(q, False)
+            insert_item('naver_img', {'target': news_id, 'src': img}, False)
 
         for comment in item['comments']:
             comment['target'] = news_id
-            q = make_query('naver_comment', comment)
-            comment_id = insert_query(q)
+            comment_id = insert_item('naver_comment', comment)
             put_quotes(comment['content_quote'], comment_id, 2)
 
         put_quotes(item['title_quote'], news_id, 0)

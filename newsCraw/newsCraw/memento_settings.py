@@ -19,7 +19,7 @@ SERVER_PDB_INFO = {
                         "charset": 'utf8mb4',
                         "port": 3306
                     }
-SERVER_API = 'http://server1.memento.live:8080/api/persist/'
+SERVER_API = 'https://api.memento.live/persist/'
 SERVER_API_HEADER = { "Content-Type" : "application/json",
                       "charset": "utf-8",
                       "Authorization": environ['MEMENTO_BASIC']}
