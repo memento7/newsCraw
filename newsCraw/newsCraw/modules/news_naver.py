@@ -14,9 +14,10 @@ class News_Naver(Scrapy_Module):
         self.crl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId=news{}%2C{}"
 
     @Requestable
-    def process_count(self, keyword: str, date: str) -> Request:
+    def process_count(self, keyword, date: str) -> Request:
+        key, sub = keyword
         d = date.strftime("%Y-%m-%d")
-        return Request(self.url.format(query_filter(keyword), d, d), callback=self.parse_count, meta={'key': keyword})
+        return Request(self.url.format(query_filter(key), d, d), callback=self.parse_count, meta={'key': key})
 
     def parse_count(self, response):
         def get_count(text):
@@ -53,17 +54,21 @@ class News_Naver(Scrapy_Module):
         item['oid'] = params['oid']
         item['aid'] = params['aid']
 
-        _news_naver = Selector(response).xpath('//div[@id="articleBodyContents"]').xpath('.//text()').extract()
-        _entertain = Selector(response).xpath('//div[@id="articeBody"]').xpath('.//text()').extract()
-        _sports = Selector(response).xpath('//div[@id="newsEndContents"]').xpath('.//text()').extract()
+        contents = ['//div[@id="articleBodyContents"]', '//div[@id="articeBody"]', '//div[@id="newsEndContents"]']
+        text, imgs = [], []
+        for content in contents:
+            parse = Selector(response).xpath(content)
+            text += parse.xpath('.//text()').extract()
+            imgs += parse.xpath('.//img/@src').extract()
 
         content = []
-        for s in _news_naver + _entertain + _sports:
+        for s in text:
             s = s.strip()
             if not len(s): continue
             if s.startswith('// flash 오류를 우회하기 위한 함수 추가'): continue
             content.append(s)
 
+        item['imgs'] = imgs
         item['content_quote'], item['content'] = string_filter("\n".join(content))
         yield Request(self.crl.format(item['oid'], item['aid']), headers={'Referer': item['href_naver']}, callback=self.parse_reply, meta={'item': item})
 
@@ -100,16 +105,18 @@ class News_Naver(Scrapy_Module):
         - tx.execute(query);
         - tx.fetchone()
         """
-        news_columns = {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d'}
-        comment_columns = {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'}
-        quote_columns = {'quote': '%s', 'target': '%d', 'flag': '%d'}
-        def get_last_id(q):
-            print (q)
-            tx.execute(q)
-            #\\xF0\\x9F\\x92\\x95\\xF0\\x9F
-            tx.execute("SELECT LAST_INSERT_ID();")
-            index = tx.fetchone()['LAST_INSERT_ID()']
-            return index
+        columns = {
+            'naver_news': {'href': '%s', 'href_naver': '%s', 'keyword': '%s', 'title': '%s', 'content': '%s', 'published_time': '%s', 'crawled_time': '%s', 'oid': '%d', 'aid': '%d', 'reply_count': '%d'},
+            'naver_comment': {'author': '%s', 'content': '%s', 'reply_count': '%d', 'sympathy_count': '%d', 'antipathy_count': '%d', 'mod_time': '%s', 'crawled_time': '%s', 'target': '%d'},
+            'naver_quote': {'quote': '%s', 'target': '%d', 'flag': '%d'},
+            'naver_img': {'src': '%s', 'target': '%d'},
+        }
+        def insert_query(q, ret=True):
+            # tx.execute(q)
+            if ret:
+                tx.execute("SELECT LAST_INSERT_ID();")
+                index = tx.fetchone()['LAST_INSERT_ID()']
+                return index
 
         """quote_type
             0: title
@@ -121,30 +128,35 @@ class News_Naver(Scrapy_Module):
             for quote in quotes:
                 qlist, quote = quotation_filter(quote)
                 if not len(quote): continue
-                q = make_query('naver_quote', quote_columns, {'quote': quote, 'target': target, 'flag': type})
-                quote_id = get_last_id(q)
+                q = make_query('naver_quote', {'quote': quote, 'target': target, 'flag': type})
+                quote_id = insert_query(q)
                 put_quotes(qlist, quote_id, 3)
 
-        def make_query(table, columns, item):
+        def make_query(table, item):
             def decorator(t, text):
                 if t == "%d":
                     return int(text)
                 else:
                     return '\"{}\"'.format(text)
 
-            keys, values = zip(*columns.items())
+            keys, values = zip(*columns[table].items())
+
             q = " INSERT INTO " + table +\
                 " ( " + ",".join(keys) + " ) VALUES " +\
                 " ( " + ",".join(values) % tuple([decorator(v, item[k]) for k, v in zip(keys, values)]) + " );"
             return q
 
-        q = make_query('naver_news', news_columns, item)
-        news_id = get_last_id(q)
+        q = make_query('naver_news', item)
+        news_id = insert_query(q)
+
+        for img in item['imgs']:
+            q = make_query('naver_img', {'target': news_id, 'src': img})
+            insert_query(q, False)
 
         for comment in item['comments']:
             comment['target'] = news_id
-            q = make_query('naver_comments', comment_columns, comment)
-            comment_id = get_last_id(q)
+            q = make_query('naver_comment', comment)
+            comment_id = insert_query(q)
             put_quotes(comment['content_quote'], comment_id, 2)
 
         put_quotes(item['title_quote'], news_id, 0)
