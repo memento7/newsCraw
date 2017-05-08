@@ -24,9 +24,9 @@ class newsCrawPipeline(object):
             response = requests.get(MS.SERVER_API + 'entities/waiting', headers=headers)
             return [{c: k[c] for c in columns} for k in json.loads(response.text)]
         def get_data_range():
-            return datetime(2017,4,25), datetime(2017,5,7)
+            return datetime(1990,1,1), datetime(2017,5,7)
 
-        spider.keywords = [ " ".join([k['nickname'], k['subkey']]) for k in get_keywords()]
+        spider.keywords = [ (k['nickname'], k['subkey']) for k in get_keywords()]
         spider.start_date, spider.end_date = get_data_range()
 
     def close_spider(self, spider):
