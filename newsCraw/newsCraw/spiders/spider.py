@@ -26,6 +26,7 @@ class newsCrawSpider(scrapy.Spider):
     def push_data(self):
         for keyword, info in self.keywords.items():
             subkey = info['subkey']
+            print('start', keyword, subkey)
             for date in (self.start_date + timedelta(n) for n in range((self.end_date-self.start_date).days)):
                 yield {
                     'keyword': keyword,
