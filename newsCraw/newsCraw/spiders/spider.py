@@ -15,18 +15,26 @@ from datetime import datetime, timedelta
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
     allowed_domains = []
+
+    keywords = []
+    start_date = ''
+    end_date = ''
+
     def __init__(self):
         pass
-        
-    def date_range(self):
-        for date in (self.start_date + timedelta(n) for n in range((self.end_date-self.start_date).days)):
-            yield date
+
+    def push_data(self):
+        for keyword, info in self.keywords.items():
+            subkeys = [info['subkey']]
+            for subkey in subkeys:
+                for date in (self.start_date + timedelta(n) for n in range((self.end_date-self.start_date).days)):
+                    yield {
+                        'keyword': keyword,
+                        'subkey': subkey,
+                        'date': date,
+                    }
 
     def start_requests(self):
-        for allow in Requestable.allow():
-            allowed_domains += allow
-
-        for date in self.date_range():
-            for keyword in self.keywords:
-                for process in Requestable.process(keyword, date):
-                    yield process
+        for data in self.push_data():
+            for process in Requestable.process(data):
+                yield process

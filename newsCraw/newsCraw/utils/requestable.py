@@ -1,6 +1,7 @@
 from scrapy.http import Request
 
 from newsCraw import modules
+from newsCraw.utils.connection import get_type_id
 
 from datetime import datetime
 from types import GeneratorType
@@ -23,6 +24,9 @@ class Requestable:
 
     @staticmethod
     def init():
+        for module in modules.__all__:
+            __import__(modules.dirname.replace('/', '.') + module)
+
         for cname, methods in Requestable.s.items():
             for fname, func in methods:
                 module = inspect.getmodule(func)
@@ -33,23 +37,27 @@ class Requestable:
 
     @staticmethod
     def allow() -> Iterable[list]:
-        for cls in Requestable.i:
+        for cls in Requestable.i.values():
             try:
                 yield cls.allow
             except:
                 continue
 
     @staticmethod
-    def process(keyword: str, date: datetime):
+    def process(data: dict):
         for cname, methods in Requestable.s.items():
             for fname, method in methods:
-                yield method(Requestable.i[cname], keyword, date)
+                yield method(Requestable.i[cname], data)
 
     @staticmethod
     def dress(cname: str):
         return Requestable.i[cname].dressor
 
-for module in modules.__all__:
-    __import__(modules.dirname.replace('/', '.') + module)
+    @staticmethod
+    def info(cname: str):
+        return Requestable.i[cname].info
 
-Requestable.init()
+    @staticmethod
+    def close():
+        for name in list(Requestable.i):
+            del Requestable.i[name]

@@ -43,7 +43,7 @@ def tag_filter(text: str) -> str:
 
 nullspace = whitespace[1:] + '\xa0'
 def whitespace_filter(text: str) -> str:
-    return trans_filter(text, {w: None for w in nullspace})
+    return trans_filter(text, {w: ' ' for w in nullspace})
 
 pat_quotations = [
     re.compile("\'(.*?)\'"),
