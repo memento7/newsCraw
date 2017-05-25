@@ -70,10 +70,9 @@ def get_type_id(info: dict, module: str) -> str:
     return {subkey: _get_type_id(result, subkey) for subkey in info['subkeys']}
 
 def put_item(item: dict, type: str, index: str):
-    # result = ES.index(
-    #     index=index,
-    #     doc_type=type,
-    #     body=item
-    #)
-    #return result['_id']
-    return 'wwww'
+    result = ES.index(
+        index=index,
+        doc_type=type,
+        body=item
+    )
+    return result['_id']
