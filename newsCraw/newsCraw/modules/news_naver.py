@@ -17,7 +17,7 @@ class News_Naver(Scrapy_Module):
         self.url = "http://news.naver.com/main/search/search.nhn?query={}&startDate={}&endDate={}"
         self.crl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId=news{}%2C{}"
         self.keys = set()
-        
+
     @Requestable
     def process_count(self, data: dict) -> Request:
         self.keyword = data['keyword']

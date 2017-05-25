@@ -6,11 +6,11 @@ ES = Elasticsearch([{
     'port': 9200
 }])
 
-def make_clear(results,
+def make_clear(results: list,
                key_lambda = lambda x: x['_id'],
                value_lambda = lambda x: x,
-               filter_lambda = lambda x: x):
-    def clear(result):
+               filter_lambda = lambda x: x) -> dict:
+    def clear(result) -> dict:
         result['_source']['_id'] = result['_id']
         return result['_source']
     iterable = filter(filter_lambda, map(clear, results))
@@ -34,45 +34,29 @@ def get_keywords():
 def get_daterange():
     return datetime(2000, 1, 1), datetime(2017, 5, 25)
 
-def get_type_id(info: dict, module: str) -> str:
-
-    def put_key(subkey):
-        result = ES.index(
-            index='information',
-            doc_type=module,
-            body={
-                'keyword': info['keyword'],
-                'subkey': subkey
+def get_type_id(query: list, module: str) -> str:
+    wrapper = lambda x: {'match': {x[0]: x[1]}}
+    result = ES.search(index='information', doc_type=module, body={
+        'query': {
+            'bool': {
+                'must': list(map(wrapper, query.items()))
             }
-        )
-        return result['_id']
+        }
+    })
+    if result['hits']['total']:
+        return result['hits']['hits'][0]['_id']
+    result = ES.index(
+        index='information',
+        doc_type=module,
+        body=query
+    )
+    return result['_id']
 
-    def _get_type_id(result, subkey):
-        if subkey in result:
-            return result[subkey]
-        return put_key(subkey)
-
-    try:
-        result = ES.search(index='information', doc_type=module, body={
-            'query': {
-                'match': {
-                    'keyword': info['keyword'],
-                }
-            }
-        })
-        result = make_clear(result['hits']['hits'], 
-                            lambda x: x['subkey'],
-                            lambda x: x['_id'],
-                            lambda x: x['subkey'] in info['subkeys'])
-    except:
-        result = {}
-
-    return {subkey: _get_type_id(result, subkey) for subkey in info['subkeys']}
-
-def put_item(item: dict, type: str, index: str):
+def put_item(item: dict, type:str, index: str):
     result = ES.index(
         index=index,
         doc_type=type,
         body=item
     )
+    print (type, result['_id'])
     return result['_id']

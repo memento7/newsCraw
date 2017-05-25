@@ -1,7 +1,6 @@
 from scrapy.http import Request
 
 from newsCraw import modules
-from newsCraw.utils.connection import get_type_id
 
 from datetime import datetime
 from types import GeneratorType
@@ -52,10 +51,6 @@ class Requestable:
     @staticmethod
     def dress(cname: str):
         return Requestable.i[cname].dressor
-
-    @staticmethod
-    def info(cname: str):
-        return Requestable.i[cname].info
 
     @staticmethod
     def close():
