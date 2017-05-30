@@ -10,6 +10,11 @@ SERVER_RDB_INFO = {
                         "charset": 'utf8mb4',
                         "port": 3306
                     }
+SERVER_ES = 'server2.memento.live'
+SERVER_ES_INFO = {
+    'host': SERVER_ES,
+    'port': 9200,
+}
 SERVER_PDB = 'http://server1.memento.live'
 SERVER_PDB_INFO = {
                         "host": SERVER_PDB,

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from newsCraw.utils.requestable import Requestable
-from newsCraw.utils.connection import get_daterange, get_keywords, get_type_id, put_item
+from newsCraw.utils.connection import get_daterange, get_entities, get_type_id, put_item
 
 class newsCrawPipeline(object):
     def __init__(self):
@@ -9,7 +9,7 @@ class newsCrawPipeline(object):
 
     def open_spider(self, spider):
         def get_subkey(cname, keywords):
-            return { keyword: {
+            return {keyword: {
                         subkey: get_type_id({
                             'keyword': keyword,
                             'subkey': subkey
@@ -21,7 +21,7 @@ class newsCrawPipeline(object):
 
         Requestable.init()
 
-        spider.keywords = get_keywords()
+        spider.keywords = dict(filter(lambda x: x[0] in ['김무성', '박근혜', '문재인', '최순실'], get_entities().items()))
         for module in Requestable.i.keys():
             self.subkeys[module] = get_subkey(module, spider.keywords)
 
