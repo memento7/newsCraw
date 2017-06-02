@@ -20,7 +20,7 @@ class newsCrawSpider(scrapy.Spider):
     start_date = ''
     end_date = ''
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         pass
 
     def push_data(self):

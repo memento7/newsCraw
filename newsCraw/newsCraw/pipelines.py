@@ -7,7 +7,7 @@ class newsCrawPipeline(object):
         self.subkeys = dict()
         pass
 
-    def open_spider(self, spider):
+    def open_spider(self, spider, *args, **kwargs):
         def get_subkey(cname, keywords):
             return {keyword: {
                         subkey: get_type_id({
