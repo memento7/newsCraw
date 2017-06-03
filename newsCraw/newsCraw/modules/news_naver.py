@@ -1,4 +1,5 @@
 from urllib.parse import urlsplit
+from queue import Queue
 import json
 import re
 
@@ -6,7 +7,7 @@ from scrapy.selector import Selector
 
 from newsCraw.utils.scrapy_module import Scrapy_Module
 from newsCraw.utils.requestable import Requestable, Request
-from newsCraw.utils.utility import parse_param, string_filter, date_filter, query_filter, now
+from newsCraw.utils.utility import parse_param, string_filter, date_filter, query_filter, now, put_news, extract_entities
 
 class News_Naver(Scrapy_Module):
     def __init__(self):
@@ -17,20 +18,24 @@ class News_Naver(Scrapy_Module):
         self.url = "http://news.naver.com/main/search/search.nhn?query={}&startDate={}&endDate={}"
         self.crl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId=news{}%2C{}"
         self.keys = set()
+        self.items = Queue()
+
+    def __del__(self):
+        items = []
+        while not self.items.empty():
+            items.append(self.items.get())
+        put_news(items)
 
     @Requestable
     def process_count(self, data: dict) -> Request:
-        self.keyword = data['keyword']
-        self.subkey = data['subkey']
-        self.date = data['date'].strftime("%Y-%m-%d")
+        keyword = data['keyword']
+        subkey = data['subkey']
+        date = data['date']
 
-        key = self.keyword + " " + self.subkey
-        return Request(self.url.format(query_filter(key), self.date, self.date),
+        key = "{} {}".format(keyword, subkey).strip()
+        return Request(self.url.format(query_filter(key), date, date),
                        callback=self.parse_count, meta={
-                           'key': key,
-                           'keyword': self.keyword,
-                           'subkey': self.subkey,
-                           'date': self.date
+                           'entities': [keyword]
                        })
 
     def parse_count(self, response):
@@ -47,9 +52,7 @@ class News_Naver(Scrapy_Module):
 
     def parse_title(self, response):
         for site in Selector(response).xpath('//ul[@class="srch_lst"]'):
-            item = {
-                'information': response.meta
-            }
+            item = {'entities': response.meta['entities']}
             item['published_time'] = date_filter(site.xpath('.//span[@class="time"]//text()').extract_first())
             item['crawled_time'] = now()
             item['href'] = site.xpath('.//a[@class="tit"]//@href').extract_first()
@@ -61,7 +64,19 @@ class News_Naver(Scrapy_Module):
 
     def parse_content(self, response):
         def _get_cate_(selector):
-            return selector.xpath('//meta[@property="me2:category2"]/@content').extract_first()
+            category = {
+                '정치': 'politics',
+                '경제': 'economy',
+                '사회': 'social',
+                '생활/문화': 'life/culture',
+                '세계': 'world',
+                'IT/과학': 'it/science',
+                '오피니언': 'opinion',
+                '포토': 'photo',
+                'TV': 'tv',
+            }
+            cate = selector.xpath('//meta[@property="me2:category2"]/@content').extract_first()
+            return category[cate] if cate in category else 'news'
 
         def _get_title_(selector):
             title = selector.xpath('//title//text()').extract_first()
@@ -102,6 +117,7 @@ class News_Naver(Scrapy_Module):
         content, imgs = _get_content_(selector)
         item['imgs'] = imgs
         item['content_quote'], item['content'] = string_filter(content)
+        item['entities'].extend(extract_entities(item['content']))
 
         yield Request(self.crl.format(item['oid'], item['aid']), headers={'Referer': item['href_naver']}, callback=self.parse_reply, meta={'item': item})
 
@@ -137,8 +153,12 @@ class News_Naver(Scrapy_Module):
             return self.dress(item)
 
     def dressor(self, item: dict):
-        key = item['href_naver']
-        if key in self.keys:
+        oid, aid = item['oid'], item['aid']
+        if (oid, aid) in self.keys:
             return
-        self.keys.add(key)
+        self.keys.add((oid, aid))
+        self.items.put(item)
+        if self.items.qsize() > 10:
+            items = [self.items.get() for _ in range(10)]
+            put_news(items)
         return item

@@ -1,8 +1,19 @@
+from collections import Counter
 import re
 from datetime import datetime, timedelta
 from string import whitespace
 from typing import Union, List
 import random
+from os import name
+
+POLYGLOT = name == "POSIX"
+
+if POLYGLOT:
+    from polyglot.text import Text
+from nltk import word_tokenize, pos_tag, ne_chunk
+from konlpy.tag import Komoran
+
+from newsCraw.utils.connection import get_exist, put_bulk, update_item, put_item
 
 def trans_filter(text: str, pattern: dict) -> str:
     """trans_filter filtering text by pattern key to value
@@ -103,3 +114,59 @@ def query_filter(query):
 def parse_param(href):
     s = not '?' in href and [] or [ x.split('=') for x in href.split('?')[1].split('&')]
     return { p[0]: p[1] for p in s }
+
+TAGGER = Komoran()
+def extract_entities(text):
+    nnps = []
+
+    if POLYGLOT:
+        polytext = Text(text)
+        for entity in polytext.entities:
+            nnps.append(entity[0])
+
+    for chunk in ne_chunk(pos_tag(word_tokenize(text))):
+        if len(chunk) == 1 and chunk.label() == 'ORGANIZATION':
+            nnps.append(chunk.leaves()[0][0])
+        elif len(chunk)>1 and str(chunk[1]).startswith('NN'):
+            nnps.append(chunk[0])
+
+    counter = Counter(nnps).most_common()
+    for nnp, count in counter:
+        pos = TAGGER.pos(nnp)
+        if len(pos) == 1 and pos[0][1] == ('NNP'):
+            yield pos[0][0]
+
+def put_news(items: list, doc_type: str='News_Naver'):
+    bulk_items = []
+    for item in items:
+        item_id = "{}_{}".format(item['oid'], item['aid'])
+        need_update = get_exist(item_id, doc_type)
+
+        for entity in item['entities']:
+            if not get_exist(entity, 'entities'):
+                put_item({
+                    'updated': 'false',
+                    'subkey': [],
+                    'last_update': now(),
+                    'related': {
+                        'entitiy': 0,
+                        'event': 0,
+                    }
+                }, doc_type='entities', idx=entity)
+
+            if need_update:
+                update_item({
+                    'inline': 'ctx._source.entities.add(params.entity)',
+                    'params': {
+                        'entity': entity
+                    }}, item_id, doc_type=doc_type)
+
+        if not need_update:
+            bulk_items.append({
+                '_index': 'memento',
+                '_type': doc_type,
+                '_id': item_id,
+                '_source': item
+            })
+
+    put_bulk(bulk_items)

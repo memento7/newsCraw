@@ -2,9 +2,11 @@ from datetime import datetime
 from typing import Union
 
 from elasticsearch import Elasticsearch
+from elasticsearch import helpers
+import logging
+logging.getLogger("elasticsearch").setLevel(logging.CRITICAL)
 
 import newsCraw.memento_settings as MS
-
 ES = Elasticsearch(**MS.SERVER_ES_INFO)
 
 def make_clear(results: list,
@@ -17,9 +19,9 @@ def make_clear(results: list,
     iterable = filter(filter_lambda, map(clear, results))
     return {key_lambda(source): value_lambda(source) for source in iterable}
 
-def get_scroll(query={}, doc_type='', index='information'):
+def get_scroll(query={}, doc_type='', index='memento'):
     array = []
-    def _get_scroll(scroll) -> Union[int, list]:
+    def _get_scroll(scroll):
         doc = scroll['hits']['hits']
         array.extend(doc)
         return doc and True or False
@@ -30,57 +32,44 @@ def get_scroll(query={}, doc_type='', index='information'):
     return make_clear(array)
 
 def get_entities() -> dict:
-    return get_scroll({}, 'namugrim')
+    return map(lambda x: (x['keyword'], x['subkey']), 
+               get_scroll({"_source": ['keyword', 'subkey']}, doc_type='namugrim').values())
 
-def get_navernews(date_start, date_end):
-    news = get_scroll({
-                'query': {
-                    'range': {
-                        'published_time': {
-                            "gte" : date_start,
-                            "lte" : date_end,
-                            "format": "yyy.MM.dd"
+def get_exist(idx: str, doc_type: str, index='memento'):
+    return ES.search(
+                index=index,
+                doc_type=doc_type,
+                body = {
+                    'query': {
+                        'match': {
+                            '_id': idx
                         }
                     }
                 }
-            })
+            )['hits']['total']
 
-    def info_chain(x):
-        x['keyword'] = x['information']['keyword']
-        x['subkey'] = x['information']['subkey']
-        del x['information']
-        return x
+def update_item(update, idx, doc_type: str, index: str = 'memento'):
+        result = ES.update(index=index,
+                           doc_type=doc_type,
+                           id=idx,
+                           body={"script": update})
+        return result['_id']
 
-    return pd.DataFrame(list(map(info_chain, make_clear(news).values())))
+def put_bulk(actions: list):
+    helpers.bulk(ES, actions)
 
-def get_type_id(query: list, type: str) -> str:
-    wrapper = lambda x: {'match': {x[0]: x[1]}}
-    result = ES.search(index='information', doc_type=type, body={
-        'query': {
-            'bool': {
-                'must': list(map(wrapper, query.items()))
-            }
-        }
-    })
-    if result['hits']['total']:
-        return result['hits']['hits'][0]['_id']
-    result = ES.index(
-        index='information',
-        doc_type=type,
-        body=query
-    )
+def put_item(item: dict, doc_type: str, idx: str = '', index='memento'):
+    while True:
+        try:
+            result = ES.index(
+                index=index,
+                doc_type=doc_type,
+                body=item,
+                id=idx
+            )
+            break
+        except: 
+            print ('Connection Error wait for 2s')
+            sleep(2)
+            continue
     return result['_id']
-
-def put_item(item: dict, type:str, index: str):
-    result = ES.index(
-        index=index,
-        doc_type=type,
-        body=item
-    )
-    print (index, type, result['_id'])
-    return result['_id']
-
-# Default Connection Function
-
-def get_daterange():
-    return datetime(2000, 1, 1), datetime(2017, 5, 25)
