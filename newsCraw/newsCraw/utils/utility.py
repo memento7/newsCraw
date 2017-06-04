@@ -118,23 +118,30 @@ def parse_param(href):
 TAGGER = Komoran()
 def extract_entities(text):
     nnps = []
+    def put_nnp(nnp):
+        pos = TAGGER.pos(nnp)
+        temps = []
+        for word, tag in pos:
+            if tag == 'NNP':
+                temps.append(word)
+            elif temps:
+                nnps.append("".join(temps))
+        if temps:
+            nnps.append("".join(temps))
 
     if POLYGLOT:
         polytext = Text(text)
         for entity in polytext.entities:
-            nnps.append(entity[0])
+            put_nnp(entity[0])
 
     for chunk in ne_chunk(pos_tag(word_tokenize(text))):
         if len(chunk) == 1 and chunk.label() == 'ORGANIZATION':
-            nnps.append(chunk.leaves()[0][0])
+            put_nnp(chunk.leaves()[0][0])
         elif len(chunk)>1 and str(chunk[1]).startswith('NN'):
-            nnps.append(chunk[0])
+            put_nnp(chunk[0])
 
-    counter = Counter(nnps).most_common()
-    for nnp, count in counter:
-        pos = TAGGER.pos(nnp)
-        if len(pos) == 1 and pos[0][1] == ('NNP'):
-            yield pos[0][0]
+    return set(nnps)
+
 
 def put_news(items: list, doc_type: str='News_Naver'):
     bulk_items = []

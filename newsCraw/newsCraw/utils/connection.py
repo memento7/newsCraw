@@ -56,7 +56,14 @@ def update_item(update, idx, doc_type: str, index: str = 'memento'):
         return result['_id']
 
 def put_bulk(actions: list):
-    helpers.bulk(ES, actions)
+    while True:
+        try:
+            helpers.bulk(ES, actions)
+            break
+        except:
+            print ('Connection Error wait for 2s')
+            sleep(2)
+            continue
 
 def put_item(item: dict, doc_type: str, idx: str = '', index='memento'):
     while True:
