@@ -131,9 +131,12 @@ def extract_entities(text):
 
     if POLYGLOT:
         polytext = Text(text)
-        for entity in polytext.entities:
-            put_nnp(entity[0])
-
+        try:
+            for entity in polytext.entities:
+                put_nnp(entity[0])
+        except:
+            pass
+            
     for chunk in ne_chunk(pos_tag(word_tokenize(text))):
         if len(chunk) == 1 and chunk.label() == 'ORGANIZATION':
             put_nnp(chunk.leaves()[0][0])
