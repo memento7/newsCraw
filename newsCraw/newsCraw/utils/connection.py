@@ -1,13 +1,12 @@
 from datetime import datetime
-from typing import Union
+import logging
 
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
-import logging
-logging.getLogger("elasticsearch").setLevel(logging.CRITICAL)
 
 import newsCraw.memento_settings as MS
 ES = Elasticsearch(**MS.SERVER_ES_INFO)
+logging.getLogger("elasticsearch").setLevel(logging.CRITICAL)
 
 def make_clear(results: list,
                key_lambda = lambda x: x['_id'],

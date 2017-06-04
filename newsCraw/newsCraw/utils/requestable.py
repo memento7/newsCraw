@@ -1,12 +1,11 @@
-from scrapy.http import Request
-
-from newsCraw import modules
-
 from datetime import datetime
-from types import GeneratorType
 from typing import Iterable
 from collections import OrderedDict, defaultdict
 import inspect
+
+from scrapy.http import Request
+
+from newsCraw import modules
 
 class Requestable:
     s = defaultdict(list)

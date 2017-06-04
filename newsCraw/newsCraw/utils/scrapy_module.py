@@ -1,7 +1,7 @@
-from newsCraw.utils.requestable import Requestable, Request
-
 from datetime import datetime
 from typing import Iterator
+
+from newsCraw.utils.requestable import Requestable, Request
 
 class Scrapy_Module:
     def __init__(self):

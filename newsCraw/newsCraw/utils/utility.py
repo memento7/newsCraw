@@ -13,7 +13,8 @@ if POLYGLOT:
 from nltk import word_tokenize, pos_tag, ne_chunk
 from konlpy.tag import Komoran
 
-from newsCraw.utils.connection import get_exist, put_bulk, update_item, put_item
+from newsCraw.utils.connection import get_exist, get_scroll
+from newsCraw.utils.connection import put_bulk, put_item, update_item
 
 def trans_filter(text: str, pattern: dict) -> str:
     """trans_filter filtering text by pattern key to value
@@ -144,6 +145,27 @@ def extract_entities(text):
             put_nnp(chunk[0])
 
     return set(nnps)
+
+def get_subkey(entity):
+    if get_exist(entity, 'entities'):
+        return get_scroll({
+            '_source': ['subkey'],
+            'query': {
+                'match': {
+                    '_id': entity
+                }
+            }
+        }, index='memento', doc_type='entities')[entity]['subkey']
+    put_item({
+        'updated': 'false',
+        'subkey': [],
+        'last_update': now(),
+        'related': {
+            'entitiy': 0,
+            'event': 0,
+        }
+    }, doc_type='entities', idx=entity)
+    return ''
 
 
 def put_news(items: list, doc_type: str='News_Naver'):
