@@ -158,7 +158,7 @@ class News_Naver(Scrapy_Module):
             return
         self.keys.add((oid, aid))
         self.items.put(item)
-        if self.items.qsize() > 10:
-            items = [self.items.get() for _ in range(10)]
+        if self.items.qsize() > 1000:
+            items = [self.items.get() for _ in range(1000)]
             put_news(items)
         return item
