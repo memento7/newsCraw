@@ -188,7 +188,7 @@ def put_news(items: list, doc_type: str='News_Naver'):
 
             if need_update:
                 update_item({
-                    'inline': 'ctx._source.entities.add(params.entity)',
+                    'inline': 'ctx._source.entities.contains(params.entity) ? (ctx.op = \"none\") : ctx._source.entities.add(params.entity)',
                     'params': {
                         'entity': entity
                     }}, item_id, doc_type=doc_type)
