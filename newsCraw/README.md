@@ -24,7 +24,7 @@ cd newsCraw/newsCraw
 pip3 install -r requirements.txt
 python3 install_nltk_data.py
 
-export MEMENTO_BASIC=''
+// run!
 ```
 
 # Usage
