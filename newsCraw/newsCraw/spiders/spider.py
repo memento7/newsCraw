@@ -30,10 +30,9 @@ class newsCrawSpider(scrapy.Spider):
             self.date_end = datetime(2017,6,2)
 
     def push_data(self):
-        for entity in [self.entity] if self.entity else get_entities():
-            subkeys = get_subkey(self.entity)
+        for entity, subkeys in [(self.entity, get_subkey(self.entity))] if self.entity else get_entities():
             if not subkeys:
-                subkeys = ['']
+                subkeys.append('')
             for subkey in subkeys:
                 print('start', self.entity, subkey)
                 for date in (self.date_start + timedelta(n) for n in range(1 + (self.date_end-self.date_start).days)):

@@ -165,7 +165,7 @@ def get_subkey(entity):
             'event': 0,
         }
     }, doc_type='entities', idx=entity)
-    return ''
+    return ['']
 
 
 def put_news(items: list, doc_type: str='News_Naver'):
