@@ -34,10 +34,10 @@ class newsCrawSpider(scrapy.Spider):
             if not subkeys:
                 subkeys.append('')
             for subkey in subkeys:
-                print('start', self.entity, subkey)
+                print('start', entity, subkey)
                 for date in (self.date_start + timedelta(n) for n in range(1 + (self.date_end-self.date_start).days)):
                     yield {
-                        'keyword': self.entity,
+                        'keyword': entity,
                         'subkey': subkey,
                         'date': date.strftime('%Y-%m-%d'),
                     }

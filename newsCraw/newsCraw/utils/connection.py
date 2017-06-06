@@ -30,8 +30,9 @@ def get_scroll(query={}, doc_type='', index='memento'):
         scroll = ES.scroll(scroll_id=scroll_id, scroll='1m')
     return make_clear(array)
 
+# fix after,  namugrim type change subkey: str to subkey: list
 def get_entities() -> dict:
-    return map(lambda x: (x['keyword'], x['subkey']), 
+    return map(lambda x: (x['keyword'], [x['subkey']]), 
                get_scroll({"_source": ['keyword', 'subkey']}, doc_type='namugrim').values())
 
 def get_exist(idx: str, doc_type: str, index='memento'):
