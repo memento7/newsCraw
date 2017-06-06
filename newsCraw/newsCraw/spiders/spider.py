@@ -12,6 +12,7 @@ from scrapy.selector import Selector
 from newsCraw.items import newsCrawItem
 from newsCraw.utils.requestable import Requestable
 from newsCraw.utils.utility import get_subkey
+from newsCraw.utils.connection import get_entities
 
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
@@ -24,21 +25,23 @@ class newsCrawSpider(scrapy.Spider):
             self.date_end = datetime.strptime(kwargs['date_end'], "%Y.%m.%d")
             print('init with {}, {} to {}'.format(self.entity, self.date_start, self.date_end))
         else:
+            self.entity = None
             self.date_start = datetime(2000,1,1)
             self.date_end = datetime(2017,6,2)
 
     def push_data(self):
-        subkeys = get_subkey(self.entity)
-        if not subkeys:
-            subkeys = ['']
-        for subkey in subkeys:
-            print('start', self.entity, subkey)
-            for date in (self.date_start + timedelta(n) for n in range(1 + (self.date_end-self.date_start).days)):
-                yield {
-                    'keyword': self.entity,
-                    'subkey': subkey,
-                    'date': date.strftime('%Y-%m-%d'),
-                }
+        for entity in [self.entity] if self.entity else get_entities():
+            subkeys = get_subkey(self.entity)
+            if not subkeys:
+                subkeys = ['']
+            for subkey in subkeys:
+                print('start', self.entity, subkey)
+                for date in (self.date_start + timedelta(n) for n in range(1 + (self.date_end-self.date_start).days)):
+                    yield {
+                        'keyword': self.entity,
+                        'subkey': subkey,
+                        'date': date.strftime('%Y-%m-%d'),
+                    }
 
     def start_requests(self):
         for data in self.push_data():
