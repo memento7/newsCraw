@@ -11,7 +11,7 @@ from scrapy.selector import Selector
 
 from newsCraw.items import newsCrawItem
 from newsCraw.utils.requestable import Requestable
-from newsCraw.utils.utility import get_subkey
+from newsCraw.utils.utility import get_subkey, start_crawler, close_crawler
 from newsCraw.utils.connection import get_entities
 
 class newsCrawSpider(scrapy.Spider):
@@ -19,18 +19,22 @@ class newsCrawSpider(scrapy.Spider):
     allowed_domains = []
 
     def __init__(self, *args, **kwargs):
-        if all(key in kwargs for key in ['entity', 'date_start', 'date_end']):
+        if all(key in kwargs for key in ['entity', 'date_start', 'date_end', 'id']):
+            self.id = kwargs['id']
             self.entity = kwargs['entity']
             self.date_start = datetime.strptime(kwargs['date_start'], "%Y.%m.%d")
             self.date_end = datetime.strptime(kwargs['date_end'], "%Y.%m.%d")
             print('init with {}, {} to {}'.format(self.entity, self.date_start, self.date_end))
         else:
+            self.id = None
             self.entity = None
             self.date_start = datetime(2000,1,1)
             self.date_end = datetime(2017,6,2)
 
     def push_data(self):
         for entity, subkeys in [(self.entity, get_subkey(self.entity))] if self.entity else get_entities():
+            if not start_crawler(entity, self.date_start.strftime('%Y.%m.%d'), self.date_end.strftime('%Y.%m.%d')):
+                continue
             if not subkeys:
                 subkeys.append('')
             for subkey in subkeys:
@@ -41,6 +45,7 @@ class newsCrawSpider(scrapy.Spider):
                         'subkey': subkey,
                         'date': date.strftime('%Y-%m-%d'),
                     }
+            close_crawler(entity, self.date_start, self.date_end)
 
     def start_requests(self):
         for data in self.push_data():

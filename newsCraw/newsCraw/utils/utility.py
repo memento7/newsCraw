@@ -5,6 +5,7 @@ from string import whitespace
 from typing import Union, List
 import random
 from os import name
+from socket import gethostbyname, gethostname
 
 POLYGLOT = name == "POSIX"
 
@@ -13,7 +14,7 @@ if POLYGLOT:
 from nltk import word_tokenize, pos_tag, ne_chunk
 from konlpy.tag import Komoran
 
-from newsCraw.utils.connection import get_exist, get_scroll
+from newsCraw.utils.connection import get_exist, get_scroll, get_item
 from newsCraw.utils.connection import put_bulk, put_item, update_item
 
 def trans_filter(text: str, pattern: dict) -> str:
@@ -75,7 +76,7 @@ def quotation_filter(text: str) -> Union[str, List[str]]:
     for pat in pat_quotations:
         for match in pat.finditer(text):
             matches.append(match.groups()[0])
-    return matches, text_filter(text, {w: '' for w in str_quotations}).strip()
+    return matches, text_filter(text, {w: ' ' for w in str_quotations}).strip()
 
 emoji_pattern = re.compile("["
         u"\U0001F600-\U0001F64F"  # emoticons
@@ -84,7 +85,7 @@ emoji_pattern = re.compile("["
         u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
                            "]+", flags=re.UNICODE)
 def emoji_filter(text: str):
-    return emoji_pattern.sub(r'', text)
+    return emoji_pattern.sub(r' ', text)
 
 def string_filter(text: str):
     text = whitespace_filter(text)
@@ -103,9 +104,6 @@ def date_filter(date):
         return str(time)
     return date
 
-def hash(key=32):
-    return ''.join([random.choice('0123456789ABCDEF') for _ in range(key)])
-
 def now():
     return str(datetime.now())[:19]
 
@@ -118,33 +116,33 @@ def parse_param(href):
 
 TAGGER = Komoran()
 def extract_entities(text):
-    nnps = []
-    def put_nnp(nnp):
+    mnnps = []
+    def get_nnp(nnp):
         pos = TAGGER.pos(nnp)
         temps = []
         for word, tag in pos:
             if tag == 'NNP':
                 temps.append(word)
             elif temps:
-                nnps.append("".join(temps))
+                yield "".join(temps)
         if temps:
-            nnps.append("".join(temps))
+            yield "".join(temps)
 
     if POLYGLOT:
         polytext = Text(text)
         try:
             for entity in polytext.entities:
-                put_nnp(entity[0])
+                mnnps.extend(get_nnp(entity[0]))
         except:
             pass
             
     for chunk in ne_chunk(pos_tag(word_tokenize(text))):
         if len(chunk) == 1 and chunk.label() == 'ORGANIZATION':
-            put_nnp(chunk.leaves()[0][0])
+            mnnps.extend(get_nnp(chunk.leaves()[0][0]))
         elif len(chunk)>1 and str(chunk[1]).startswith('NN'):
-            put_nnp(chunk[0])
+            mnnps.extend(get_nnp(chunk[0]))
 
-    return set(nnps)
+    return set(mnnps)
 
 def get_subkey(entity):
     if get_exist(entity, 'entities'):
@@ -167,9 +165,10 @@ def get_subkey(entity):
     }, doc_type='entities', idx=entity)
     return ['']
 
-
 def put_news(items: list, doc_type: str='News_Naver'):
+    return
     bulk_items = []
+    print ('bulk insert runned!')
     for item in items:
         item_id = "{}_{}".format(item['oid'], item['aid'])
         need_update = get_exist(item_id, doc_type)
@@ -188,10 +187,13 @@ def put_news(items: list, doc_type: str='News_Naver'):
 
             if need_update:
                 update_item({
-                    'inline': 'ctx._source.entities.contains(params.entity) ? (ctx.op = \"none\") : ctx._source.entities.add(params.entity)',
-                    'params': {
-                        'entity': entity
-                    }}, item_id, doc_type=doc_type)
+                    "script": {
+                        'inline': 'ctx._source.entities.contains(params.entity) ? (ctx.op = \"none\") : ctx._source.entities.add(params.entity)',
+                        'params': {
+                            'entity': entity
+                        }
+                    }
+                }, item_id, doc_type=doc_type)
 
         if not need_update:
             bulk_items.append({
@@ -202,3 +204,31 @@ def put_news(items: list, doc_type: str='News_Naver'):
             })
 
     put_bulk(bulk_items)
+
+def start_crawler(entity, date_start, date_end):
+    if not get_exist(entity, doc_type='crawler', index='memento_info'):
+        put_item({
+            'client': gethostbyname(gethostname()),
+            'start_time': now(),
+            'update_time': now(),
+            'date_start': date_start,
+            'date_end': date_end,
+            'finish': 'false',
+        }, doc_type='crawler', index='memento_info', idx=entity)
+        return True
+    return False
+
+def close_crawler(entity, date_start, date_end):
+    result = get_item(entity, doc_type='crawler', index='memento_info')
+    if not result:
+        raise 'error, can`t find start info'
+
+    if result['date_start'] != date_start or result['date_end'] != date_end:
+        raise 'error, start info do not match end info'
+
+    update_item({
+        'doc': {
+            'update_time': now(),
+            'finish': 'true',
+        }
+    }, entity, doc_type=doc_type)

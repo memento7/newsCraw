@@ -118,6 +118,9 @@ class News_Naver(Scrapy_Module):
         item['imgs'] = imgs
         item['content_quote'], item['content'] = string_filter(content)
         item['entities'].extend(extract_entities(item['content']))
+        for entity in item['entities']:
+            if entity not in item['content']:
+                print (item['entities'], item['content'], entity)
 
         yield Request(self.crl.format(item['oid'], item['aid']), headers={'Referer': item['href_naver']}, callback=self.parse_reply, meta={'item': item})
 

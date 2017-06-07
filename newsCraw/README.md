@@ -29,6 +29,6 @@ python3 install_nltk_data.py
 
 # Usage
 ```
-scrapy crawl newsCraw -a entity=entity -a date_start=date_start -a date_end=date_end
+scrapy crawl newsCraw -a entity=entity -a date_start=date_start -a date_end=date_end -a id=id
 ```
 date format: "yyyy.mm.dd"

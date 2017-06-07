@@ -3,18 +3,14 @@ from newsCraw.utils.requestable import Requestable
 
 class newsCrawPipeline(object):
     def __init__(self):
-        pass
+        self.id = None
 
     def open_spider(self, spider):
+        self.id = spider.id
         for allow in Requestable.allow():
             spider.allowed_domains += allow
 
         Requestable.init()
-
-        # spider.keywords = dict(filter(lambda x: x[0] in ['김무성', '박근혜', '문재인', '최순실'], get_entities().items()))
-        # for module in Requestable.i.keys():
-        #     self.subkeys[module] = get_subkey(module, spider.keywords)
-        # spider.start_date, spider.end_date = get_daterange()
 
     def close_spider(self, spider):
         Requestable.close()
@@ -22,5 +18,6 @@ class newsCrawPipeline(object):
     def process_item(self, item, spider):
         if 'MODULE' in item:
             name = item['MODULE']
+            item['manage_id'] = self.id
             item = Requestable.dress(name)(item)
         return item
