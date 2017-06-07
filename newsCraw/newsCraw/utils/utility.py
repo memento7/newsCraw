@@ -141,7 +141,7 @@ def extract_entities(text):
         elif len(chunk)>1 and str(chunk[1]).startswith('NN'):
             mnnps.extend(get_nnp(chunk[0]))
 
-    return set(mnnps)
+    return list(set(mnnps))
 
 def get_subkey(entity):
     if get_exist(entity, 'entities'):

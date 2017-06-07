@@ -52,7 +52,8 @@ class News_Naver(Scrapy_Module):
 
     def parse_title(self, response):
         for site in Selector(response).xpath('//ul[@class="srch_lst"]'):
-            item = {'entities': response.meta['entities']}
+            item = {'entity': response.meta['entities']}
+
             item['published_time'] = date_filter(site.xpath('.//span[@class="time"]//text()').extract_first())
             item['crawled_time'] = now()
             item['href'] = site.xpath('.//a[@class="tit"]//@href').extract_first()
@@ -117,11 +118,7 @@ class News_Naver(Scrapy_Module):
         content, imgs = _get_content_(selector)
         item['imgs'] = imgs
         item['content_quote'], item['content'] = string_filter(content)
-        backup = item['entities'][:]
-        item['entities'].extend(extract_entities(item['content']))
-        for entity in item['entities']:
-            if entity not in item['content']:
-                print (item['entities'], item['content'], entity, backup)
+        item['entities'] = item['entity'] + extract_entities(item['content'])
 
         yield Request(self.crl.format(item['oid'], item['aid']), headers={'Referer': item['href_naver']}, callback=self.parse_reply, meta={'item': item})
 
