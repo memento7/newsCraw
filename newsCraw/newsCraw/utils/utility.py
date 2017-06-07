@@ -165,7 +165,6 @@ def get_subkey(entity):
     return ['']
 
 def put_news(items: list, doc_type: str='News_Naver'):
-    return
     bulk_items = []
     print ('bulk insert runned!')
     for item in items:
