@@ -2,7 +2,6 @@ from collections import Counter
 import re
 from datetime import datetime, timedelta
 from string import whitespace
-from typing import Union, List
 import random
 from os import name
 from socket import gethostbyname, gethostname
@@ -69,7 +68,7 @@ pat_quotations = [
 ]
 
 str_quotations = ['\'', '\"', '`', '&#34;', '(', ')', '{', '}', '[', ']']
-def quotation_filter(text: str) -> Union[str, List[str]]:
+def quotation_filter(text: str):
     """return [match_list, filtered_str]
     """
     matches = []

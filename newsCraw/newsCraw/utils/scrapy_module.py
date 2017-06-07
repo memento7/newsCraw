@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Iterator
 
 from newsCraw.utils.requestable import Requestable, Request
 
@@ -14,7 +13,7 @@ if you not, crawling do not work
     def info(self):
         pass
 
-    def parser(self, response) -> Iterator[dict]:
+    def parser(self, response):
         """if you finish making item, hand over to self.dress
 if you need, you can yield Request in parser function
         """
@@ -24,7 +23,7 @@ if you need, you can yield Request in parser function
     """you must decorate entry point of request.
 if you have multiple entry points, We will do it in parallel.
     """
-    def request(self, data: dict) -> Iterator[Request]:
+    def request(self, data: dict):
         """Requestable function argument must be keyword, date for crawling
         """
         yield Request('', callback=self.parser, meta={'key': 'value'})

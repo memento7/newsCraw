@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Iterable
 from collections import OrderedDict, defaultdict
 import inspect
 
@@ -34,7 +33,7 @@ class Requestable:
                     break
 
     @staticmethod
-    def allow() -> Iterable[list]:
+    def allow():
         for cls in Requestable.i.values():
             try:
                 yield cls.allow
