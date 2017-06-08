@@ -203,21 +203,24 @@ def put_news(items: list, doc_type: str='News_Naver'):
 
     put_bulk(bulk_items)
 
-def start_crawler(entity, date_start, date_end):
-    if not get_exist(entity, doc_type='crawler', index='memento_info'):
+def start_crawler(entity, date_start, date_end, manage_id):
+    info_id = "{}_{}_{}".format(entity, date_start, date_end)
+    if not get_exist(info_id, doc_type='crawler', index='memento_info'):
         put_item({
             'client': gethostbyname(gethostname()),
             'start_time': now(),
             'update_time': now(),
             'date_start': date_start,
             'date_end': date_end,
+            'manage_id': manage_id,
             'finish': 'false',
-        }, doc_type='crawler', index='memento_info', idx=entity)
+        }, doc_type='crawler', index='memento_info', idx=info_id)
         return True
     return False
 
-def close_crawler(entity, date_start, date_end):
-    result = get_item(entity, doc_type='crawler', index='memento_info')
+def close_crawler(entity, date_start, date_end, manage_id):
+    info_id = "{}_{}_{}".format(entity, date_start, date_end)
+    result = get_item(info_id, doc_type='crawler', index='memento_info')
     if not result:
         raise 'error, can`t find start info'
 
@@ -229,4 +232,4 @@ def close_crawler(entity, date_start, date_end):
             'update_time': now(),
             'finish': 'true',
         }
-    }, entity, doc_type=doc_type, index='memento_info')
+    }, info_id, doc_type=doc_type, index='memento_info')
