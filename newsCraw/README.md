@@ -24,7 +24,6 @@ cd newsCraw/newsCraw
 pip3 install -r requirements.txt
 python3 install_nltk_data.py
 
-export MEMENTO_BASIC=''
 export MEMENTO_ELASTIC=''
 export MEMENTO_ELASTIC_PASS=''
 // run!
