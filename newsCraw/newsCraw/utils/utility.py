@@ -229,4 +229,4 @@ def close_crawler(entity, date_start, date_end):
             'update_time': now(),
             'finish': 'true',
         }
-    }, entity, doc_type=doc_type)
+    }, entity, doc_type=doc_type, index='memento_info')
