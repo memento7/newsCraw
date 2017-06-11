@@ -4,7 +4,7 @@ memento crawler
 # Installation
 ```
 apt-get update
-apt-get install python3 python3-pip python-dev -y
+apt-get install python3 python3-pip python3-dev -y
 apt-get install build-essential libssl-dev libffi-dev libicu-dev -y
 apt-get install software-properties-common git -y
 
