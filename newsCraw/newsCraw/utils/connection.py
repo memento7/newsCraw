@@ -49,17 +49,24 @@ def get_exist(idx: str, doc_type: str, index='memento'):
             )['hits']['total']
 
 def get_item(idx: str, doc_type: str, index='memento'):
-    result = ES.search(
-                index=index,
-                doc_type=doc_type,
-                body = {
-                    'query': {
-                        'match': {
-                            '_id': idx
+    while True:
+        try:
+            result = ES.search(
+                        index=index,
+                        doc_type=doc_type,
+                        body = {
+                            'query': {
+                                'match': {
+                                    '_id': idx
+                                }
+                            }
                         }
-                    }
-                }
-            )['hits']
+                    )['hits']
+            break
+        except:
+            print ('Connection Error wait for 2s-')
+            sleep(2)
+            continue
     return result['hits'][0]['_source'] if result['total'] else None
 
 def update_item(update, idx, doc_type: str, index: str = 'memento'):
