@@ -19,11 +19,15 @@ class newsCrawSpider(scrapy.Spider):
     allowed_domains = []
 
     def __init__(self, *args, **kwargs):
+        print (kwargs)
+        for key, value in kwargs.items():
+            print (key, value, type(value))
         if all(key in kwargs for key in ['entity', 'date_start', 'date_end', 'id']):
             self.id = kwargs['id']
             self.entity = kwargs['entity']
             self.date_start = datetime.strptime(kwargs['date_start'], "%Y.%m.%d")
             self.date_end = datetime.strptime(kwargs['date_end'], "%Y.%m.%d")
+            print (self.entity, type(self.entity))
             print('init with {}, {} to {}'.format(self.entity, self.date_start, self.date_end))
         else:
             self.id = 'not init'
