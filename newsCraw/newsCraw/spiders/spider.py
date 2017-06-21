@@ -33,8 +33,10 @@ class newsCrawSpider(scrapy.Spider):
 
     def push_data(self):
         for entity, subkeys in [(self.entity, get_subkey(self.entity))] if self.entity else get_entities():
-            if not start_crawler(entity, self.date_start.strftime('%Y.%m.%d'), self.date_end.strftime('%Y.%m.%d'), self.id):
+            info = start_crawler(entity, self.date_start.strftime('%Y.%m.%d'), self.date_end.strftime('%Y.%m.%d'), self.id)
+            if not info:
                 continue
+            print (info,'started!')
             if not subkeys:
                 subkeys.append('')
             for subkey in subkeys:
@@ -45,7 +47,7 @@ class newsCrawSpider(scrapy.Spider):
                         'subkey': subkey,
                         'date': date.strftime('%Y-%m-%d'),
                     }
-            close_crawler(entity, self.date_start, self.date_end, self.id)
+            close_crawler(info, self.date_start.strftime('%Y.%m.%d'), self.date_end.strftime('%Y.%m.%d'), self.id)
 
     def start_requests(self):
         for data in self.push_data():

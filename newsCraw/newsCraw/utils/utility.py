@@ -5,6 +5,7 @@ from string import whitespace
 import random
 from os import name
 from socket import gethostbyname, gethostname
+from time import sleep
 
 POLYGLOT = name == "POSIX"
 
@@ -166,7 +167,7 @@ def get_subkey(entity):
 
 def put_news(items: list, doc_type: str='News_Naver'):
     bulk_items = []
-    print ('bulk insert runned!')
+    print ('insert start', len(items))
     for item in items:
         item_id = "{}_{}".format(item['oid'], item['aid'])
         need_update = get_exist(item_id, doc_type)
@@ -201,31 +202,32 @@ def put_news(items: list, doc_type: str='News_Naver'):
                 '_source': item
             })
 
+    print ('bulk insert runned!', len(bulk_items))
     put_bulk(bulk_items)
 
 def start_crawler(entity, date_start, date_end, manage_id):
-    info_id = "{}_{}_{}".format(entity, date_start, date_end)
-    if not get_exist(info_id, doc_type='crawler', index='memento_info'):
-        put_item({
-            'client': gethostbyname(gethostname()),
-            'start_time': now(),
-            'update_time': now(),
-            'date_start': date_start,
-            'date_end': date_end,
-            'manage_id': manage_id,
-            'finish': 'false',
-        }, doc_type='crawler', index='memento_info', idx=info_id)
-        return True
-    return False
+    idx = put_item({
+        'client': gethostbyname(gethostname()),
+        'start_time': now(),
+        'update_time': now(),
+        'date_start': date_start,
+        'date_end': date_end,
+        'manage_id': manage_id,
+        'finish': 'false',
+    }, doc_type='crawler', index='memento_info')
+    return idx
 
-def close_crawler(entity, date_start, date_end, manage_id):
-    info_id = "{}_{}_{}".format(entity, date_start, date_end)
-    result = get_item(info_id, doc_type='crawler', index='memento_info')
-    if not result:
-        raise 'error, can`t find start info'
+def close_crawler(info_id, date_start, date_end, manage_id):
+    while True:
+        result = get_item(info_id, doc_type='crawler', index='memento_info')
+        if result:
+            break
+        sleep(2)
+        print('wait for find start info')
 
-    if result['date_start'] != date_start or result['date_end'] != date_end:
-        raise 'error, start info do not match end info'
+    if result['date_start'] != date_start or result['date_end'] != date_end or result['manage_id'] != manage_id:
+        print ('error, start info do not match end info')
+        return
 
     update_item({
         'doc': {
