@@ -102,7 +102,7 @@ def date_filter(date):
         date[date_type.index(match.group(2))] = int(match.group(1))
         time = now - timedelta(seconds=date[0], minutes=date[1], hours=date[2], days=date[3])
         return str(time)
-    return date
+    return date[:10].replace('-', '.')
 
 def now():
     return str(datetime.now())[:19]
