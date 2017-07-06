@@ -221,7 +221,7 @@ def close_crawler(info_id, date_start, date_end, manage_id):
     result = get_item(info_id, doc_type='crawler', index='memento_info')
     if not result:
         print('cant find start info')
-        break
+        return
 
     if result['date_start'] != date_start or result['date_end'] != date_end or result['manage_id'] != manage_id:
         print ('error, start info do not match end info')
