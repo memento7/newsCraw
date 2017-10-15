@@ -14,6 +14,7 @@ if POLYGLOT:
 from nltk import word_tokenize, pos_tag, ne_chunk
 from konlpy.tag import Komoran
 
+from newsCraw.utils.logger import log
 from newsCraw.utils.connection import get_exist, get_scroll, get_item
 from newsCraw.utils.connection import put_bulk, put_item, update_item
 
@@ -167,7 +168,7 @@ def get_subkey(entity):
 
 def put_news(items: list, doc_type: str='News_Naver'):
     bulk_items = []
-    print ('insert start', len(items))
+    log('insert start ' + str(len(items)))
     for item in items:
         item_id = "{}_{}".format(item['oid'], item['aid'])
         need_update = get_exist(item_id, doc_type)
@@ -202,12 +203,12 @@ def put_news(items: list, doc_type: str='News_Naver'):
                 '_source': item
             })
 
-    print ('bulk insert runned!', len(bulk_items))
+    log('bulk insert runned! ' + str(len(bulk_items)))
     put_bulk(bulk_items)
 
 def start_crawler(entity, date_start, date_end, manage_id):
     idx = put_item({
-        'client': gethostbyname(gethostname()),
+        'client': gethostname(),
         'start_time': now(),
         'update_time': now(),
         'date_start': date_start,
@@ -220,11 +221,11 @@ def start_crawler(entity, date_start, date_end, manage_id):
 def close_crawler(info_id, date_start, date_end, manage_id):
     result = get_item(info_id, doc_type='crawler', index='memento_info')
     if not result:
-        print('cant find start info')
+        log('cant find start info')
         return
 
     if result['date_start'] != date_start or result['date_end'] != date_end or result['manage_id'] != manage_id:
-        print ('error, start info do not match end info')
+        log('error, start info do not match end info')
         return
 
     update_item({

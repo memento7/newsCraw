@@ -13,6 +13,7 @@ from newsCraw.items import newsCrawItem
 from newsCraw.utils.requestable import Requestable
 from newsCraw.utils.utility import get_subkey, start_crawler, close_crawler
 from newsCraw.utils.connection import get_entities
+from newsCraw.utils.logger import log
 
 class newsCrawSpider(scrapy.Spider):
     name = "newsCraw"
@@ -24,7 +25,7 @@ class newsCrawSpider(scrapy.Spider):
             self.entity = kwargs['entity']
             self.date_start = datetime.strptime(kwargs['date_start'], "%Y.%m.%d")
             self.date_end = datetime.strptime(kwargs['date_end'], "%Y.%m.%d")
-            print('init with {}, {} to {}'.format(self.entity, self.date_start, self.date_end))
+            log('init with {}, {} to {}'.format(self.entity, self.date_start, self.date_end))
         else:
             self.id = 'not init'
             self.entity = None
@@ -36,11 +37,11 @@ class newsCrawSpider(scrapy.Spider):
             info = start_crawler(entity, self.date_start.strftime('%Y.%m.%d'), self.date_end.strftime('%Y.%m.%d'), self.id)
             if not info:
                 continue
-            print (info,'started!')
+            log(info + ' started!')
             if not subkeys:
                 subkeys.append('')
             for subkey in subkeys:
-                print('start', entity, subkey)
+                log('start ' + entity + ' ' + subkey)
                 for date in (self.date_start + timedelta(n) for n in range(1 + (self.date_end-self.date_start).days)):
                     yield {
                         'keyword': entity,

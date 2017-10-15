@@ -4,6 +4,7 @@ import logging
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 
+from newsCraw.utils.logger import log
 import newsCraw.memento_settings as MS
 ES = Elasticsearch(**MS.SERVER_ES_INFO)
 logging.getLogger("elasticsearch").setLevel(logging.CRITICAL)
@@ -64,7 +65,7 @@ def get_item(idx: str, doc_type: str, index='memento'):
                     )['hits']
             break
         except:
-            print ('Connection Error wait for 2s-')
+            log('Connection Error wait for 2s-')
             sleep(2)
             continue
     return result['hits'][0]['_source'] if result['total'] else None
@@ -82,7 +83,7 @@ def put_bulk(actions: list):
             helpers.bulk(ES, actions)
             break
         except:
-            print ('Connection Error wait for 2s')
+            log('Connection Error wait for 2s')
             sleep(2)
             continue
 
@@ -97,7 +98,7 @@ def put_item(item: dict, doc_type: str, idx: str = '', index='memento'):
             )
             break
         except: 
-            print ('Connection Error wait for 2s')
+            log('Connection Error wait for 2s')
             sleep(2)
             continue
     return result['_id']
