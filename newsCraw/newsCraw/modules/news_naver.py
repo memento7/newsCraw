@@ -15,7 +15,8 @@ class News_Naver(Scrapy_Module):
                       'apis.naver.com',
                       'entertain.naver.com',
                       'sports.news.naver.com']
-        self.url = "http://news.naver.com/main/search/search.nhn?query={}&startDate={}&endDate={}"
+        # self.url = "http://news.naver.com/main/search/search.nhn?query={}&startDate={}&endDate={}"
+        self.url = "https://search.naver.com/search.naver?where=news&query={}&nso=so%3Ar%2Cp%3Afrom{}to{}%2Ca%3Aall"
         self.crl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId=news{}%2C{}"
         self.keys = set()
         self.items = Queue()
@@ -24,13 +25,15 @@ class News_Naver(Scrapy_Module):
         items = []
         while not self.items.empty():
             items.append(self.items.get())
-        put_news(items)
+        # DEBUG
+        print (str(len(items)) + ' crawled!')
+        #put_news(items)
 
     @Requestable
     def process_count(self, data: dict) -> Request:
         keyword = data['keyword']
         subkey = data['subkey']
-        date = data['date']
+        date = data['date'].replace('-', '')
 
         key = "{} {}".format(keyword, subkey).strip()
         return Request(self.url.format(query_filter(key), date, date),
@@ -44,22 +47,22 @@ class News_Naver(Scrapy_Module):
             count = int(count[0].replace(',', '')) or 0
             return min(count / 10 + 1, 400)
         try:
-            count = get_count(Selector(response).xpath('//span[@class="result_num"]/text()'))
+            count = get_count(Selector(response).xpath('//div[@class="title_desc all_my"]//text()'))
             for page in range(int(count)):
-                yield Request(response.url + "&page=" + str(page), callback=self.parse_title, meta=response.meta)
+                yield Request(response.url + "&start=" + str(page * 10 + 1), callback=self.parse_title, meta=response.meta)
         except:
             return
 
     def parse_title(self, response):
-        for site in Selector(response).xpath('//ul[@class="srch_lst"]'):
+        ul = Selector(response).xpath('//ul[@class="type01"]')
+        for site in ul.xpath('.//li[contains(@id, "sp_nws")]'):
             item = {'entity': response.meta['entities']}
-
-            item['published_time'] = date_filter(site.xpath('.//span[@class="time"]//text()').extract_first())
+            item['published_time'] = date_filter(site.xpath('.//dd[@class="txt_inline"]/text()[2]').extract_first().strip()[:-1])
             item['crawled_time'] = now()
-            item['href'] = site.xpath('.//a[@class="tit"]//@href').extract_first()
-            item['href_naver'] = site.xpath('.//a[@class="go_naver"]//@href').extract_first()
 
-            if item['href_naver']:
+            item['href'] = site.xpath('.//a[contains(@class, "_sp_each_title")]//@href').extract_first()
+            item['href_naver'] = site.xpath('.//a[contains(@class, "_sp_each_url")]//@href').extract_first()
+            if item['href'] != item['href_naver']:
                 yield Request(item['href_naver'], callback=self.parse_content, meta={'item': item})
             yield item
 
