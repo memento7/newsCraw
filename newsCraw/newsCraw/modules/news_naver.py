@@ -25,9 +25,7 @@ class News_Naver(Scrapy_Module):
         items = []
         while not self.items.empty():
             items.append(self.items.get())
-        # DEBUG
-        print (str(len(items)) + ' crawled!')
-        #put_news(items)
+        put_news(items)
 
     @Requestable
     def process_count(self, data: dict) -> Request:
