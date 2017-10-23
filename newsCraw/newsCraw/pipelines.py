@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from newsCraw.utils.requestable import Requestable
+from newsCraw.utils.utility import close_crawler
 
 class newsCrawPipeline(object):
     def __init__(self):
@@ -12,7 +13,9 @@ class newsCrawPipeline(object):
 
         Requestable.init()
 
-    def close_spider(self, spider):
+    def close_spider(self, spider): 
+        for info in spider.infos:
+            close_crawler(info, spider.date_start.strftime('%Y.%m.%d'), spider.date_end.strftime('%Y.%m.%d'), spider.id)
         Requestable.close()
 
     def process_item(self, item, spider):
