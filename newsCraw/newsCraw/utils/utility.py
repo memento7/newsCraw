@@ -94,16 +94,17 @@ def string_filter(text: str):
     return quotation_filter(emoji_filter(text))
 
 pat_date_before = re.compile(u'(\d+)(.+?)전')
-date_type = ['초', '분', '시간', '일']
+date_type = ['초 ', '분 ', '시간 ', '일 ']
 def date_filter(date):
+    date = date.strip()
     match = pat_date_before.match(date)
     if match:
         date = [0,0,0,0]
         now = datetime.now()
         date[date_type.index(match.group(2))] = int(match.group(1))
         time = now - timedelta(seconds=date[0], minutes=date[1], hours=date[2], days=date[3])
-        return str(time)
-    return date[:10].replace('-', '.')
+        return str(time).replace('-', '.')[:10]
+    return date[:10]
 
 def now():
     return str(datetime.now())[:19]

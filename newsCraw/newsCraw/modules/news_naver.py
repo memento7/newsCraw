@@ -15,7 +15,6 @@ class News_Naver(Scrapy_Module):
                       'apis.naver.com',
                       'entertain.naver.com',
                       'sports.news.naver.com']
-        # self.url = "http://news.naver.com/main/search/search.nhn?query={}&startDate={}&endDate={}"
         self.url = "https://search.naver.com/search.naver?where=news&query={}&nso=so%3Ar%2Cp%3Afrom{}to{}%2Ca%3Aall"
         self.crl = "https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&lang=ko&pool=cbox5&objectId=news{}%2C{}"
         self.keys = set()
@@ -55,7 +54,7 @@ class News_Naver(Scrapy_Module):
         ul = Selector(response).xpath('//ul[@class="type01"]')
         for site in ul.xpath('.//li[contains(@id, "sp_nws")]'):
             item = {'entity': response.meta['entities']}
-            item['published_time'] = date_filter(site.xpath('.//dd[@class="txt_inline"]/text()[2]').extract_first().strip()[:-1])
+            item['published_time'] = date_filter(site.xpath('.//dd[@class="txt_inline"]/text()[normalize-space()]').extract_first())
             item['crawled_time'] = now()
 
             item['href'] = site.xpath('.//a[contains(@class, "_sp_each_title")]//@href').extract_first()
