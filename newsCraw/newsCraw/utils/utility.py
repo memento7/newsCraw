@@ -228,9 +228,11 @@ def close_crawler(info_id, date_start, date_end, manage_id):
         log('error, start info do not match end info')
         return
 
+    log('update information start')
     update_item({
         'doc': {
             'update_time': now(),
             'finish': 'true',
         }
     }, info_id, doc_type='crawler', index='memento_info')
+    log('update information done')

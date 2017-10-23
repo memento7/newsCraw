@@ -71,11 +71,11 @@ def get_item(idx: str, doc_type: str, index='memento'):
     return result['hits'][0]['_source'] if result['total'] else None
 
 def update_item(update, idx, doc_type: str, index: str = 'memento'):
-        result = ES.update(index=index,
-                           doc_type=doc_type,
-                           id=idx,
-                           body=update)
-        return result['_id']
+    result = ES.update(index=index,
+                       doc_type=doc_type,
+                       id=idx,
+                       body=update)
+    return result['_id']
 
 def put_bulk(actions: list):
     while True:
